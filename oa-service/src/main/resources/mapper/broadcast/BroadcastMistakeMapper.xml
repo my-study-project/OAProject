@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.js.mapper.broadcast.BroadcastMistakeMapper">
+  <resultMap id="BaseResultMap" type="com.js.pojo.broadcast.BroadcastMistake">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="program_id" property="programId" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="broadcast_date" property="broadcastDate" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="academic_year" property="academicYear" jdbcType="VARCHAR" />
+    <result column="academic_term" property="academicTerm" jdbcType="CHAR" />
+    <result column="teaching_week" property="teachingWeek" jdbcType="INTEGER" />
+    <result column="create_data" property="createData" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List">
+		uuid, program_id, group_id, broadcast_date, detail, academic_year, academic_term,
+		teaching_week,create_data
+	</sql>
+  <select id="getBroadcastMistakeById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from broadcast_mistake
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteBroadcastMistake" parameterType="java.lang.String">
+		delete from broadcast_mistake
+		where uuid = #{uuid,jdbcType=VARCHAR}
+	</delete>
+  <insert id="addBroadcastMistake" parameterType="com.js.pojo.broadcast.BroadcastMistake">
+    insert into broadcast_mistake
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="programId != null">
+        program_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="broadcastDate != null">
+        broadcast_date,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="academicYear != null">
+        academic_year,
+      </if>
+      <if test="academicTerm != null">
+        academic_term,
+      </if>
+      <if test="teachingWeek != null">
+        teaching_week,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="programId != null">
+        #{programId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="broadcastDate != null">
+        #{broadcastDate},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="academicYear != null">
+        #{academicYear,jdbcType=VARCHAR},
+      </if>
+      <if test="academicTerm != null">
+        #{academicTerm,jdbcType=CHAR},
+      </if>
+      <if test="teachingWeek != null">
+        #{teachingWeek,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="editBroadcastMistake" parameterType="com.js.pojo.broadcast.BroadcastMistake">
+    update broadcast_mistake
+    <set>
+      <if test="programId != null">
+        program_id = #{programId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="broadcastDate != null">
+        broadcast_date = #{broadcastDate},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="academicYear != null">
+        academic_year = #{academicYear,jdbcType=VARCHAR},
+      </if>
+      <if test="academicTerm != null">
+        academic_term = #{academicTerm,jdbcType=CHAR},
+      </if>
+      <if test="teachingWeek != null">
+        teaching_week = #{teachingWeek,jdbcType=INTEGER},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <select id="getBroadcastMistakeByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.broadcast.BroadcastMistake">
+    select
+    <include refid="Base_Column_List" />
+    from broadcast_mistake
+    <where>
+      <if test="programId != null">
+        and program_id = #{programId,jdbcType=VARCHAR}
+      </if>
+      <if test="groupId != null">
+        and group_id = #{groupId,jdbcType=VARCHAR}
+      </if>
+      <if test="broadcastDate != null">
+        and broadcast_date = #{broadcastDate}
+      </if>
+      <if test="detail != null">
+        and detail = #{detail,jdbcType=VARCHAR}
+      </if>
+      <if test="academicYear != null">
+        and academic_year = #{academicYear,jdbcType=VARCHAR}
+      </if>
+      <if test="academicTerm != null">
+        and academic_term = #{academicTerm,jdbcType=CHAR}
+      </if>
+      <if test="teachingWeek != null">
+        and teaching_week = #{teachingWeek,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by create_data desc
+  </select>
+</mapper>

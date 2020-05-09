@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.js.mapper.broadcast.BroadcastIimeMapper">
+  <resultMap id="BaseResultMap" type="com.js.pojo.broadcast.BroadcastIime">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="program_id" property="programId" jdbcType="VARCHAR" />
+    <result column="day_of_week" property="dayOfWeek" jdbcType="INTEGER" />
+    <result column="start_sign_time" property="startSignTime" jdbcType="VARCHAR" />
+    <result column="stop_sign_time" property="stopSignTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+		uuid, program_id, day_of_week, start_sign_time, stop_sign_time
+  </sql>
+  <select id="getBroadcastIimeById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from broadcast_time
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteBroadcastIime" parameterType="java.lang.String">
+		delete from broadcast_time
+		where uuid = #{uuid,jdbcType=VARCHAR}
+	</delete>
+  <insert id="addBroadcastIime" parameterType="com.js.pojo.broadcast.BroadcastIime">
+    insert into broadcast_time
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="programId != null">
+        program_id,
+      </if>
+      <if test="dayOfWeek != null">
+        day_of_week,
+      </if>
+      <if test="startSignTime != null">
+        start_sign_time,
+      </if>
+      <if test="stopSignTime != null">
+        stop_sign_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="programId != null">
+        #{programId,jdbcType=VARCHAR},
+      </if>
+      <if test="dayOfWeek != null">
+        #{dayOfWeek,jdbcType=INTEGER},
+      </if>
+      <if test="startSignTime != null">
+        #{startSignTime,jdbcType=VARCHAR},
+      </if>
+      <if test="stopSignTime != null">
+        #{stopSignTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editBroadcastIime" parameterType="com.js.pojo.broadcast.BroadcastIime">
+    update broadcast_time
+    <set>
+      <if test="programId != null">
+        program_id = #{programId,jdbcType=VARCHAR},
+      </if>
+      <if test="dayOfWeek != null">
+        day_of_week = #{dayOfWeek,jdbcType=INTEGER},
+      </if>
+      <if test="startSignTime != null">
+        start_sign_time = #{startSignTime,jdbcType=VARCHAR},
+      </if>
+      <if test="stopSignTime != null">
+        stop_sign_time = #{stopSignTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <select id="getBroadcastIimeByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.broadcast.BroadcastIime">
+    select
+    <include refid="Base_Column_List" />
+    from broadcast_time
+    <where>
+      <if test="programId != null">
+        and program_id = #{programId,jdbcType=VARCHAR}
+      </if>
+      <if test="dayOfWeek != null">
+        and day_of_week = #{dayOfWeek,jdbcType=INTEGER}
+      </if>
+      <if test="startSignTime != null">
+        and start_sign_time &lt;= #{startSignTime,jdbcType=VARCHAR}
+      </if>
+      <if test="stopSignTime != null">
+        and stop_sign_time &gt;=  #{stopSignTime,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

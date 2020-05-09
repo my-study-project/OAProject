@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.js.mapper.program.ProgramMapper">
+  <resultMap id="BaseResultMap" type="com.js.pojo.program.Program">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="is_alive" property="isAlive" jdbcType="CHAR" />
+    <result column="need_evaluate" property="needEvaluate" jdbcType="CHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+		uuid, name, group_id , is_alive, need_evaluate, principal
+	</sql>
+  <select id="getProgramByUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from program
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <insert id="addProgram" parameterType="com.js.pojo.program.Program">
+    insert into program
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="isAlive != null">
+        is_alive,
+      </if>
+      <if test="needEvaluate != null">
+        need_evaluate,
+      </if>
+      <if test="principal != null">
+        principal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null">
+        #{isAlive,jdbcType=CHAR},
+      </if>
+      <if test="needEvaluate != null">
+        #{needEvaluate,jdbcType=CHAR},
+      </if>
+      <if test="principal != null">
+        #{principal,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editProgram" parameterType="com.js.pojo.program.Program">
+    update program
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="isAlive != null">
+        is_alive = #{isAlive,jdbcType=CHAR},
+      </if>
+      <if test="needEvaluate != null">
+        need_evaluate = #{needEvaluate,jdbcType=CHAR},
+      </if>
+      <if test="principal != null">
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <select id="getAllProgram" resultMap="BaseResultMap" parameterType="com.js.pojo.program.Program">
+    select
+    <include refid="Base_Column_List" />
+    from program
+    <where>
+      <if test="name != null">
+        and name like concat("%",#{name,jdbcType=VARCHAR},"%")
+      </if>
+      <if test="groupId != null">
+        and group_id = #{groupId,jdbcType=VARCHAR}
+      </if>
+      <if test="isAlive != null">
+        and is_alive = #{isAlive,jdbcType=CHAR}
+      </if>
+      <if test="needEvaluate != null">
+        and need_evaluate = #{needEvaluate,jdbcType=CHAR}
+      </if>
+      <if test="principal != null">
+        and principal like concat("%", #{principal,jdbcType=VARCHAR},"%")
+      </if>
+    </where>
+  </select>
+</mapper>

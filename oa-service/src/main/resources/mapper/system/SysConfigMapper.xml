@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.js.mapper.system.SysConfigMapper">
+  <resultMap id="BaseResultMap" type="com.js.pojo.system.SysConfig">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="conf_desc" property="confDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+		uuid, name, value, conf_desc
+	</sql>
+  <select id="getSysConfigById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from system_config
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <select id="getSysConfigByMess" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from system_config
+    <where>
+      <if test="name != null">
+        and name = #{name}
+      </if>
+      <if test="value != null">
+        and value = #{value}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteSysConfig" parameterType="java.lang.String">
+		delete from system_config
+		where uuid = #{uuid,jdbcType=VARCHAR}
+	</delete>
+  <insert id="addSysConfig" parameterType="com.js.pojo.system.SysConfig">
+    insert into system_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="confDesc != null">
+        conf_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="confDesc != null">
+        #{confDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editSysConfig" parameterType="com.js.pojo.system.SysConfig">
+    update system_config
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="confDesc != null">
+        conf_desc = #{confDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

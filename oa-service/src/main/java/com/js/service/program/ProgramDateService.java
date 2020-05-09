@@ -1,0 +1,29 @@
+package com.js.service.program;
+
+import com.js.enums.program.ProgramDateEnum;
+import com.js.vo.program.DefaultProgramDateVo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @Author: 姜爽
+ * @Description: 节目日期范围获取
+ * @Date: 2020/5/9 11:04
+ */
+@Service
+@Slf4j
+public class ProgramDateService {
+    public List<DefaultProgramDateVo> getDefaultProgramDate() throws Exception {
+        List<DefaultProgramDateVo> defaultProgramDateVos = new ArrayList<>();
+        ProgramDateEnum[] programDateEnums = ProgramDateEnum.values();
+        for (ProgramDateEnum programDateEnum : programDateEnums) {
+            DefaultProgramDateVo defaultProgramDateVo = DefaultProgramDateVo.builder().code(programDateEnum.getCode())
+                    .msg(programDateEnum.getMsg()).timeInterval(programDateEnum.getTimeInterval()).build();
+            defaultProgramDateVos.add(defaultProgramDateVo);
+        }
+        return defaultProgramDateVos;
+    }
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.js.mapper.RecordingSignInMapper">
+  <resultMap id="BaseResultMap" type="com.js.pojo.RecordingSignIn">
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="recording_room" property="recordingRoom" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List">
+		uuid, user_id, recording_room, create_time
+	</sql>
+  <select id="getRecordingSignInByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.RecordingSignIn">
+    select
+    <include refid="Base_Column_List" />
+    from recording_sign_in
+    <where>
+      <if test="userId != null">
+        and user_id = #{uuid}
+      </if>
+      <if test="recordingRoom != null">
+        and recording_room = #{recordingRoom}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime}
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+  <insert id="addRecordingSignIn" parameterType="com.js.pojo.RecordingSignIn">
+    insert into recording_sign_in
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="recordingRoom != null">
+        recording_room,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordingRoom != null">
+        #{recordingRoom,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
