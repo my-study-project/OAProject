@@ -18,9 +18,6 @@ public class Program {
 
     /**所属组别id**/
     private String groupId;
-//
-//    /**节目所属时间范围id**/
-//    private String broadcastTimeId;
 
     /**0：节目有效1：节目无效**/
     private String isAlive;

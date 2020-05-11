@@ -3,6 +3,8 @@ package com.js;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @Description 启动类
@@ -11,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @Slf4j
+@EnableCaching
+/**开启定时**/
+@EnableScheduling
 public class SpringBootStart {
     public static void main(String[] args) {
         try{

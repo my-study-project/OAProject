@@ -6,6 +6,7 @@ package com.js.enums.program;
  * @Date: 2020/5/9 10:37
  */
 public enum  ProgramDateEnum {
+    //对应每天的节目播放时间区间
     MONDAY_MORNING("11","周一早间","7:20-08:00"),
     MONDAY_MORN_CLASS("12","周一上午课间","09:30-10:15"),
     MONDAY_NOON("13","周一午间","11:40-12:45"),

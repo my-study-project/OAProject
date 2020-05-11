@@ -2,9 +2,11 @@ package com.js.service.system;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.js.common.exception.SystemException;
 import com.js.dto.system.SysLogDto;
 import com.js.mapper.system.SysLogMapper;
 import com.js.pojo.system.SysLog;
+import com.js.vo.system.SysLogVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class SysLogService{
     /**
      * 查询系统日志
      **/
-    public PageInfo<SysLogDto> showAllLog(Integer offset,Integer limit) {
+    public PageInfo<SysLogVo> showAllLog(Integer offset, Integer limit) {
         log.info("查询入参为{},{}",offset,limit);
         PageHelper.startPage(offset,limit);
         log.info("========================");
@@ -47,13 +49,19 @@ public class SysLogService{
         if (sysLogs == null){
             return null;
         }
-        List<SysLogDto> sysLogDtos = new ArrayList<>();
+        List<SysLogVo> sysLogVoList = new ArrayList<>();
         sysLogs.forEach(sysLog -> {
-            SysLogDto sysLogDto = new SysLogDto();
-            BeanUtils.copyProperties(sysLog,sysLogDto);
-            sysLogDtos.add(sysLogDto);
+            SysLogVo sysLogVo = new SysLogVo();
+            BeanUtils.copyProperties(sysLog,sysLogVo);
+            sysLogVoList.add(sysLogVo);
         });
-        PageInfo<SysLogDto> sysLogDtoPageInfo = new PageInfo<>(sysLogDtos);
-        return sysLogDtoPageInfo;
+        PageInfo<SysLogVo> sysLogVoPageInfo = null;
+        try{
+            sysLogVoPageInfo = new PageInfo<>(sysLogVoList);
+        }catch (Exception e){
+            log.info("分页出现异常{}",e);
+            throw new SystemException("分页查询出现异常");
+        }
+        return sysLogVoPageInfo;
     }
 }

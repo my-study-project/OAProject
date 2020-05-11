@@ -1,4 +1,4 @@
-package com.js.pojo;
+package com.js.pojo.system;
 
 import lombok.Data;
 import lombok.ToString;

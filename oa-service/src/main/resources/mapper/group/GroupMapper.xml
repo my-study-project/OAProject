@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.js.mapper.GroupMapper">
+<mapper namespace="com.js.mapper.group.GroupMapper">
   <resultMap id="BaseResultMap" type="com.js.pojo.Group">
     <result column="uuid" property="uuid" jdbcType="VARCHAR" />
     <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
 		uuid,dept_name,mistake_score,program_score,leader_user_id,has_program,is_alive
 	</sql>
   <update id="editGroup" parameterType="com.js.pojo.Group">
-    update group
+    update sys_group
     <set>
       <if test="deptName != null">
         dept_name = #{deptName},
@@ -40,25 +40,16 @@
   <select id="getGroupByUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Group_Colmon" />
-    from group
+    from sys_group
     where uuid = #{uuid}
   </select>
-  <select id="getGroupByMess" resultMap="BaseResultMap" parameterType="java.lang.String">
+  <select id="getGroupByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.Group">
     select
     <include refid="Group_Colmon" />
-    from group
+    from sys_group
     <where>
       <if test="deptName != null">
         and dept_name = #{deptName}
-      </if>
-      <if test="mistakeScore != null">
-        and mistake_score = #{mistakeScore}
-      </if>
-      <if test="programScore != null">
-        and program_score = #{programScore}
-      </if>
-      <if test="leaderUserId != null">
-        and leader_user_id = #{leaderUserId}
       </if>
       <if test="hasProgram != null">
         and has_program = #{hasProgram}
@@ -69,7 +60,7 @@
     </where>
   </select>
   <insert id="addGroup" parameterType="com.js.pojo.Group">
-    insert into group
+    insert into sys_group
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
         uuid,

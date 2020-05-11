@@ -1,5 +1,6 @@
-package com.js.dto;
+package com.js.dto.program;
 
+import com.js.dto.system.BasePageDto;
 import lombok.Data;
 import lombok.ToString;
 
@@ -9,7 +10,7 @@ import lombok.ToString;
  **/
 @Data
 @ToString
-public class ProgramDto {
+public class ProgramDto extends BasePageDto {
     /**主键id**/
     private String uuid;
 

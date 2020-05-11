@@ -44,6 +44,7 @@
         and teaching_week = #{teachingWeek}
       </if>
     </where>
+    order by teaching_week desc
   </select>
   <delete id="deleteProgramEvaluation" parameterType="java.lang.String">
 		delete from program_evaluation

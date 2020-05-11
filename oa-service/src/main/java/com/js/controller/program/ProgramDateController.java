@@ -1,5 +1,6 @@
 package com.js.controller.program;
 
+import com.js.common.annotation.Log;
 import com.js.common.enums.StatusCode;
 import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
@@ -32,6 +33,7 @@ public class ProgramDateController {
 
     @GetMapping("getList")
     @ApiOperation(value = "播放节目时间范围", notes = "播放节目时间范围")
+    @Log(value = "查询播放节目的时间范围")
     public BaseResponse<List<DefaultProgramDateVo>> getLogMess() {
         List<DefaultProgramDateVo> defaultProgramDateVos = new ArrayList<>();
         try{

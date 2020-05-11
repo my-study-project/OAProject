@@ -60,6 +60,7 @@
         and file_position = #{filePosition}
       </if>
     </where>
+    order by upload_date desc
   </select>
   <delete id="deleteProgramFile" parameterType="java.lang.String" >
     delete from program_file
@@ -151,7 +152,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.js.pojo.program.ProgramFile" >
+  <update id="editProgramFile" parameterType="com.js.pojo.program.ProgramFile" >
     update program_file
     <set >
       <if test="uploadUserId != null" >

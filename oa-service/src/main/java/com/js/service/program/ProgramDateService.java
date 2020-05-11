@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class ProgramDateService {
-    public List<DefaultProgramDateVo> getDefaultProgramDate() throws Exception {
+    public List<DefaultProgramDateVo> getDefaultProgramDate() {
         List<DefaultProgramDateVo> defaultProgramDateVos = new ArrayList<>();
         ProgramDateEnum[] programDateEnums = ProgramDateEnum.values();
         for (ProgramDateEnum programDateEnum : programDateEnums) {
