@@ -96,6 +96,9 @@ public class SysUserController {
     @Log(value = "用户修改密码/激活账号")
     public BaseResponse<String> editPass(@RequestBody UserPassForm userPassForm) {
         log.info("修改用户密码Controller的入参为{}",userPassForm.toString());
+        if(!userPassForm.getPassword().equals(userPassForm.getRepassword())){
+            throw new SystemException("两次密码不一致，操作失败");
+        }
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(userPassForm,sysUserDto);
         sysUserDto.setPassword(Md5Util.stringToMd5(sysUserDto.getPassword()));

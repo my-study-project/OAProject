@@ -5,6 +5,7 @@ import com.js.common.enums.StatusCode;
 import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
 import com.js.common.util.Md5Util;
+import com.js.common.util.TokenUtil;
 import com.js.dto.system.SysUserDto;
 import com.js.enums.system.SysUserEnum;
 import com.js.form.system.user.UserPassForm;
@@ -55,7 +56,7 @@ public class LoginController {
         if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive()) || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
             String password = Md5Util.convertMd5(sysUserVo.getPassword());
             if (userPassForm.getPassword().equals(password)){
-                redisService.login(sysUserVo);
+                redisService.login(sysUserVo.getStudentNumber(),TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName()));
                 return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),sysUserVo);
             }else {
                 throw new SystemException("用户名或者密码不正确");

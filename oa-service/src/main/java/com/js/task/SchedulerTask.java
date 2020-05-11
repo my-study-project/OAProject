@@ -17,9 +17,9 @@ public class SchedulerTask {
     /**
      * 表示每隔一个小时执行一次定时任务
      */
-    @Scheduled(cron = "0/1 0 0/1 * * ? ")
+    @Scheduled(cron = "0 0 0/1 * * ? ")
     private void proces(){
-        log.info("执行当前定时任务的时间{}", DateUtil.dateToString(null));
+        log.info("执行当前定时任务的时间{}", DateUtil.dateToStringMin(null));
         /**
          * 下面的代码是执行的业务逻辑代码：
          * 暂定需要根据设置的开始时间确认当前的周数和其余相关信息的定时更新
