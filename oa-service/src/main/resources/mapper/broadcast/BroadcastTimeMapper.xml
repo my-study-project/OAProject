@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.js.mapper.broadcast.BroadcastIimeMapper">
-  <resultMap id="BaseResultMap" type="com.js.pojo.broadcast.BroadcastIime">
+<mapper namespace="com.js.mapper.broadcast.BroadcastTimeMapper">
+  <resultMap id="BaseResultMap" type="com.js.pojo.broadcast.BroadcastTime">
     <id column="uuid" property="uuid" jdbcType="VARCHAR" />
     <result column="program_id" property="programId" jdbcType="VARCHAR" />
     <result column="day_of_week" property="dayOfWeek" jdbcType="INTEGER" />
@@ -21,7 +21,7 @@
 		delete from broadcast_time
 		where uuid = #{uuid,jdbcType=VARCHAR}
 	</delete>
-  <insert id="addBroadcastIime" parameterType="com.js.pojo.broadcast.BroadcastIime">
+  <insert id="addBroadcastIime" parameterType="com.js.pojo.broadcast.BroadcastTime">
     insert into broadcast_time
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
@@ -58,7 +58,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editBroadcastIime" parameterType="com.js.pojo.broadcast.BroadcastIime">
+  <update id="editBroadcastIime" parameterType="com.js.pojo.broadcast.BroadcastTime">
     update broadcast_time
     <set>
       <if test="programId != null">
@@ -76,7 +76,7 @@
     </set>
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
-  <select id="getBroadcastIimeByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.broadcast.BroadcastIime">
+  <select id="getBroadcastIimeByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.broadcast.BroadcastTime">
     select
     <include refid="Base_Column_List" />
     from broadcast_time

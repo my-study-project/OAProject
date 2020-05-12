@@ -53,9 +53,14 @@ public class SysUserService {
         BeanUtils.copyProperties(sysUserDto,sysUser);
         PageHelper.startPage(sysUserDto.getOffset(),sysUserDto.getLimit());
 
+        //定义结果集
+        PageInfo<SysUserVo> sysUserVoPageInfo = null;
         List<SysUserVo> sysUserVoList = new ArrayList<>();
 
         List<SysUser> sysUserList = sysUserMapper.getUserAllList(sysUser);
+        PageInfo<SysUser> sysUserPageInfo = new PageInfo<>(sysUserList);
+
+        BeanUtils.copyProperties(sysUserPageInfo,sysUserVoPageInfo);
         sysUserList.forEach(sysUserTemp -> {
             SysUserVo sysUserVo = new SysUserVo();
             BeanUtils.copyProperties(sysUserTemp,sysUserVo);
@@ -76,13 +81,7 @@ public class SysUserService {
             }
             sysUserVoList.add(sysUserVo);
         });
-        PageInfo<SysUserVo> sysUserVoPageInfo = null;
-        try{
-            sysUserVoPageInfo = new PageInfo<>(sysUserVoList);
-        }catch (Exception e){
-            log.info("分页查询用户出现异常{}",e);
-            throw new SystemException("分页查询出现异常");
-        }
+       sysUserVoPageInfo.setList(sysUserVoList);
         return sysUserVoPageInfo;
     }
 

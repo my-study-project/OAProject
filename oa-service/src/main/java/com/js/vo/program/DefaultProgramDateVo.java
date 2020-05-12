@@ -17,5 +17,7 @@ public class DefaultProgramDateVo {
 
     private String msg;
 
-    private String timeInterval;
+    private String startTime;
+
+    private String endTime;
 }

@@ -37,7 +37,7 @@ public class SysUserController {
     @PostMapping("getList")
     @ApiOperation(value = "分页查询所有用户", notes = "分页查询所有用户")
     @Log(value = "分页查询所有用户")
-    public BaseResponse<PageInfo<SysUserVo>> getLogMess(@RequestBody SysUserForm sysUserForm) {
+    public BaseResponse<PageInfo<SysUserVo>> getUserMess(@RequestBody SysUserForm sysUserForm) {
         log.info("分页查询所有用户Controller的入参为{}",sysUserForm.toString());
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(sysUserForm,sysUserDto);
@@ -54,7 +54,7 @@ public class SysUserController {
     @PostMapping("/add")
     @ApiOperation(value = "添加用户", notes = "添加用户")
     @Log(value = "添加用户")
-    public BaseResponse<String> getLogMess(@RequestBody AddSysUserForm addSysUserForm) {
+    public BaseResponse<String> addUserMess(@RequestBody AddSysUserForm addSysUserForm) {
         log.info("添加用户Controller的入参为{}",addSysUserForm.toString());
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(addSysUserForm,sysUserDto);
@@ -74,7 +74,7 @@ public class SysUserController {
     @PostMapping("/edit")
     @ApiOperation(value = "修改用户信息", notes = "修改用户信息")
     @Log(value = "修改用户信息")
-    public BaseResponse<String> editProgram(@RequestBody EditSysUserForm editSysUserForm) {
+    public BaseResponse<String> editUserMess(@RequestBody EditSysUserForm editSysUserForm) {
         log.info("修改用户信息Controller的入参为{}",editSysUserForm.toString());
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(editSysUserForm,sysUserDto);
@@ -132,7 +132,7 @@ public class SysUserController {
     @GetMapping("getById")
     @ApiOperation(value = "根据用户的详细信息", notes = "根据用户的详细信息")
     @Log(value = "根据用户的详细信息")
-    public BaseResponse<SysUserVo> getLogMess(@RequestParam("studentNumber") String studentNumber) {
+    public BaseResponse<SysUserVo> getUserMessById(@RequestParam("studentNumber") String studentNumber) {
         log.info("获取学号为{}的详细信息Controller",studentNumber);
         SysUserVo programVo = new SysUserVo();
         try{

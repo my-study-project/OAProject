@@ -12,6 +12,7 @@ import com.js.vo.program.ProgramVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,6 +64,11 @@ public class ProgramService {
         Program program = new Program();
         BeanUtils.copyProperties(programDto,program);
         List<Program> programList = programMapper.getAllProgram(program);
+        //中间量
+        PageInfo<Program> programPageInfo = new PageInfo<>(programList);
+        //结果集
+        PageInfo<ProgramVo> programVoPageInfo = null;
+        BeanUtils.copyProperties(programPageInfo,programVoPageInfo);
         programList.forEach(programTemp -> {
             ProgramVo programVo = new ProgramVo();
             BeanUtils.copyProperties(programTemp,programVo);
@@ -78,14 +84,7 @@ public class ProgramService {
             }
             programVoList.add(programVo);
         });
-
-        PageInfo<ProgramVo> programVoPageInfo = null;
-        try{
-            programVoPageInfo = new PageInfo<>(programVoList);
-        }catch (Exception e){
-            log.info("分页查询节目出现异常{}",e);
-            throw new SystemException("分页查询出现异常");
-        }
+        programVoPageInfo.setList(programVoList);
         return programVoPageInfo;
     }
 

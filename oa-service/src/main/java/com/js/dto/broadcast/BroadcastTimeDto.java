@@ -1,14 +1,16 @@
-package com.js.pojo.broadcast;
+package com.js.dto.broadcast;
 
+import com.js.dto.system.BasePageDto;
 import lombok.Data;
 import lombok.ToString;
+
 /**
  * @Author: jiangshuang
  * @Description: 节目相关播放日期数据
  **/
 @Data
 @ToString
-public class BroadcastIime {
+public class BroadcastTimeDto extends BasePageDto {
     /**主键**/
     private String uuid;
 

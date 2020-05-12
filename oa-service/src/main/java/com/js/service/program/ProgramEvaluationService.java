@@ -64,7 +64,11 @@ public class ProgramEvaluationService {
         BeanUtils.copyProperties(programEvaluationDto,programEvaluation);
         PageHelper.startPage(programEvaluationDto.getOffset(),programEvaluationDto.getLimit());
         List<ProgramEvaluation> programEvaluationList = programEvaluationMapper.selectByMess(programEvaluation);
-
+        //中间值
+        PageInfo<ProgramEvaluation> programEvaluationPageInfo = new PageInfo<>(programEvaluationList);
+        //结果集
+        PageInfo<ProgramEvaluationVo> programEvaluationVoPageInfo = null;
+        BeanUtils.copyProperties(programEvaluationPageInfo,programEvaluationVoPageInfo);
         List<ProgramEvaluationVo> programEvaluationVoList = new ArrayList<>();
         programEvaluationList.forEach(programEvaluationTemp -> {
             ProgramEvaluationVo programEvaluationVo = new ProgramEvaluationVo();
@@ -85,13 +89,7 @@ public class ProgramEvaluationService {
             programEvaluationVoList.add(programEvaluationVo);
 
         });
-        PageInfo<ProgramEvaluationVo> programEvaluationVoPageInfo = null;
-        try{
-            programEvaluationVoPageInfo = new PageInfo<>(programEvaluationVoList);
-        }catch (Exception e){
-            log.info("分页查询出现异常{}",e);
-            throw new SystemException("分页查询出现异常");
-        }
+        programEvaluationVoPageInfo.setList(programEvaluationVoList);
         return programEvaluationVoPageInfo;
     }
 

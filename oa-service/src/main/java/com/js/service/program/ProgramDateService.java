@@ -21,7 +21,7 @@ public class ProgramDateService {
         ProgramDateEnum[] programDateEnums = ProgramDateEnum.values();
         for (ProgramDateEnum programDateEnum : programDateEnums) {
             DefaultProgramDateVo defaultProgramDateVo = DefaultProgramDateVo.builder().code(programDateEnum.getCode())
-                    .msg(programDateEnum.getMsg()).timeInterval(programDateEnum.getTimeInterval()).build();
+                    .msg(programDateEnum.getMsg()).startTime(programDateEnum.getStartTime()).endTime(programDateEnum.getEndTime()).build();
             defaultProgramDateVos.add(defaultProgramDateVo);
         }
         return defaultProgramDateVos;

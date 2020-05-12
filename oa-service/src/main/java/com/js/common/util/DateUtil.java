@@ -1,6 +1,7 @@
 package com.js.common.util;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 /**
  * @author: 姜爽
@@ -84,6 +85,35 @@ public class DateUtil {
      */
     public static Date getHourMon(String dateStr){
         return strToDateLongByPattern(dateStr,PATTERNHOURMON);
+    }
+
+    /**
+     * 通过时间秒毫秒数判断两个时间的间隔
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public static int differentDaysByMillisecond(Date date1,Date date2)
+    {
+        int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+        return days;
+    }
+
+    /**
+     * 获取当前日期是星期几<br>
+     *
+     * @param date
+     * @return 当前日期是星期几
+     */
+    public static String getWeekOfDate(Date date) {
+        String[] weekDays = { "7","1", "2", "3", "4", "5", "6" };
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        if (w < 0) {
+            w = 0;
+        }
+        return weekDays[w];
     }
 }
 

@@ -1,5 +1,6 @@
 package com.js.service.system;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.js.common.exception.SystemException;
@@ -43,9 +44,10 @@ public class SysLogService{
     public PageInfo<SysLogVo> showAllLog(Integer offset, Integer limit) {
         log.info("查询入参为{},{}",offset,limit);
         PageHelper.startPage(offset,limit);
-        log.info("========================");
         List<SysLog> sysLogs = sysLogMapper.showAllLog();
         log.info("查询结果为{}",sysLogs);
+        //解决转换实体类分页丢失现象
+        PageInfo<SysLog> sysLogPageInfo = new PageInfo<>(sysLogs);
         if (sysLogs == null){
             return null;
         }
@@ -58,6 +60,8 @@ public class SysLogService{
         PageInfo<SysLogVo> sysLogVoPageInfo = null;
         try{
             sysLogVoPageInfo = new PageInfo<>(sysLogVoList);
+            BeanUtils.copyProperties(sysLogPageInfo,sysLogVoPageInfo);
+            sysLogVoPageInfo.setList(sysLogVoList);
         }catch (Exception e){
             log.info("分页出现异常{}",e);
             throw new SystemException("分页查询出现异常");

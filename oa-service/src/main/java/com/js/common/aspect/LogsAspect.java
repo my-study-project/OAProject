@@ -66,7 +66,7 @@ public class LogsAspect {
         HttpServletRequest request = RequestUtils.getHttpServletRequest();
         String studentNumber = request.getHeader("studentNumber");
         String name = request.getHeader("name");
-        String user = name + studentNumber;
+        String user = name + "+" + studentNumber;
         // 设置IP地址
         sysLog.setIp(RequestUtils.getIpAddr(request));
         sysLog.setOperUser(user);
