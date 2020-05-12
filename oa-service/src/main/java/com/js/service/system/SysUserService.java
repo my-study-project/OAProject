@@ -2,7 +2,6 @@ package com.js.service.system;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.js.common.exception.SystemException;
 import com.js.dto.system.SysUserDto;
 import com.js.enums.system.SysUserEnum;
 import com.js.mapper.purview.PurviewMapper;
@@ -54,7 +53,7 @@ public class SysUserService {
         PageHelper.startPage(sysUserDto.getOffset(),sysUserDto.getLimit());
 
         //定义结果集
-        PageInfo<SysUserVo> sysUserVoPageInfo = null;
+        PageInfo<SysUserVo> sysUserVoPageInfo = new PageInfo<>();
         List<SysUserVo> sysUserVoList = new ArrayList<>();
 
         List<SysUser> sysUserList = sysUserMapper.getUserAllList(sysUser);

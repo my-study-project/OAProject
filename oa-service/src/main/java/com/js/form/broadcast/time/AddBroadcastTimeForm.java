@@ -23,4 +23,7 @@ public class AddBroadcastTimeForm {
 
     @ApiModelProperty("签到时间截至(时分秒)")
     private String stopSignTime;
+
+    @ApiModelProperty("对应时间范围编码")
+    private String code;
 }

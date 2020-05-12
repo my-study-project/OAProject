@@ -1,7 +1,6 @@
 package com.js.service.system;
 
 
-import com.github.pagehelper.PageHelper;
 import com.js.dto.system.SysConfigDto;
 import com.js.mapper.system.SysConfigMapper;
 import com.js.pojo.system.SysConfig;
@@ -42,7 +41,7 @@ public class SysConfigService {
     public SysConfigVo getSysConfigById(String uuid) {
         log.info("查询主键uuid={}入参={}",uuid);
         SysConfig sysConfig = sysConfigMapper.getSysConfigById(uuid);
-        SysConfigVo sysConfigVo = null;
+        SysConfigVo sysConfigVo = new SysConfigVo();
         BeanUtils.copyProperties(sysConfig,sysConfigVo);
         return sysConfigVo;
     }

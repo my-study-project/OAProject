@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.js.common.exception.SystemException;
 import com.js.common.util.DateUtil;
 import com.js.dto.broadcast.BroadcastTimeDto;
+import com.js.enums.program.ProgramDateEnum;
 import com.js.mapper.broadcast.BroadcastSignInMapper;
 import com.js.mapper.broadcast.BroadcastTimeMapper;
 import com.js.mapper.system.SysConfigMapper;
@@ -12,6 +13,7 @@ import com.js.pojo.broadcast.BroadcastSignIn;
 import com.js.pojo.broadcast.BroadcastTime;
 import com.js.pojo.system.SysConfig;
 import com.js.vo.broadcast.BroadcastTimeVo;
+import com.js.vo.program.DefaultProgramDateVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,14 @@ public class BroadcastTimeService {
         log.info("添加节目播出时间入参{}",broadcastTimeDto.toString());
         BroadcastTime broadcastTime = new BroadcastTime();
         BeanUtils.copyProperties(broadcastTimeDto,broadcastTime);
+        if(!"00".equals(broadcastTimeDto.getCode())) {
+            DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getStartSignTime());
+            broadcastTime.setStartSignTime(defaultProgramDateVo.getStartTime().replace(":",""));
+            broadcastTime.setStopSignTime(defaultProgramDateVo.getEndTime().replace(":",""));
+        }else{
+            broadcastTimeDto.setStartSignTime(broadcastTimeDto.getStartSignTime().replace(",",""));
+            broadcastTimeDto.setStopSignTime(broadcastTimeDto.getStopSignTime().replace(",",""));
+        }
         return broadcastTimeMapper.addBroadcastIime(broadcastTime);
     }
 
@@ -76,6 +86,14 @@ public class BroadcastTimeService {
         log.info("修改节目播出时间入参{}",broadcastTimeDto.toString());
         BroadcastTime broadcastTime = new BroadcastTime();
         BeanUtils.copyProperties(broadcastTimeDto,broadcastTime);
+        if(!"00".equals(broadcastTimeDto.getCode())) {
+            DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getStartSignTime());
+            broadcastTime.setStartSignTime(defaultProgramDateVo.getStartTime().replace(":",""));
+            broadcastTime.setStopSignTime(defaultProgramDateVo.getEndTime().replace(":",""));
+        }else{
+            broadcastTimeDto.setStartSignTime(broadcastTimeDto.getStartSignTime().replace(",",""));
+            broadcastTimeDto.setStopSignTime(broadcastTimeDto.getStopSignTime().replace(",",""));
+        }
         return broadcastTimeMapper.editBroadcastIime(broadcastTime);
     }
 

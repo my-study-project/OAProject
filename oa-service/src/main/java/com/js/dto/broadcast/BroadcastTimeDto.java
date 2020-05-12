@@ -1,6 +1,7 @@
 package com.js.dto.broadcast;
 
 import com.js.dto.system.BasePageDto;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -25,4 +26,7 @@ public class BroadcastTimeDto extends BasePageDto {
 
     /**签到时间截至(时分秒)**/
     private String stopSignTime;
+
+    @ApiModelProperty("对应时间范围编码")
+    private String code;
 }

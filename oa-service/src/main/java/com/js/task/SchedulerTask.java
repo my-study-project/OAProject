@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 /**
  * @Author: 姜爽
  * @Description: 定时任务类,要声明为bean，没有声明启动类启动无法实现定时效果
@@ -50,7 +48,7 @@ public class SchedulerTask {
             //获取当前周数
             sysConfigDto.setName(ACADEMIC_WEEK);
             SysConfigVo sysConfigVo= sysConfigService.getSysConfigByMess(sysConfigDto).get(0);
-            int academicWeek = Integer.valueOf(sysConfigVo.getValue());
+            int academicWeek = Integer.parseInt(sysConfigVo.getValue());
             int tempWeek = DateUtil.differentDaysByMillisecond(
                     DateUtil.strToDateLongByPattern(academicBegin,PATTERNDATETOSTRING),DateUtil.getDate(null))/7 +1;
             //计算的当前周和数据库不符，更新数据字典当前周

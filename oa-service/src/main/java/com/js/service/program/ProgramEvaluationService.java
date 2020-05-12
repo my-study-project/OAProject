@@ -2,7 +2,6 @@ package com.js.service.program;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.js.common.exception.SystemException;
 import com.js.common.util.IdUtils;
 import com.js.dto.program.ProgramEvaluationDto;
 import com.js.enums.program.ProgramEnum;
@@ -67,7 +66,7 @@ public class ProgramEvaluationService {
         //中间值
         PageInfo<ProgramEvaluation> programEvaluationPageInfo = new PageInfo<>(programEvaluationList);
         //结果集
-        PageInfo<ProgramEvaluationVo> programEvaluationVoPageInfo = null;
+        PageInfo<ProgramEvaluationVo> programEvaluationVoPageInfo = new PageInfo<>();
         BeanUtils.copyProperties(programEvaluationPageInfo,programEvaluationVoPageInfo);
         List<ProgramEvaluationVo> programEvaluationVoList = new ArrayList<>();
         programEvaluationList.forEach(programEvaluationTemp -> {

@@ -1,6 +1,5 @@
 package com.js.form.broadcast.sign;
 
-import com.js.dto.system.BasePageDto;
 import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

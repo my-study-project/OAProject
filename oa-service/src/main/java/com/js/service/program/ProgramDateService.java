@@ -26,4 +26,11 @@ public class ProgramDateService {
         }
         return defaultProgramDateVos;
     }
+    public DefaultProgramDateVo getDefaultProgramDateByCode(String code) {
+        DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(code);
+        if (defaultProgramDateVo == null){
+            defaultProgramDateVo = ProgramDateEnum.getEnumValues("00");
+        }
+        return defaultProgramDateVo;
+    }
 }

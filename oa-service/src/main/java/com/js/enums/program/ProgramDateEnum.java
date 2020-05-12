@@ -1,5 +1,7 @@
 package com.js.enums.program;
 
+import com.js.vo.program.DefaultProgramDateVo;
+
 /**
  * @Author: 姜爽
  * @Description: 系统的节目播放时间所对应的枚举类
@@ -46,6 +48,8 @@ public enum  ProgramDateEnum {
     SUNDAY_NOON("73","周日午间","11:40","12:45"),
     SUNDAY_AFTERNOON_CLASS("74","周日下午课间","15:00","16:20"),
     SUNDAY_EVENING("75","周日晚间","17:00","18:05"),
+
+    UNKNOW("00","自定义输入","",""),
     ;
     private String code;
 
@@ -86,5 +90,17 @@ public enum  ProgramDateEnum {
      **/
     public String getEndTime() {
         return endTime;
+    }
+
+    public static DefaultProgramDateVo getEnumValues(String code){
+        ProgramDateEnum[] programDateEnums = ProgramDateEnum.values();
+        for (ProgramDateEnum programDateEnum : programDateEnums) {
+            if (programDateEnum.getCode().equals(code)) {
+                DefaultProgramDateVo defaultProgramDateVo = DefaultProgramDateVo.builder().code(programDateEnum.getCode())
+                    .msg(programDateEnum.getMsg()).startTime(programDateEnum.getStartTime()).endTime(programDateEnum.getEndTime()).build();
+                return defaultProgramDateVo;
+            }
+        }
+        return null;
     }
 }
