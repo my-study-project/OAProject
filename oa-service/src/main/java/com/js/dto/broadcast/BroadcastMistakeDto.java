@@ -1,5 +1,6 @@
-package com.js.pojo.broadcast;
+package com.js.dto.broadcast;
 
+import com.js.dto.system.BasePageDto;
 import lombok.Data;
 import lombok.ToString;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  **/
 @Data
 @ToString
-public class BroadcastMistake {
+public class BroadcastMistakeDto extends BasePageDto {
     /**主键**/
     private String uuid;
 
@@ -39,6 +40,6 @@ public class BroadcastMistake {
     /**错误提交时间**/
     private Date createData;
 
-    /**错误审核状态**/
+    /**错误审核状态0:未审核1:已审核**/
     private String status;
 }

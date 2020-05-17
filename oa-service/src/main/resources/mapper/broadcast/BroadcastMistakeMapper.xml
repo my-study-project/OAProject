@@ -11,10 +11,11 @@
     <result column="academic_term" property="academicTerm" jdbcType="CHAR" />
     <result column="teaching_week" property="teachingWeek" jdbcType="INTEGER" />
     <result column="create_data" property="createData" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List">
 		uuid, program_id, group_id, broadcast_date, detail, academic_year, academic_term,
-		teaching_week,create_data
+		teaching_week,create_data,status
 	</sql>
   <select id="getBroadcastMistakeById" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
@@ -105,6 +106,9 @@
       <if test="teachingWeek != null">
         teaching_week = #{teachingWeek,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
     </set>
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
@@ -133,6 +137,9 @@
       </if>
       <if test="teachingWeek != null">
         and teaching_week = #{teachingWeek,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=CHAR}
       </if>
     </where>
     order by create_data desc

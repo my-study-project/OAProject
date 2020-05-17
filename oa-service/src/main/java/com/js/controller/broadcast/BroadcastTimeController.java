@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class BroadcastTimeController {
     @PostMapping("/add")
     @ApiOperation(value = "添加节目时间范围", notes = "添加节目时间范围")
     @Log(value = "添加节目时间范围")
-    public BaseResponse<String> addBroadcastTime(@RequestBody AddBroadcastTimeForm addBroadcastTimeForm){
+    public BaseResponse<String> addBroadcastTime(@RequestBody @Validated AddBroadcastTimeForm addBroadcastTimeForm){
         log.info("添加节目时间范围入参为{}",addBroadcastTimeForm.toString());
         BroadcastTimeDto broadcastTimeDto = new BroadcastTimeDto();
         BeanUtils.copyProperties(addBroadcastTimeForm,broadcastTimeDto);
@@ -60,7 +61,7 @@ public class BroadcastTimeController {
     @PostMapping("listAll")
     @ApiOperation(value = "条件查询节目时间范围", notes = "条件查询节目时间范围")
     @Log(value = "条件查询节目时间范围")
-    public BaseResponse<PageInfo<BroadcastTimeVo>> getBroadcastTimeByMess(@RequestBody BroadcastTimeForm broadcastTimeForm) {
+    public BaseResponse<PageInfo<BroadcastTimeVo>> getBroadcastTimeByMess(@RequestBody @Validated BroadcastTimeForm broadcastTimeForm) {
         log.info("条件查询节目时间范围入参为{}",broadcastTimeForm.toString());
         BroadcastTimeDto broadcastTimeDto = new BroadcastTimeDto();
         BeanUtils.copyProperties(broadcastTimeForm,broadcastTimeDto);
@@ -94,7 +95,7 @@ public class BroadcastTimeController {
     @PostMapping("edit")
     @ApiOperation(value = "修改节目时间范围", notes = "修改节目时间范围")
     @Log(value = "修改节目时间范围")
-    public BaseResponse<String> editBroadcastTime(@RequestBody EditBroadcastTimeForm editBroadcastTimeForm){
+    public BaseResponse<String> editBroadcastTime(@RequestBody @Validated EditBroadcastTimeForm editBroadcastTimeForm){
         log.info("修改节目时间范围入参为{}",editBroadcastTimeForm.toString());
         BroadcastTimeDto broadcastTimeDto = new BroadcastTimeDto();
         BeanUtils.copyProperties(editBroadcastTimeForm,broadcastTimeDto);

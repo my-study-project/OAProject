@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class GroupController {
     @PostMapping("add")
     @ApiOperation(value = "添加组别", notes = "添加组别")
     @Log(value = "添加组别")
-    public BaseResponse<String> addGroup(@RequestBody AddGroupForm addGroupForm){
+    public BaseResponse<String> addGroup(@RequestBody @Validated AddGroupForm addGroupForm){
         log.info("添加小组入参为{}",addGroupForm.toString());
         GroupDto groupDto = new GroupDto();
         BeanUtils.copyProperties(addGroupForm,groupDto);
@@ -56,7 +57,7 @@ public class GroupController {
     @PostMapping("list")
     @ApiOperation(value = "根据条件查询组别", notes = "根据条件查询组别")
     @Log(value = "条件查询小组信息")
-    public BaseResponse<List<GroupVo>> getGroupByMess(@RequestBody GroupForm groupForm) {
+    public BaseResponse<List<GroupVo>> getGroupByMess(@RequestBody @Validated GroupForm groupForm) {
         log.info("查询小组信息的入参为{}",groupForm.toString());
         GroupDto groupDto = new GroupDto();
         BeanUtils.copyProperties(groupForm,groupDto);
@@ -90,7 +91,7 @@ public class GroupController {
     @PostMapping("edit")
     @ApiOperation(value = "修改操作", notes = "修改操作")
     @Log(value = "修改组别操作")
-    public BaseResponse<String> addGroup(@RequestBody EditGroupForm editGroupForm){
+    public BaseResponse<String> addGroup(@RequestBody @Validated EditGroupForm editGroupForm){
         log.info("修改小组入参为{}",editGroupForm.toString());
         GroupDto groupDto = new GroupDto();
         BeanUtils.copyProperties(editGroupForm,groupDto);

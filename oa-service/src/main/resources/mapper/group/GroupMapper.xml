@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.js.mapper.group.GroupMapper">
-  <resultMap id="BaseResultMap" type="com.js.pojo.Group">
+  <resultMap id="BaseResultMap" type="com.js.pojo.group.Group">
     <result column="uuid" property="uuid" jdbcType="VARCHAR" />
     <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
     <result column="mistake_score" property="mistakeScore" jdbcType="INTEGER" />
@@ -13,7 +13,7 @@
   <sql id="Group_Colmon">
 		uuid,dept_name,mistake_score,program_score,leader_user_id,has_program,is_alive
 	</sql>
-  <update id="editGroup" parameterType="com.js.pojo.Group">
+  <update id="editGroup" parameterType="com.js.pojo.group.Group">
     update sys_group
     <set>
       <if test="deptName != null">
@@ -43,7 +43,7 @@
     from sys_group
     where uuid = #{uuid}
   </select>
-  <select id="getGroupByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.Group">
+  <select id="getGroupByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.group.Group">
     select
     <include refid="Group_Colmon" />
     from sys_group
@@ -59,7 +59,7 @@
       </if>
     </where>
   </select>
-  <insert id="addGroup" parameterType="com.js.pojo.Group">
+  <insert id="addGroup" parameterType="com.js.pojo.group.Group">
     insert into sys_group
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">

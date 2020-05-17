@@ -1,4 +1,4 @@
-package com.js.pojo;
+package com.js.pojo.purview;
 
 import lombok.Data;
 import lombok.ToString;

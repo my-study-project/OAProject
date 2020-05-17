@@ -19,6 +19,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Author: 姜爽
  * @Description: 用户登录注销等基础功能
@@ -39,7 +41,7 @@ public class LoginController {
     @PostMapping("/login")
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
     @Log(value = "用户登陆")
-    public BaseResponse<SysUserVo> userLogin(@RequestBody UserPassForm userPassForm) {
+    public BaseResponse<SysUserVo> userLogin(@RequestBody UserPassForm userPassForm, HttpServletResponse response) {
         log.info("用户登录的入参为{}",userPassForm.toString());
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(userPassForm,sysUserDto);
@@ -57,6 +59,7 @@ public class LoginController {
             String password = Md5Util.convertMd5(sysUserVo.getPassword());
             if (userPassForm.getPassword().equals(password)){
                 redisService.login(sysUserVo.getStudentNumber(),TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName()));
+                response.setHeader("Token",TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName()));
                 return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),sysUserVo);
             }else {
                 throw new SystemException("用户名或者密码不正确");

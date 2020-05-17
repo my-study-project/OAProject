@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,7 +38,7 @@ public class SysUserController {
     @PostMapping("getList")
     @ApiOperation(value = "分页查询所有用户", notes = "分页查询所有用户")
     @Log(value = "分页查询所有用户")
-    public BaseResponse<PageInfo<SysUserVo>> getUserMess(@RequestBody SysUserForm sysUserForm) {
+    public BaseResponse<PageInfo<SysUserVo>> getUserMess(@RequestBody @Validated SysUserForm sysUserForm) {
         log.info("分页查询所有用户Controller的入参为{}",sysUserForm.toString());
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(sysUserForm,sysUserDto);

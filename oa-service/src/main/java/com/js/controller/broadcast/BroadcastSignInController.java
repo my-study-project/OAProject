@@ -2,17 +2,21 @@ package com.js.controller.broadcast;
 
 import com.github.pagehelper.PageInfo;
 import com.js.common.annotation.Log;
+import com.js.common.enums.StatusCode;
+import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
 import com.js.dto.broadcast.BroadcastSignInDto;
+import com.js.form.broadcast.sign.AddBroadcastSignInForm;
+import com.js.form.broadcast.sign.BroadcastSignInForm;
 import com.js.service.broadcast.BroadcastSignInService;
 import com.js.vo.broadcast.BroadcastSignInVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: jiangshuang
@@ -28,20 +32,41 @@ public class BroadcastSignInController {
     @Autowired
     private BroadcastSignInService broadcastSignInService;
 
-    /**添加签到操作**/
     @PostMapping("/add")
     @ApiOperation(value = "添加签到操作", notes = "添加签到操作")
     @Log(value = "添加签到操作")
-    public BaseResponse<String> addBroadcastSignIn(BroadcastSignInDto broadcastSignInDto) {
-        return null;
+    public BaseResponse<String> addBroadcastSignIn(@RequestBody @Validated AddBroadcastSignInForm addBroadcastSignInForm,
+                                                   @RequestHeader("studentNumber") String studentNumber) {
+        log.info("添加签到操作的入参为{},签到人为{}",addBroadcastSignInForm,studentNumber);
+        BroadcastSignInDto broadcastSignInDto = new BroadcastSignInDto();
+        BeanUtils.copyProperties(addBroadcastSignInForm,broadcastSignInDto);
+        int result = 0;
+        try{
+            result = broadcastSignInService.addBroadcastSignIn(broadcastSignInDto);
+        }catch (Exception e){
+            log.info("用户签到失败{}",e);
+            throw new SystemException("用户签到失败");
+        }
+        if (result  > 0){
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"签到成功");
+        }
+        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"签到失败");
     }
 
-    /**根据条件查询查询签到操作**/
     @PostMapping("/getList")
     @ApiOperation(value = "根据条件查询查询签到操作", notes = "根据条件查询查询签到操作")
     @Log(value = "根据条件查询查询签到操作")
-    public BaseResponse<PageInfo<BroadcastSignInVo>> getBroadcastSignInByMess(BroadcastSignInDto broadcastSignInDto) {
-        return null;
+    public BaseResponse<PageInfo<BroadcastSignInVo>> getBroadcastSignInByMess(@RequestBody @Validated BroadcastSignInForm broadcastSignInForm) {
+        log.info("根据条件查询查询签到操作入参为{}",broadcastSignInForm.toString());
+        BroadcastSignInDto broadcastSignInDto = new BroadcastSignInDto();
+        BeanUtils.copyProperties(broadcastSignInForm,broadcastSignInDto);
+        try{
+            PageInfo<BroadcastSignInVo> broadcastSignInVoPageInfo = broadcastSignInService.getBroadcastSignInByMess(broadcastSignInDto);
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),broadcastSignInVoPageInfo);
+        }catch (Exception e){
+            log.info("用户签到失败{}",e);
+            throw new SystemException("用户签到失败");
+        }
     }
 
 }

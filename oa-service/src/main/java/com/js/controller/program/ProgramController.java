@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -34,7 +35,7 @@ public class ProgramController {
     @PostMapping("getList")
     @ApiOperation(value = "分页查询节目", notes = "分页查询节目")
     @Log(value = "分页查询节目")
-    public BaseResponse<PageInfo<ProgramVo>> getLogMess(@RequestBody ProgramForm programForm) {
+    public BaseResponse<PageInfo<ProgramVo>> getLogMess(@RequestBody @Validated ProgramForm programForm) {
         log.info("分页查询节目Controller的入参为{}",programForm.toString());
         ProgramDto programDto = new ProgramDto();
         BeanUtils.copyProperties(programForm,programDto);
@@ -51,7 +52,7 @@ public class ProgramController {
     @PostMapping("/add")
     @ApiOperation(value = "添加节目表", notes = "添加节目表")
     @Log(value = "添加节目表")
-    public BaseResponse<String> getLogMess(@RequestBody AddProgramForm addProgramForm) {
+    public BaseResponse<String> getLogMess(@RequestBody @Validated AddProgramForm addProgramForm) {
         log.info("添加节目表Controller的入参为{}",addProgramForm.toString());
         ProgramDto programDto = new ProgramDto();
         BeanUtils.copyProperties(addProgramForm,programDto);
@@ -71,7 +72,7 @@ public class ProgramController {
     @PostMapping("/edit")
     @ApiOperation(value = "修改节目表", notes = "修改节目表")
     @Log(value = "修改节目表")
-    public BaseResponse<String> editProgram(@RequestBody EditProgramForm editProgramForm) {
+    public BaseResponse<String> editProgram(@RequestBody @Validated EditProgramForm editProgramForm) {
         log.info("修改节目表Controller的入参为{}",editProgramForm.toString());
         ProgramDto programDto = new ProgramDto();
         BeanUtils.copyProperties(editProgramForm,programDto);

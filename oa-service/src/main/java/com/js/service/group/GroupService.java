@@ -4,7 +4,7 @@ import com.js.common.util.IdUtils;
 import com.js.dto.group.GroupDto;
 import com.js.enums.group.GroupEnum;
 import com.js.mapper.group.GroupMapper;
-import com.js.pojo.Group;
+import com.js.pojo.group.Group;
 import com.js.vo.group.GroupVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

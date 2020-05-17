@@ -1,6 +1,6 @@
 package com.js.mapper.group;
 
-import com.js.pojo.Group;
+import com.js.pojo.group.Group;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

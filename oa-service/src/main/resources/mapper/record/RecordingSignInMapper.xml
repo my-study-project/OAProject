@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.js.mapper.record.RecordingSignInMapper">
-  <resultMap id="BaseResultMap" type="com.js.pojo.RecordingSignIn">
+  <resultMap id="BaseResultMap" type="com.js.pojo.record.RecordingSignIn">
     <id column="uuid" property="uuid" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="recording_room" property="recordingRoom" jdbcType="CHAR" />
@@ -10,7 +10,7 @@
   <sql id="Base_Column_List">
 		uuid, user_id, recording_room, create_time
 	</sql>
-  <select id="getRecordingSignInByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.RecordingSignIn">
+  <select id="getRecordingSignInByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.record.RecordingSignIn">
     select
     <include refid="Base_Column_List" />
     from recording_sign_in
@@ -27,7 +27,7 @@
     </where>
     order by create_time desc
   </select>
-  <insert id="addRecordingSignIn" parameterType="com.js.pojo.RecordingSignIn">
+  <insert id="addRecordingSignIn" parameterType="com.js.pojo.record.RecordingSignIn">
     insert into recording_sign_in
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">

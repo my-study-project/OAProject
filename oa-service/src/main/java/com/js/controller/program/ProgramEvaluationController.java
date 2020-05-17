@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -34,7 +35,7 @@ public class ProgramEvaluationController {
     @PostMapping("getList")
     @ApiOperation(value = "分页查询节目表", notes = "分页查询节目表")
     @Log(value = "分页查询节目评估信息")
-    public BaseResponse<PageInfo<ProgramEvaluationVo>> getLogMess(@RequestBody ProgramEvaluationForm programEvaluationForm) {
+    public BaseResponse<PageInfo<ProgramEvaluationVo>> getLogMess(@RequestBody @Validated ProgramEvaluationForm programEvaluationForm) {
         log.info("分页查询节目评估Controller的入参为{}",programEvaluationForm.toString());
         ProgramEvaluationDto programEvaluationDto = new ProgramEvaluationDto();
         BeanUtils.copyProperties(programEvaluationForm,programEvaluationDto);
@@ -51,7 +52,7 @@ public class ProgramEvaluationController {
     @PostMapping("/add")
     @ApiOperation(value = "添加节目评估", notes = "添加节目评估")
     @Log(value = "添加节目评估")
-    public BaseResponse<String> getLogMess(@RequestBody AddProgramEvaluationForm addProgramEvaluationForm) {
+    public BaseResponse<String> addProgramEval(@RequestBody @Validated AddProgramEvaluationForm addProgramEvaluationForm) {
         log.info("添加节目评估Controller的入参为{}",addProgramEvaluationForm.toString());
         ProgramEvaluationDto programEvaluationDto = new ProgramEvaluationDto();
         BeanUtils.copyProperties(addProgramEvaluationForm,programEvaluationDto);
@@ -71,7 +72,7 @@ public class ProgramEvaluationController {
     @PostMapping("/edit")
     @ApiOperation(value = "修改节目评估", notes = "修改节目评估")
     @Log(value = "修改节目评估")
-    public BaseResponse<String> editProgram(@RequestBody EditProgramEvaluationForm editProgramEvaluationForm) {
+    public BaseResponse<String> editProgramEval(@RequestBody @Validated EditProgramEvaluationForm editProgramEvaluationForm) {
         log.info("修改节目评估Controller的入参为{}",editProgramEvaluationForm.toString());
         ProgramEvaluationDto programEvaluationDto = new ProgramEvaluationDto();
         BeanUtils.copyProperties(editProgramEvaluationForm,programEvaluationDto);
@@ -91,7 +92,7 @@ public class ProgramEvaluationController {
     @GetMapping("getById")
     @ApiOperation(value = "根据主键获取节目评估的详细信息", notes = "根据主键获取节目评估的详细信息")
     @Log(value = "根据主键查询节目评估的详细信息")
-    public BaseResponse<ProgramEvaluationVo> getLogMess(@RequestParam("uuid") String uuid) {
+    public BaseResponse<ProgramEvaluationVo> getProgramEvalById(@RequestParam("uuid") String uuid) {
         log.info("根据主键uuid={}获取节目评估的详细信息Controller",uuid);
         ProgramEvaluationVo programEvaluationVo = new ProgramEvaluationVo();
         try{

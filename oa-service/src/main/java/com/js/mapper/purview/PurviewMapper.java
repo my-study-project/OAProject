@@ -1,6 +1,6 @@
 package com.js.mapper.purview;
 
-import com.js.pojo.Purview;
+import com.js.pojo.purview.Purview;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

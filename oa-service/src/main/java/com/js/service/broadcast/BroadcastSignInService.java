@@ -78,22 +78,19 @@ public class BroadcastSignInService {
         List<BroadcastSignInVo> broadcastSignInVoList = new ArrayList<>();
         try{
             List<BroadcastSignIn> broadcastSignInList = broadcastSignInMapper.getBroadcastSignInByMess(broadcastSignIn);
+            PageInfo<BroadcastSignIn> broadcastSignInPageInfo = new PageInfo<>(broadcastSignInList);
+            PageInfo<BroadcastSignInVo> broadcastSignInVoPageInfo = new PageInfo<>();
+            BeanUtils.copyProperties(broadcastSignInPageInfo,broadcastSignInVoPageInfo);
             broadcastSignInList.forEach(broadcastSignInTemp -> {
                 BroadcastSignInVo broadcastSignInVo = new BroadcastSignInVo();
                 BeanUtils.copyProperties(broadcastSignInTemp,broadcastSignInVo);
                 broadcastSignInVoList.add(broadcastSignInVo);
             });
+            broadcastSignInVoPageInfo.setList(broadcastSignInVoList);
+            return broadcastSignInVoPageInfo;
         }catch (Exception e){
             throw new SystemException("查询签到失败");
         }
-        PageInfo<BroadcastSignInVo> broadcastSignInVoPageInfo = null;
-        try{
-            broadcastSignInVoPageInfo = new PageInfo<>(broadcastSignInVoList);
-        }catch (Exception e){
-            log.info("分页查询签到出现异常{}",e);
-            throw new SystemException("分页查询出现异常");
-        }
-        return broadcastSignInVoPageInfo;
     }
 
 }

@@ -96,9 +96,8 @@ public enum  ProgramDateEnum {
         ProgramDateEnum[] programDateEnums = ProgramDateEnum.values();
         for (ProgramDateEnum programDateEnum : programDateEnums) {
             if (programDateEnum.getCode().equals(code)) {
-                DefaultProgramDateVo defaultProgramDateVo = DefaultProgramDateVo.builder().code(programDateEnum.getCode())
+                return DefaultProgramDateVo.builder().code(programDateEnum.getCode())
                     .msg(programDateEnum.getMsg()).startTime(programDateEnum.getStartTime()).endTime(programDateEnum.getEndTime()).build();
-                return defaultProgramDateVo;
             }
         }
         return null;

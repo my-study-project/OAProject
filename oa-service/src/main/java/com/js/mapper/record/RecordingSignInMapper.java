@@ -1,6 +1,6 @@
 package com.js.mapper.record;
 
-import com.js.pojo.RecordingSignIn;
+import com.js.pojo.record.RecordingSignIn;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
