@@ -67,6 +67,7 @@ public class TokenUtil {
             HashMap<String,String> hashMap = new HashMap<>(8);
             hashMap.put("studentNumber",jwt.getClaim("studentNumber").asString());
             hashMap.put("name",jwt.getClaim("name").asString());
+            log.info("hashMap的结果为{}",hashMap.toString());
             return hashMap;
         } catch (Exception ex) {
             throw new SystemException("Token无效");

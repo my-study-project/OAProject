@@ -8,6 +8,7 @@ spring:
     host: 60.205.230.70
     password: root
     port: 6379
+    database: 0
   rabbitmq:
     host: 60.205.230.70
     username: root

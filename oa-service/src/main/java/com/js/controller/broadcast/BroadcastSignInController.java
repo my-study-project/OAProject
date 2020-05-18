@@ -36,10 +36,12 @@ public class BroadcastSignInController {
     @ApiOperation(value = "添加签到操作", notes = "添加签到操作")
     @Log(value = "添加签到操作")
     public BaseResponse<String> addBroadcastSignIn(@RequestBody @Validated AddBroadcastSignInForm addBroadcastSignInForm,
-                                                   @RequestHeader("studentNumber") String studentNumber) {
-        log.info("添加签到操作的入参为{},签到人为{}",addBroadcastSignInForm,studentNumber);
+                                                   @RequestHeader("studentNumber") String studentNumber,
+                                                   @RequestHeader("name") String name) {
+        log.info("添加签到操作的入参为{},签到人学号为{}，姓名为{}",addBroadcastSignInForm,studentNumber,name);
         BroadcastSignInDto broadcastSignInDto = new BroadcastSignInDto();
         BeanUtils.copyProperties(addBroadcastSignInForm,broadcastSignInDto);
+        broadcastSignInDto.setUserId(studentNumber + name);
         int result = 0;
         try{
             result = broadcastSignInService.addBroadcastSignIn(broadcastSignInDto);
