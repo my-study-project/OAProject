@@ -8,7 +8,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.js.common.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
+
 
 /**
  * @description  token 工具类
@@ -51,18 +53,24 @@ public class TokenUtil {
         return token;
     }
 
-    /**验证是否登录状态**/
-    public static boolean verify(String token) {
+    /**
+     * 解析Token
+     * @param token
+     * @return
+     */
+    public static HashMap<String,String> getTokenInfo(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT jwt = verifier.verify(token);
             log.info("结果为{}",jwt.toString());
-            return true;
+            HashMap<String,String> hashMap = new HashMap<>(8);
+            hashMap.put("studentNumber",jwt.getClaim("studentNumber").asString());
+            hashMap.put("name",jwt.getClaim("name").asString());
+            return hashMap;
         } catch (Exception ex) {
-            return false;
+            throw new SystemException("Token无效");
         }
-
     }
 }
 
