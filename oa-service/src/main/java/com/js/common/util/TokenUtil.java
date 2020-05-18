@@ -10,12 +10,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.js.common.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
-
-
 /**
- * @description  token 工具类
- * @date 2019/12/3 11:01
- */
+ * @Author: jiangshuang
+ * @Description: token 工具类
+ * @Date: 2020/5/18 18:34
+ **/
 @Slf4j
 public class TokenUtil {
     TokenUtil() {
@@ -46,7 +45,7 @@ public class TokenUtil {
                     .withClaim("name", name)
                     .withExpiresAt(date)
                     .sign(algorithm);
-
+            log.info("生成的token值为{}",token);
         } catch (Exception ex) {
             log.info("Token出现的异常为{}",ex.toString());
         }

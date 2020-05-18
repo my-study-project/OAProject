@@ -5,7 +5,7 @@ import com.js.common.annotation.Log;
 import com.js.common.enums.StatusCode;
 import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
-import com.js.common.util.Md5Util;
+import com.js.common.util.EncryptUtil;
 import com.js.dto.system.SysUserDto;
 import com.js.enums.system.SysUserEnum;
 import com.js.form.system.user.AddSysUserForm;
@@ -102,7 +102,7 @@ public class SysUserController {
         }
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(userPassForm,sysUserDto);
-        sysUserDto.setPassword(Md5Util.stringToMd5(sysUserDto.getPassword()));
+        sysUserDto.setPassword(EncryptUtil.shaAndMd5(sysUserDto.getPassword()));
         int result = 0;
 
         //验证学号对应的用户信息

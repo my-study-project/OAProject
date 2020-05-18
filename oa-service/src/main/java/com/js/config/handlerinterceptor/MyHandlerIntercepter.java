@@ -36,7 +36,7 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
         response.setCharacterEncoding("utf-8");
         String token = request.getHeader("Token");
         if (null != token) {
-            HashMap<String,String> hashMap = new HashMap<>();
+            HashMap<String,String> hashMap = new HashMap<>(8);
             try{
                 hashMap = TokenUtil.getTokenInfo(token);
                 String tokenTemp = redisService.getToken(hashMap.get("studentNumber"));

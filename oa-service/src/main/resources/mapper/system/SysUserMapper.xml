@@ -14,8 +14,11 @@
     <result column="master" property="master" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="User_Base_Colmon">
-		student_number,name,college,email,phone_number,group_id,is_alive,is_super,master
-	</sql>
+	  student_number,name,college,email,phone_number,group_id,is_alive,is_super,master
+  </sql>
+  <sql id="Login_User_Base_Colmon">
+	  student_number,password,name,college,email,phone_number,group_id,is_alive,is_super,master
+  </sql>
   <update id="editSysUser" parameterType="com.js.pojo.system.SysUser">
     update sys_user
     <set>
@@ -45,7 +48,7 @@
   </update>
   <select id="getUserById" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-    <include refid="User_Base_Colmon" />
+    <include refid="Login_User_Base_Colmon" />
     from sys_user
     where student_number = #{studentNumber}
   </select>

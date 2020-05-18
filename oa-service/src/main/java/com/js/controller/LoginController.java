@@ -4,7 +4,7 @@ import com.js.common.annotation.Log;
 import com.js.common.enums.StatusCode;
 import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
-import com.js.common.util.Md5Util;
+import com.js.common.util.EncryptUtil;
 import com.js.common.util.TokenUtil;
 import com.js.dto.system.SysUserDto;
 import com.js.enums.system.SysUserEnum;
@@ -56,8 +56,8 @@ public class LoginController {
             throw new SystemException("用户不存在,请联系管理人员");
         }
         if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive()) || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
-            String password = Md5Util.convertMd5(sysUserVo.getPassword());
-            if (userPassForm.getPassword().equals(password)){
+            String password = EncryptUtil.shaAndMd5(userPassForm.getPassword());
+            if (password.equals(sysUserVo.getPassword())){
 //                首先生成token
                 String token = TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName());
                 redisService.login(sysUserVo.getStudentNumber(),token);
@@ -93,4 +93,14 @@ public class LoginController {
             throw new SystemException("系统异常");
         }
     }
+
+    @GetMapping("/forgetPass")
+    @ApiOperation(value = "忘记密码", notes = "忘记密码")
+    @Log(value = "忘记密码")
+    public BaseResponse<String> forgetPass(@RequestHeader("studentNumber") String studentNumber) {
+        log.info("忘记密码入参为{}",studentNumber);
+        SysUserDto sysUserDto = new SysUserDto();
+        return null;
+    }
+
 }
