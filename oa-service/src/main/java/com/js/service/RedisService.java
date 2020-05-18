@@ -30,6 +30,5 @@ public class RedisService {
     public String getToken(String studentNumber) {
         log.info("查询用户学号{}",studentNumber);
         return redisTemplate.opsForValue().get(studentNumber).toString();
-//        return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkZW50TnVtYmVyIjoiMjAxNjYwOTgiLCJuYW1lIjoi5aec54i9In0.Raqgr1LytpCw7yD7OTqqNUoiQf2jd-JHRRzZeEsaLSw";
     }
 }
