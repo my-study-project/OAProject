@@ -58,7 +58,13 @@ public class LoginController {
         if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive()) || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
             String password = Md5Util.convertMd5(sysUserVo.getPassword());
             if (userPassForm.getPassword().equals(password)){
-                redisService.login(sysUserVo.getStudentNumber(),TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName()));
+                //首先生成token
+                String token = TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName());
+                //验证用户是否已经登陆（单点登录）
+                if(token.equals(redisService.getToken(sysUserVo.getStudentNumber()))){
+                    return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),null);
+                }
+                redisService.login(sysUserVo.getStudentNumber(),token);
                 response.setHeader("Token",TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName()));
                 return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),sysUserVo);
             }else {
