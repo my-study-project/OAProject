@@ -46,10 +46,10 @@ public class LoginController {
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
     @Log(value = "用户登陆")
     public BaseResponse<SysUserVo> userLogin(@RequestBody UserPassForm userPassForm, HttpServletResponse response) {
-        if (userPassForm.getPassword() == null || userPassForm.getRepassword() == null){
-            throw new SystemException("两次密码存在空值情况");
-        }
         log.info("用户登录的入参为{}",userPassForm.toString());
+        if (userPassForm.getPassword() == null){
+            throw new SystemException("密码不可为空");
+        }
         SysUserDto sysUserDto = new SysUserDto();
         BeanUtils.copyProperties(userPassForm,sysUserDto);
         //根据用户名查询用户信息
@@ -104,14 +104,15 @@ public class LoginController {
     @GetMapping("/getCode")
     @ApiOperation(value = "获取邮箱验证码", notes = "获取邮箱验证码")
     @Log(value = "获取邮箱验证码")
-    public BaseResponse<String> forgetPass(@RequestBody UserPassForm userPassForm) {
-        log.info("获取邮箱验证吗入参为{}",userPassForm.toString());
-        if (userPassForm.getMethodCode() == null || "".equals(userPassForm.getMethodCode())){
-            throw new SystemException("请选择验证方式");
+    public BaseResponse<String> forgetPass(@RequestHeader("studentNumber") String studentNumber) {
+        log.info("获取邮箱验证吗入参为{}",studentNumber);
+        if (studentNumber == null || "".equals(studentNumber)){
+            throw new SystemException("未知学号");
         }
         //根据用户学号获取邮箱或者手机号
-        SysUserVo sysUserVo = sysUserService.getUserById(userPassForm.getStudentNumber());
-        String result = mailService.sendCodeMail(sysUserVo,userPassForm.getMethodCode());
+        SysUserVo sysUserVo = sysUserService.getUserById(studentNumber);
+        //默认采用邮箱认证，暂不提供手机号认证
+        String result = mailService.sendCodeMail(sysUserVo,"1");
         return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),result);
     }
 
