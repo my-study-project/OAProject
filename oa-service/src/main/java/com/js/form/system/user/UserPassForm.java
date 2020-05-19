@@ -17,10 +17,12 @@ public class UserPassForm{
     private String studentNumber;
 
     @ApiModelProperty("密码")
-    @NotBlank(message = "密码不可以为空")
+//    @NotBlank(message = "密码不可以为空")
     private String password;
 
     @ApiModelProperty("验证密码")
-    @NotBlank(message = "验证密码不可以为空")
     private String repassword;
+
+    @ApiModelProperty("忘记密码验证方式 1:邮箱 0：验证码")
+    private String methodCode;
 }
