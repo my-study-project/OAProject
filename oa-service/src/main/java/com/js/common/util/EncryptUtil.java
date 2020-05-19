@@ -1,13 +1,8 @@
 package com.js.common.util;
 
-/**
- * @Author: 姜爽
- * @Description: 加密工具类
- * @Date: 2020/5/18 18:26
- */
-import java.io.UnsupportedEncodingException;
+import lombok.extern.slf4j.Slf4j;
+
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
@@ -25,11 +20,12 @@ import javax.crypto.spec.DESKeySpec;
  * @author 姜爽
  *
  */
+@Slf4j
 public final class EncryptUtil {
 
     private static final String PASSWORD_CRYPT_KEY = "88444488";
 
-    private final static String DES = "DES";
+    private static final  String DES = "DES";
 
     /**
      * 二次加密 先sha-1加密再用MD5加密
@@ -37,7 +33,7 @@ public final class EncryptUtil {
      * @param src
      * @return
      */
-    public final static String md5AndSha(String src) {
+    public static final String md5AndSha(String src) {
         return md5(sha(src));
     }
 
@@ -47,7 +43,7 @@ public final class EncryptUtil {
      * @param src
      * @return
      */
-    public final static String shaAndMd5(String src) {
+    public static final String shaAndMd5(String src) {
         return sha(md5(src));
     }
 
@@ -57,7 +53,7 @@ public final class EncryptUtil {
      * @param src
      * @return
      */
-    public final static String md5(String src) {
+    public static final String md5(String src) {
         return encrypt(src, "md5");
     }
 
@@ -67,7 +63,7 @@ public final class EncryptUtil {
      * @param src
      * @return
      */
-    public final static String sha(String src) {
+    public static final String sha(String src) {
         return encrypt(src, "sha-1");
     }
 
@@ -80,7 +76,7 @@ public final class EncryptUtil {
      *            加密算法名称：md5或者sha-1，不区分大小写
      * @return
      */
-    private final static String encrypt(String src, String algorithmName) {
+    private static final String encrypt(String src, String algorithmName) {
         if (src == null || "".equals(src.trim())) {
             throw new IllegalArgumentException("请输入要加密的内容");
         }
@@ -93,10 +89,8 @@ public final class EncryptUtil {
             m.update(src.getBytes("UTF8"));
             byte[] s = m.digest();
             return hex(s);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.info("异常信息为{}",e);
         }
         return encryptText;
     }
@@ -107,7 +101,7 @@ public final class EncryptUtil {
      * @return
      * @throws Exception
      */
-    public final static String decrypt(String src) {
+    public static final String decrypt(String src) {
         try {
             return new String(decrypt(hex2byte(src.getBytes()), PASSWORD_CRYPT_KEY.getBytes()));
         } catch (Exception e) {
@@ -121,7 +115,7 @@ public final class EncryptUtil {
      * @return
      * @throws Exception
      */
-    public final static String encrypt(String src) {
+    public static final String encrypt(String src) {
         try {
             return byte2hex(encrypt(src.getBytes(), PASSWORD_CRYPT_KEY.getBytes()));
         } catch (Exception e) {
@@ -139,7 +133,7 @@ public final class EncryptUtil {
      * @return 返回加密后的数据
      * @throws Exception
      */
-    private static byte[] encrypt(byte[] src, byte[] key) throws Exception {
+    private static final byte[] encrypt(byte[] src, byte[] key) throws Exception {
         // DES算法要求有一个可信任的随机数源
         SecureRandom sr = new SecureRandom();
         // 从原始密匙数据创建DESKeySpec对象
@@ -166,7 +160,7 @@ public final class EncryptUtil {
      *
      * @throws Exception
      */
-    private final static byte[] decrypt(byte[] src, byte[] key) throws Exception {
+    private static final byte[] decrypt(byte[] src, byte[] key) throws Exception {
         // DES算法要求有一个可信任的随机数源
         SecureRandom sr = new SecureRandom();
         // 从原始密匙数据创建一个DESKeySpec对象
@@ -182,7 +176,7 @@ public final class EncryptUtil {
         return cipher.doFinal(src);
     }
 
-    private final static byte[] hex2byte(byte[] b) {
+    private static final byte[] hex2byte(byte[] b) {
         if ((b.length % 2) != 0) {
             throw new IllegalArgumentException("长度不是偶数");
         }
@@ -200,18 +194,18 @@ public final class EncryptUtil {
      * @param b
      * @return
      */
-    private final static String byte2hex(byte[] b) {
-        String hs = "";
+    private static final String byte2hex(byte[] b) {
+        StringBuilder sb = new StringBuilder();
         String stmp = "";
         for (int n = 0; n < b.length; n++) {
             stmp = (java.lang.Integer.toHexString(b[n] & 0XFF));
             if (stmp.length() == 1) {
-                hs = hs + "0" + stmp;
+                sb = sb.append("0" ).append(stmp);
             } else {
-                hs = hs + stmp;
+                sb = sb.append(stmp);
             }
         }
-        return hs.toUpperCase();
+        return sb.toString().toUpperCase();
     }
 
     /**
@@ -220,8 +214,8 @@ public final class EncryptUtil {
      * @param arr
      * @return
      */
-    private final static String hex(byte[] arr) {
-        StringBuffer sb = new StringBuffer();
+    private static final String hex(byte[] arr) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < arr.length; ++i) {
             sb.append(Integer.toHexString((arr[i] & 0xFF) | 0x100).substring(1, 3));
         }

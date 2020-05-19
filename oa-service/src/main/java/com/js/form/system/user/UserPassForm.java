@@ -17,7 +17,7 @@ public class UserPassForm{
     private String studentNumber;
 
     @ApiModelProperty("密码")
-//    @NotBlank(message = "密码不可以为空")
+    /**@NotBlank(message = "密码不可以为空")**/
     private String password;
 
     @ApiModelProperty("验证密码")

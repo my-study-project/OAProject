@@ -4,14 +4,12 @@ import com.js.common.exception.SystemException;
 import com.js.config.OaSysConfig;
 import com.js.service.RedisService;
 import com.js.vo.system.SysUserVo;
-import com.sun.jmx.snmp.Timestamp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
