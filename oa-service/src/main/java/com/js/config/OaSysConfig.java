@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "oa.mail")
+@ConfigurationProperties(prefix = "spring.mail")
 public class OaSysConfig {
 
     /**邮件发送者**/
-    private String sender;
+    private String username;
 }

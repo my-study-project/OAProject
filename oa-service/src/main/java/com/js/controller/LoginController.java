@@ -104,7 +104,7 @@ public class LoginController {
     @GetMapping("/getCode")
     @ApiOperation(value = "获取邮箱验证码", notes = "获取邮箱验证码")
     @Log(value = "获取邮箱验证码")
-    public BaseResponse<String> forgetPass(@RequestHeader("studentNumber") String studentNumber) {
+    public BaseResponse<String> forgetPass(@RequestParam("studentNumber") String studentNumber) {
         log.info("获取邮箱验证吗入参为{}",studentNumber);
         if (studentNumber == null || "".equals(studentNumber)){
             throw new SystemException("未知学号");

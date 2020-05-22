@@ -49,10 +49,10 @@ public class MailService {
             //邮箱
             try{
                 //将验证码和过期时间更新到数redis据库
-                redisService.rePassCode("oa"+sysUserVo.getEmail(),verifyCode);
+                redisService.rePassCode(sysUserVo.getStudentNumber(),verifyCode);
                 MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
                 //这里只是设置username 并没有设置host和password，因为host和password在springboot启动创建JavaMailSender实例的时候已经读取了
-                mimeMessageHelper.setFrom(oaSysConfig.getSender());
+                mimeMessageHelper.setFrom(oaSysConfig.getUsername());
                 mimeMessageHelper.setTo(sysUserVo.getEmail());
                 mimeMessage.setSubject("黑大OA密码重置");
                 mimeMessageHelper.setText(stringBuilder.toString(),true);

@@ -24,7 +24,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 2545251075@qq.com
-    password: krzeyoctfqdndjaf
+    password: grqpjixakusedicc
     default-encoding: utf-8
 application:
   base-package: com.js
@@ -39,9 +39,6 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: false
 
-oa:
-  mail:
-    sender:
 #pagehelper分页插件配置
 pagehelper:
   helper-dialect: mysql

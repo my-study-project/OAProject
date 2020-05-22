@@ -54,7 +54,7 @@ public class RedisService {
      **/
     public void rePassCode(String studentNumber,String code) {
         redisTemplate.opsForValue().set("oa" + studentNumber,code);
-        redisTemplate.expire(studentNumber, 2, TimeUnit.MINUTES);
+        redisTemplate.expire("oa" + studentNumber, 2, TimeUnit.MINUTES);
     }
 
     /**
@@ -62,7 +62,7 @@ public class RedisService {
      **/
     public String getPassCode(String studentNumber) {
         String rePassCode = String.valueOf(redisTemplate.opsForValue().get("oa" + studentNumber));
-        redisTemplate.delete(studentNumber);
+        redisTemplate.delete("oa" + studentNumber);
         return rePassCode;
     }
 }
