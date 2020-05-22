@@ -65,7 +65,7 @@ public class LoginController {
         if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive()) || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
             String password = EncryptUtil.shaAndMd5(userPassForm.getPassword());
             if (password.equals(sysUserVo.getPassword())){
-//                首先生成token
+                //  首先生成token
                 String token = TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName());
                 redisService.login(sysUserVo.getStudentNumber(),token);
                 response.setHeader("Token",token);
@@ -111,17 +111,22 @@ public class LoginController {
         }
         //根据用户学号获取邮箱或者手机号
         SysUserVo sysUserVo = sysUserService.getUserById(studentNumber);
-        //默认采用邮箱认证，暂不提供手机号认证
-        String result = mailService.sendCodeMail(sysUserVo,"1");
+        //默认采用邮箱认证，暂不提供手机号认证未提供手机号验证的接口参数
+        String result = "";
+        try{
+            result = mailService.sendCodeMail(sysUserVo,"1");
+        }catch (Exception e){
+            throw new SystemException("获取验证码异常");
+        }
         return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),result);
     }
 
-    @GetMapping("/reCode")
+    @GetMapping("/checkCode")
     @ApiOperation(value = "验证码验证修改密码", notes = "验证码验证修改密码")
     @Log(value = "验证码验证修改密码")
     public BaseResponse<String> rePassCode(@RequestBody UserPassForm userPassForm) {
         log.info("验证入参为忘记密码{}",userPassForm.toString());
-
+        //校验密码
         if (userPassForm.getMethodCode() == null || "".equals(userPassForm.getMethodCode())){
             throw new SystemException("请输入验证码");
         }
@@ -129,10 +134,13 @@ public class LoginController {
             throw new SystemException("两次密码不一致，操作失败");
         }
         String code = redisService.getPassCode(userPassForm.getStudentNumber());
+        if (code == null || "".equals(code)){
+            throw new SystemException("验证码已失效请重新获取");
+        }
         if (!userPassForm.getMethodCode().equals(code)){
             throw new SystemException("验证码输入错误，请刷新页面重试");
         }
-
+        //封装查询方法
         SysUserDto sysUserDto = new SysUserDto();
         sysUserDto.setPassword(EncryptUtil.shaAndMd5(sysUserDto.getPassword()));
         sysUserDto.setStudentNumber(userPassForm.getStudentNumber());

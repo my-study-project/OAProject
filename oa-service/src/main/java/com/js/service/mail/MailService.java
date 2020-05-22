@@ -9,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 /**
  * @Author: 姜爽
- * @Description: 邮件相关服务
+ * @Description: 邮件相关服务，主要应用找回密码部分
  * @Date: 2020/5/19 6:59
  */
 @Service
@@ -40,7 +39,7 @@ public class MailService {
         stringBuilder.append("您好<br/>");
         stringBuilder.append("您的验证码是：").append(verifyCode).append("<br/>");
         stringBuilder.append("您可以复制此验证码并返回至密码设置界面，以验证您的邮箱。<br/>");
-        stringBuilder.append("此验证码只能使用一次，在5分钟内有效。验证成功则自动失效。<br/>");
+        stringBuilder.append("此验证码只能使用一次，在2分钟内有效。验证成功则自动失效。<br/>");
         stringBuilder.append("如果您没有进行上述操作，请忽略此邮件。");
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
@@ -64,8 +63,10 @@ public class MailService {
 
         }else if ("0".equals(methodCode)){
             //手机验证，需要注册短信通等暂时未开发
-
         }
-        return verifyCode;
+        if (verifyCode == null ||verifyCode == ""){
+            return "验证码发送成功";
+        }
+        return "验证码发送失败";
     }
 }

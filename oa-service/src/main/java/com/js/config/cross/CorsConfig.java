@@ -2,7 +2,7 @@ package com.js.config.cross;
 
 /**
  * @Author: 姜爽
- * @Description: //TODO
+ * @Description: 配置系统跨域
  * @Date: 2020/5/19 13:04
  */
 import org.springframework.context.annotation.Bean;
@@ -10,11 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-/**
- * @author jiangshuang
- * Create on 2017年7月6日下午8:05:19
- * All right reserved
- */
 @Configuration
 public class CorsConfig {
     private CorsConfiguration buildConfig() {
