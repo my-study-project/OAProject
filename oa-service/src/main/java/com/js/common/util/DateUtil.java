@@ -1,4 +1,7 @@
 package com.js.common.util;
+import com.js.common.exception.SystemException;
+import lombok.extern.slf4j.Slf4j;
+
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,6 +12,7 @@ import java.util.Date;
  * @description: 日期封装类
  * @version: V1.0
  */
+@Slf4j
 public class DateUtil {
 
     private static final String PATTERNDATETOSTRING = "yyyy/MM/dd";
@@ -93,9 +97,14 @@ public class DateUtil {
      * @param date2
      * @return
      */
-    public static int differentDaysByMillisecond(Date date1,Date date2)
-    {
-        int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+    public static int differentDaysByMillisecond(Date date1,Date date2){
+        int days ;
+        try{
+            days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+        }catch (Exception e){
+            log.info("日期强转失败{}",e);
+            throw new SystemException("数据强转失败");
+        }
         return days;
     }
 

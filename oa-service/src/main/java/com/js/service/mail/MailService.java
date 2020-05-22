@@ -20,6 +20,9 @@ import java.util.Random;
 @Service
 @Slf4j
 public class MailService {
+    private static final String EMAIL = "1";
+
+    private static final String PHONE = "0";
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -44,7 +47,7 @@ public class MailService {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         //发送验证码到手机或者是邮箱
-        if ("1".equals(methodCode)){
+        if (EMAIL.equals(methodCode)){
             //邮箱
             try{
                 //将验证码和过期时间更新到数redis据库
@@ -61,10 +64,10 @@ public class MailService {
                 throw new SystemException("验证码发送失败，请重试");
             }
 
-        }else if ("0".equals(methodCode)){
+        }else if (PHONE.equals(methodCode)){
             //手机验证，需要注册短信通等暂时未开发
         }
-        if (verifyCode == null ||verifyCode == ""){
+        if (verifyCode == null ||"".equals(verifyCode)){
             return "验证码发送成功";
         }
         return "验证码发送失败";

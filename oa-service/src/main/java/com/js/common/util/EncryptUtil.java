@@ -27,6 +27,8 @@ public final class EncryptUtil {
 
     private static final  String DES = "DES";
 
+    private static final Integer EVEN = 2;
+
     /**
      * 二次加密 先sha-1加密再用MD5加密
      *
@@ -105,6 +107,7 @@ public final class EncryptUtil {
         try {
             return new String(decrypt(hex2byte(src.getBytes()), PASSWORD_CRYPT_KEY.getBytes()));
         } catch (Exception e) {
+            log.info("加密解密异常{}",e);
         }
         return null;
     }
@@ -177,11 +180,11 @@ public final class EncryptUtil {
     }
 
     private static final byte[] hex2byte(byte[] b) {
-        if ((b.length % 2) != 0) {
+        if ((b.length % EVEN) != 0) {
             throw new IllegalArgumentException("长度不是偶数");
         }
         byte[] b2 = new byte[b.length / 2];
-        for (int n = 0; n < b.length; n += 2) {
+        for (int n = 0; n < b.length; n += EVEN) {
             String item = new String(b, n, 2);
             b2[n / 2] = (byte) Integer.parseInt(item, 16);
         }

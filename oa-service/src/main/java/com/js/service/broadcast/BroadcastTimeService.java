@@ -32,6 +32,8 @@ import java.util.List;
 @Slf4j
 public class BroadcastTimeService {
 
+    /**自定义日期**/
+    private static final String CUSTOMIZE = "00";
     /**当前年度**/
     private static final String ACADEMIC_YEAR = "ACADEMIC_YEAR";
 
@@ -61,7 +63,7 @@ public class BroadcastTimeService {
         log.info("添加节目播出时间入参{}",broadcastTimeDto.toString());
         BroadcastTime broadcastTime = new BroadcastTime();
         BeanUtils.copyProperties(broadcastTimeDto,broadcastTime);
-        if(!"00".equals(broadcastTimeDto.getCode())) {
+        if(!CUSTOMIZE.equals(broadcastTimeDto.getCode())) {
             DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getStartSignTime());
             broadcastTime.setStartSignTime(defaultProgramDateVo.getStartTime().replace(":",""));
             broadcastTime.setStopSignTime(defaultProgramDateVo.getEndTime().replace(":",""));
@@ -86,7 +88,7 @@ public class BroadcastTimeService {
         log.info("修改节目播出时间入参{}",broadcastTimeDto.toString());
         BroadcastTime broadcastTime = new BroadcastTime();
         BeanUtils.copyProperties(broadcastTimeDto,broadcastTime);
-        if(!"00".equals(broadcastTimeDto.getCode())) {
+        if(!CUSTOMIZE.equals(broadcastTimeDto.getCode())) {
             DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getStartSignTime());
             broadcastTime.setStartSignTime(defaultProgramDateVo.getStartTime().replace(":",""));
             broadcastTime.setStopSignTime(defaultProgramDateVo.getEndTime().replace(":",""));

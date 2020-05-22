@@ -7,6 +7,7 @@ package com.js.enums.system;
  */
 public enum SysUserEnum {
 
+    //系统用户相关
     IS_ALIVE("0","在职"),
     NOT_ALIVE("1","离职账号已被停用"),
     INACTIVATED("2","账号未激活"),

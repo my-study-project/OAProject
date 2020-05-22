@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @Description 启动类
- * @Author jishubu
+ * @author jishubu
  * @ComponentScan 测试开发时开启注解可以运行swagger
  */
 @SpringBootApplication
