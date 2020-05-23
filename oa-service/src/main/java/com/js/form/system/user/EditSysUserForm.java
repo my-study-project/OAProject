@@ -4,7 +4,8 @@ import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: jiangshuang
@@ -14,7 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @ToString
 public class EditSysUserForm extends BasePageForm {
     @ApiModelProperty("学号")
-    @NotBlank(message = "修改时主键不可以为空")
+    @NotNull(message = "修改时主键不可以为空")
     private String studentNumber;
 
     @ApiModelProperty("姓名")

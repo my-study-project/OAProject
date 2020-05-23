@@ -17,6 +17,8 @@ public class DefaultProgramDateVo {
 
     private String msg;
 
+    private Integer dayOfWeek;
+
     private String startTime;
 
     private String endTime;

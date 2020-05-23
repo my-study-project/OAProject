@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.Date;
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: jiangshuang
@@ -13,25 +13,11 @@ import java.util.Date;
 @Data
 @ToString
 public class AddBroadcastSignInForm{
-    @ApiModelProperty("主键")
-    private String uuid;
 
     @ApiModelProperty("节目id")
+    @NotNull(message = "节目id不可以为空")
     private String programId;
 
     @ApiModelProperty("签到人")
     private String userId;
-
-    @ApiModelProperty("签到时间")
-    private Date createData;
-
-    @ApiModelProperty("当前所处教学周")
-    private Integer teachingWeek;
-
-    /**当前所处年度**/
-    @ApiModelProperty("主键")
-    private String academicYear;
-
-    @ApiModelProperty("当前年度第几学期")
-    private String academicTerm;
 }

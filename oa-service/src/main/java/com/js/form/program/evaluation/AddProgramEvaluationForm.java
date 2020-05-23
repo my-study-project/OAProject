@@ -4,7 +4,8 @@ import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: jiangshuang
@@ -18,15 +19,15 @@ public class AddProgramEvaluationForm extends BasePageForm {
     private String assessor;
 
     @ApiModelProperty("评估的节目id")
-    @NotBlank(message = "评估的节目id不可以为空")
+    @NotNull(message = "评估的节目id不可以为空")
     private String programFileId;
 
     @ApiModelProperty("评估分数")
-    @NotBlank(message = "评估分数不可以为空")
+    @NotNull(message = "评估分数不可以为空")
     private Long score;
 
     @ApiModelProperty("对应节目评论")
-    @NotBlank(message = "对应节目评论不可以为空")
+    @NotNull(message = "对应节目评论不可以为空")
     private String comment;
 
     @ApiModelProperty("审核人")

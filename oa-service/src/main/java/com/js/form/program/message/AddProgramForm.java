@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: jiangshuang
@@ -15,18 +15,18 @@ import javax.validation.constraints.NotBlank;
 public class AddProgramForm {
 
     @ApiModelProperty("节目名称")
-    @NotBlank(message = "节目名称不可以为空")
+    @NotNull(message = "节目名称不可以为空")
     private String name;
 
     @ApiModelProperty("所属组别id")
-    @NotBlank(message = "所属组别不可以为空")
+    @NotNull(message = "所属组别不可以为空")
     private String groupId;
 
     @ApiModelProperty("0：节目有效1：节目无效")
     private String isAlive;
 
     @ApiModelProperty("0：需要评估 1：不需要评估")
-    @NotBlank(message = "节目是否需要评估不可以为空")
+    @NotNull(message = "节目是否需要评估不可以为空")
     private String needEvaluate;
 
     @ApiModelProperty("负责节目的人员，中间；隔开")

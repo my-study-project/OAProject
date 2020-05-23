@@ -29,8 +29,7 @@ public class BroadcastSignInForm extends BasePageForm {
     @ApiModelProperty("当前所处教学周")
     private Integer teachingWeek;
 
-    /**当前所处年度**/
-    @ApiModelProperty("主键")
+    @ApiModelProperty("当前所处年度")
     private String academicYear;
 
     @ApiModelProperty("当前年度第几学期")

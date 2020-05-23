@@ -3,7 +3,8 @@ package com.js.form.system.user;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: jiangshuang
@@ -13,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @ToString
 public class UserPassForm{
     @ApiModelProperty("学号")
-    @NotBlank(message = "学号不可以为空")
+    @NotNull(message = "学号不可以为空")
     private String studentNumber;
 
     @ApiModelProperty("密码")

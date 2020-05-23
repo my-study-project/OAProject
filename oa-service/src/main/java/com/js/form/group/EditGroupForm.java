@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: jiangshuang
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 public class EditGroupForm {
 
     @ApiModelProperty("主键")
-    @NotBlank(message = "修改时主键不可以为空")
+    @NotNull(message = "修改时主键不可以为空")
     private String uuid;
 
     @ApiModelProperty("组名")

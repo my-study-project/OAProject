@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @Author: jiangshuang
  * @Description: 节目相关播放日期数据
@@ -12,6 +14,7 @@ import lombok.ToString;
 @ToString
 public class EditBroadcastTimeForm {
     @ApiModelProperty("主键")
+    @NotNull(message = "主键不可以为空")
     private String uuid;
 
     @ApiModelProperty("节目id")

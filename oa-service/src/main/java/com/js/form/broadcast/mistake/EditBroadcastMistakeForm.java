@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -14,6 +15,7 @@ import java.util.Date;
 @ToString
 public class EditBroadcastMistakeForm {
     @ApiModelProperty("主键")
+    @NotNull(message = "主键不可以为空")
     private String uuid;
 
     @ApiModelProperty("节目id")
@@ -27,15 +29,6 @@ public class EditBroadcastMistakeForm {
 
     @ApiModelProperty("错误描述")
     private String detail;
-
-    @ApiModelProperty("所处年度")
-    private String academicYear;
-
-    @ApiModelProperty("所处学期 1：第一学期2：第二学期")
-    private String academicTerm;
-
-    @ApiModelProperty("所处教学周")
-    private Integer teachingWeek;
 
     @ApiModelProperty("错误提交时间")
     private Date createData;

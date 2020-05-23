@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @Author: jiangshuang
  * @Description: 用户对应权限实体类
@@ -12,6 +14,7 @@ import lombok.ToString;
 @ToString
 public class EditPurviewForm {
     @ApiModelProperty("主键uuid")
+    @NotNull(message = "主键id不可以为空")
     private String uuid;
 
     @ApiModelProperty("用户名")

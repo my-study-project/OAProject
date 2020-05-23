@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @Author: jiangshuang
  * @Description: 节目评估实体类
@@ -14,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @ToString
 public class EditProgramEvaluationForm extends BasePageForm {
     @ApiModelProperty("主键")
-    @NotBlank(message = "修改时主键不可以为空")
+    @NotNull(message = "修改时主键不可以为空")
     private String uuid;
 
     @ApiModelProperty("节目评估人")

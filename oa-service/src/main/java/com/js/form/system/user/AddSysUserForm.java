@@ -4,7 +4,8 @@ import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: jiangshuang
@@ -14,11 +15,11 @@ import org.hibernate.validator.constraints.NotBlank;
 @ToString
 public class AddSysUserForm extends BasePageForm {
     @ApiModelProperty("学号")
-    @NotBlank(message = "学号不可以为空")
+    @NotNull(message = "学号不可以为空")
     private String studentNumber;
 
     @ApiModelProperty("姓名")
-    @NotBlank(message = "姓名不可以为空")
+    @NotNull(message = "姓名不可以为空")
     private String name;
 
     @ApiModelProperty("学院")
@@ -34,7 +35,7 @@ public class AddSysUserForm extends BasePageForm {
     private String phoneNumber;
 
     @ApiModelProperty("所属组别")
-    @NotBlank(message = "所属组别不可以为空")
+    @NotNull(message = "所属组别不可以为空")
     private String groupId;
 
     @ApiModelProperty("0：正常1：离职账号已被停用2：退休 3：账号未激活")

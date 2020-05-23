@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class GroupController {
     @PostMapping("add")
     @ApiOperation(value = "添加组别", notes = "添加组别")
     @Log(value = "添加组别")
-    public BaseResponse<String> addGroup(@RequestBody @Validated AddGroupForm addGroupForm){
+    public BaseResponse<String> addGroup(@RequestBody @Valid AddGroupForm addGroupForm){
         log.info("添加小组入参为{}",addGroupForm.toString());
         GroupDto groupDto = new GroupDto();
         BeanUtils.copyProperties(addGroupForm,groupDto);

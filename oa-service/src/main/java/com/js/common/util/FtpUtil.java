@@ -9,7 +9,6 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.*;
 import java.net.UnknownHostException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
