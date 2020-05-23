@@ -4,7 +4,6 @@ import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
