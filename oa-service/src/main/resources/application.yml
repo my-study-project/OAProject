@@ -11,9 +11,6 @@ server:
     uri-encoding: UTF-8
 
 spring:
-  profiles:
-    active: master
-    include: oa-service
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
