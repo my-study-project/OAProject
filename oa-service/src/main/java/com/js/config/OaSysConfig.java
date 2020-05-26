@@ -22,4 +22,7 @@ public class OaSysConfig {
 
     /**节目文件上传路径**/
     private String upfilePath;
+
+    /**配置开发环境拦截器开关**/
+    private Boolean interceptorSwitch = false;
 }

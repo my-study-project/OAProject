@@ -57,7 +57,7 @@ public class TokenUtil {
      * @param token
      * @return
      */
-    public static HashMap<String,String> getTokenInfo(String token){
+    public static Map<String,String> getTokenInfo(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm).build();

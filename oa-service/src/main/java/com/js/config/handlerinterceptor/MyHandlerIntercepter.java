@@ -36,28 +36,32 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         log.info("执行preHandle方法-->01");
-//        boolean status = false;
-//        response.setCharacterEncoding(oaSysConfig.getDefaultEncoding());
-//        String token = request.getHeader("token");
-//        if (null != token) {
-//            HashMap<String,String> hashMap = new HashMap<>(8);
-//            try{
-//                hashMap = TokenUtil.getTokenInfo(token);
-//                String tokenTemp = redisService.getToken(hashMap.get("studentNumber"));
-//                /**验证token是否有效**/
-//                if (null != tokenTemp && token.equals(tokenTemp)){
-//                    //将信息封装到请求头
-//                    modifyHeaders(hashMap,request);
-//                    status = true;
-//                }
-//            }catch (Exception e){
-//                log.info("Token异常",e);
-//                return false;
-//            }
-//        }
-//        log.info("status的值为{}",status);
-//        return status;
-        return true;
+        Boolean flag = oaSysConfig.getInterceptorSwitch();
+        if (Boolean.TRUE.equals(flag)){
+            boolean status = false;
+            response.setCharacterEncoding(oaSysConfig.getDefaultEncoding());
+            String token = request.getHeader("token");
+            if (null != token) {
+                Map<String,String> hashMap = new HashMap<>(8);
+                try{
+                    hashMap = TokenUtil.getTokenInfo(token);
+                    String tokenTemp = redisService.getToken(hashMap.get("studentNumber"));
+                    /**验证token是否有效**/
+                    if (null != tokenTemp && token.equals(tokenTemp)){
+                        //将信息封装到请求头
+                        modifyHeaders(hashMap,request);
+                        status = true;
+                    }
+                }catch (Exception e){
+                    log.info("Token异常",e);
+                    return false;
+                }
+            }
+            log.info("status的值为{}",status);
+            return status;
+        } else {
+            return true;
+        }
     }
     @Override
     public void postHandle(HttpServletRequest request,

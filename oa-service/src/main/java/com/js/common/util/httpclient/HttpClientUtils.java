@@ -167,13 +167,6 @@ public class HttpClientUtils {
          */
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(CONNECT_TIMEOUT).setSocketTimeout(SOCKET_TIMEOUT).build();
         httpPost.setConfig(requestConfig);
-        // 设置请求头
-/*        httpPost.setHeader("Cookie", "");
-        httpPost.setHeader("Connection", "keep-alive");
-        httpPost.setHeader("Accept", "application/json");
-        httpPost.setHeader("Accept-Language", "zh-CN,zh;q=0.9");
-        httpPost.setHeader("Accept-Encoding", "gzip, deflate, br");
-        httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");*/
         packageHeader(headers, httpPost);
         
         // 封装请求参数
@@ -258,7 +251,7 @@ public class HttpClientUtils {
      */
     public static HttpClientResult doDelete(String url, Map<String, String> params) throws Exception {
         if (params == null) {
-            params = new HashMap<String, String>(8);
+            params = new HashMap<>(8);
         }
 
         params.put("_method", "delete");
@@ -292,7 +285,7 @@ public class HttpClientUtils {
             throws UnsupportedEncodingException {
         // 封装请求参数
         if (params != null) {
-            List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+            List<NameValuePair> nvps = new ArrayList<>();
             Set<Entry<String, String>> entrySet = params.entrySet();
             for (Entry<String, String> entry : entrySet) {
                 nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));

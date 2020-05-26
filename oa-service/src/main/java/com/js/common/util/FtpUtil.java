@@ -1,6 +1,7 @@
 package com.js.common.util;
 
 import com.js.common.exception.SystemException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author: simon
  * @date: 2019/7/3 14:37
  */
+@Slf4j
 public class FtpUtil {
     /**
      * 字符集
@@ -360,7 +362,7 @@ public class FtpUtil {
         try {
             return ftpClient.changeWorkingDirectory(dir);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info("工具类出现异常{}",e);
         }
         return false;
     }

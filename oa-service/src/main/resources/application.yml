@@ -33,8 +33,7 @@ oa:
   config:
     username: ${spring.mail.username}
     default-encoding: ${spring.mail.default-encoding}
-#    节目文件上传路径
-    upfilePath:
+
 mybatis:
   typeAliasesPackage: ${application.base-package}.pojo, ${application.base-package}.vo, ${application.base-package}.dto
   mapper-locations: classpath:mapper/*/*.xml,classpath:mapper/*.xml

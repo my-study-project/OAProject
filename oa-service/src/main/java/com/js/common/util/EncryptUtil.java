@@ -2,6 +2,7 @@ package com.js.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
@@ -23,9 +24,13 @@ import javax.crypto.spec.DESKeySpec;
 @Slf4j
 public final class EncryptUtil {
 
+    public EncryptUtil() {
+
+    }
+
     private static final String PASSWORD_CRYPT_KEY = "88444488";
 
-    private static final  String DES = "DES";
+    private static final  String DES = "DES/ECB/PKCS5Padding";
 
     private static final Integer EVEN = 2;
 
@@ -88,7 +93,7 @@ public final class EncryptUtil {
         String encryptText = null;
         try {
             MessageDigest m = MessageDigest.getInstance(algorithmName);
-            m.update(src.getBytes("UTF8"));
+            m.update(src.getBytes(StandardCharsets.UTF_8));
             byte[] s = m.digest();
             return hex(s);
         } catch (Exception e) {
@@ -122,6 +127,7 @@ public final class EncryptUtil {
         try {
             return byte2hex(encrypt(src.getBytes(), PASSWORD_CRYPT_KEY.getBytes()));
         } catch (Exception e) {
+            log.info("产生异常为{}",e);
         }
         return null;
     }
