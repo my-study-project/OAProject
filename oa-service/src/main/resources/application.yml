@@ -23,9 +23,18 @@ spring:
     username: 2545251075@qq.com
     password: grqpjixakusedicc
     default-encoding: utf-8
+
 application:
   base-package: com.js
 
+
+#    系统自定义配置相关信息我的系统文件读取默认实在oa.config下，为了便于维护一些属性直接引用
+oa:
+  config:
+    username: ${spring.mail.username}
+    default-encoding: ${spring.mail.default-encoding}
+#    节目文件上传路径
+    upfilePath:
 mybatis:
   typeAliasesPackage: ${application.base-package}.pojo, ${application.base-package}.vo, ${application.base-package}.dto
   mapper-locations: classpath:mapper/*/*.xml,classpath:mapper/*.xml

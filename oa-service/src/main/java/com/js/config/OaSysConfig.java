@@ -11,9 +11,15 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "spring.mail")
+@ConfigurationProperties(prefix = "oa.config")
 public class OaSysConfig {
 
     /**邮件发送者**/
     private String username;
+
+    /**编码格式**/
+    private String defaultEncoding;
+
+    /**节目文件上传路径**/
+    private String upfilePath;
 }

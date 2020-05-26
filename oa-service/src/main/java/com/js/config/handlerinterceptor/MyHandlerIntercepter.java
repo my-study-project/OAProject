@@ -2,6 +2,7 @@ package com.js.config.handlerinterceptor;
 
 
 import com.js.common.util.TokenUtil;
+import com.js.config.OaSysConfig;
 import com.js.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.MimeHeaders;
@@ -28,13 +29,16 @@ import java.util.Map;
 public class MyHandlerIntercepter implements HandlerInterceptor {
     @Autowired
     private RedisService redisService;
+
+    @Autowired
+    private OaSysConfig oaSysConfig;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         log.info("执行preHandle方法-->01");
 //        boolean status = false;
-//        response.setCharacterEncoding("utf-8");
-//        String token = request.getHeader("Token");
+//        response.setCharacterEncoding(oaSysConfig.getDefaultEncoding());
+//        String token = request.getHeader("token");
 //        if (null != token) {
 //            HashMap<String,String> hashMap = new HashMap<>(8);
 //            try{
