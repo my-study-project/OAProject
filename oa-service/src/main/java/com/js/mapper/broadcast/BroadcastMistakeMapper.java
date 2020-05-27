@@ -14,12 +14,12 @@ import java.util.List;
 @Mapper
 public interface BroadcastMistakeMapper {
     /**
-     *  删除操作
+     * 删除操作
      **/
     int deleteBroadcastMistake(@Param("uuid") String uuid);
 
     /**
-     *  添加操作
+     * 添加操作
      **/
     int addBroadcastMistake(BroadcastMistake broadcastMistake);
 
@@ -29,12 +29,12 @@ public interface BroadcastMistakeMapper {
     BroadcastMistake getBroadcastMistakeById(@Param("uuid") String uuid);
 
     /**
-     *  修改操作
+     * 修改操作
      **/
     int editBroadcastMistake(BroadcastMistake broadcastMistake);
 
     /**
-     *  根据条件查询操作
+     * 根据条件查询操作
      **/
     List<BroadcastMistake> getBroadcastMistakeByMess(BroadcastMistake broadcastMistake);
 

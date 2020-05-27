@@ -13,24 +13,24 @@ import java.util.Date;
 @Data
 @ToString
 public class BroadcastSignInDto extends BasePageDto {
-    /**主键**/
+    /** 主键 **/
     private String uuid;
 
-    /**节目id**/
+    /** 节目id **/
     private String programId;
 
-    /**签到人**/
+    /** 签到人 **/
     private String userId;
 
-    /**签到时间**/
+    /** 签到时间 **/
     private Date createData;
 
-    /**当前所处教学周**/
+    /** 当前所处教学周 **/
     private Integer teachingWeek;
 
-    /**当前所处年度**/
+    /** 当前所处年度 **/
     private String academicYear;
 
-    /**当前年度第几学期**/
+    /** 当前年度第几学期 **/
     private String academicTerm;
 }

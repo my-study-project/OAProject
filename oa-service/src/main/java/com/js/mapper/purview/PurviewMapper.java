@@ -12,16 +12,16 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PurviewMapper {
 
-    /**删除操作**/
+    /** 删除操作 **/
     int deletePurview(@Param("user_id") String userId);
 
-    /**添加操作**/
+    /** 添加操作 **/
     int addPurview(Purview purview);
 
-    /**根据用户id查询操作**/
+    /** 根据用户id查询操作 **/
     Purview selectPurviewByUserId(@Param("user_id") String userId);
 
-    /**修改权限操作**/
+    /** 修改权限操作 **/
     int editPurview(Purview purview);
 
 }

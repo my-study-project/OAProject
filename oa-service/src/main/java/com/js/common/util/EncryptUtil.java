@@ -30,7 +30,7 @@ public final class EncryptUtil {
 
     private static final String PASSWORD_CRYPT_KEY = "88444488";
 
-    private static final  String DES = "DES/ECB/PKCS5Padding";
+    private static final String DES = "DES/ECB/PKCS5Padding";
 
     private static final Integer EVEN = 2;
 
@@ -97,7 +97,7 @@ public final class EncryptUtil {
             byte[] s = m.digest();
             return hex(s);
         } catch (Exception e) {
-            log.info("异常信息为{}",e);
+            log.info("异常信息为{}", e);
         }
         return encryptText;
     }
@@ -112,7 +112,7 @@ public final class EncryptUtil {
         try {
             return new String(decrypt(hex2byte(src.getBytes()), PASSWORD_CRYPT_KEY.getBytes()));
         } catch (Exception e) {
-            log.info("加密解密异常{}",e);
+            log.info("加密解密异常{}", e);
         }
         return null;
     }
@@ -127,7 +127,7 @@ public final class EncryptUtil {
         try {
             return byte2hex(encrypt(src.getBytes(), PASSWORD_CRYPT_KEY.getBytes()));
         } catch (Exception e) {
-            log.info("产生异常为{}",e);
+            log.info("产生异常为{}", e);
         }
         return null;
     }
@@ -192,7 +192,7 @@ public final class EncryptUtil {
         byte[] b2 = new byte[b.length / 2];
         for (int n = 0; n < b.length; n += EVEN) {
             String item = new String(b, n, 2);
-            b2[n / 2] = (byte) Integer.parseInt(item, 16);
+            b2[n / 2] = (byte)Integer.parseInt(item, 16);
         }
         return b2;
     }
@@ -209,7 +209,7 @@ public final class EncryptUtil {
         for (int n = 0; n < b.length; n++) {
             stmp = (java.lang.Integer.toHexString(b[n] & 0XFF));
             if (stmp.length() == 1) {
-                sb = sb.append("0" ).append(stmp);
+                sb = sb.append("0").append(stmp);
             } else {
                 sb = sb.append(stmp);
             }

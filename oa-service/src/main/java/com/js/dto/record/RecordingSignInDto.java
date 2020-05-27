@@ -11,13 +11,13 @@ import lombok.ToString;
 @Data
 @ToString
 public class RecordingSignInDto extends BasePageDto {
-    /** 主键**/
+    /** 主键 **/
     private String uuid;
 
     /** 用户名 **/
     private String userId;
 
-    /**1:第一录音室2：第二录音室 **/
+    /** 1:第一录音室2：第二录音室 **/
     private String recordingRoom;
 
 }

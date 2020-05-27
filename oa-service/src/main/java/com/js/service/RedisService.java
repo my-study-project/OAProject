@@ -21,8 +21,8 @@ public class RedisService {
     /**
      * 用户登录
      **/
-    public void login(String studentNumber,String token) {
-        redisTemplate.opsForValue().set(studentNumber,token);
+    public void login(String studentNumber, String token) {
+        redisTemplate.opsForValue().set(studentNumber, token);
         redisTemplate.expire(studentNumber, 15, TimeUnit.MINUTES);
     }
 
@@ -34,26 +34,26 @@ public class RedisService {
     }
 
     /**
-     *获取登陆用户的Token
+     * 获取登陆用户的Token
      **/
     public String getToken(String studentNumber) {
-        log.info("查询用户学号{}",studentNumber);
+        log.info("查询用户学号{}", studentNumber);
         return redisTemplate.opsForValue().get(studentNumber).toString();
     }
 
     /**
      * 邮箱验证码验证
      **/
-    public void setMailCode(String studentNumber,String code) {
-        redisTemplate.opsForValue().set(studentNumber,code);
+    public void setMailCode(String studentNumber, String code) {
+        redisTemplate.opsForValue().set(studentNumber, code);
         redisTemplate.expire(studentNumber, 120, TimeUnit.SECONDS);
     }
 
     /**
      * 用户验证码（修改密码时使用）
      **/
-    public void rePassCode(String studentNumber,String code) {
-        redisTemplate.opsForValue().set("oa" + studentNumber,code);
+    public void rePassCode(String studentNumber, String code) {
+        redisTemplate.opsForValue().set("oa" + studentNumber, code);
         redisTemplate.expire("oa" + studentNumber, 2, TimeUnit.MINUTES);
     }
 

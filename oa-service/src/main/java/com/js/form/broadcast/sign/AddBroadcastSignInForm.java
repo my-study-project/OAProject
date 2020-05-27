@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  **/
 @Data
 @ToString
-public class AddBroadcastSignInForm{
+public class AddBroadcastSignInForm {
 
     @ApiModelProperty("节目id")
     @NotNull(message = "节目id不可以为空")

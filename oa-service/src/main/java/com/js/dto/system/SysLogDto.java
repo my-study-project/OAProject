@@ -12,7 +12,7 @@ import java.util.Date;
  **/
 @ToString
 @Data
-public class SysLogDto extends BasePageDto{
+public class SysLogDto extends BasePageDto {
 
     @ApiModelProperty("日志主键")
     private String uuid;

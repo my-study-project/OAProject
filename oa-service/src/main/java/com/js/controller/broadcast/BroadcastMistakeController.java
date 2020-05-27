@@ -19,7 +19,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  * @Author: jiangshuang
  * @Description: 节目错误相关操作Controller
@@ -38,51 +37,51 @@ public class BroadcastMistakeController {
     @ApiOperation(value = "删除放音错误操作", notes = "删除放音错误操作")
     @Log(value = "删除放音错误操作")
     public BaseResponse<String> deleteBroadcastMistake(@RequestParam("uuid") String uuid) {
-        log.info("删除放音错误操作人参为{}",uuid);
+        log.info("删除放音错误操作人参为{}", uuid);
         int result = 0;
-        try{
+        try {
             result = broadcastMistakeService.deleteBroadcastMistake(uuid);
-        }catch (Exception e){
-            log.info("用户删除放音失败{}",e);
+        } catch (Exception e) {
+            log.info("用户删除放音失败{}", e);
             throw new SystemException("用户删除放音失败");
         }
-        if (result  > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"删除成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "删除成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"删除失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "删除失败");
     }
 
-    /**添加**/
+    /** 添加 **/
     @PostMapping("/add")
     @ApiOperation(value = "添加放音错误操作", notes = "添加放音错误操作")
     @Log(value = "添加放音错误操作")
-    public BaseResponse<String> addBroadcastMistake(@RequestBody AddBroadcastMistakeForm addBroadcastMistakeForm){
-        log.info("添加放音错误操作人参为{}",addBroadcastMistakeForm.toString());
+    public BaseResponse<String> addBroadcastMistake(@RequestBody AddBroadcastMistakeForm addBroadcastMistakeForm) {
+        log.info("添加放音错误操作人参为{}", addBroadcastMistakeForm.toString());
         BroadcastMistakeDto broadcastMistakeDto = new BroadcastMistakeDto();
-        BeanUtils.copyProperties(addBroadcastMistakeForm,broadcastMistakeDto);
+        BeanUtils.copyProperties(addBroadcastMistakeForm, broadcastMistakeDto);
         int result = 0;
-        try{
+        try {
             result = broadcastMistakeService.addBroadcastMistake(broadcastMistakeDto);
-        }catch (Exception e){
-            log.info("添加放音错误操作失败{}",e);
+        } catch (Exception e) {
+            log.info("添加放音错误操作失败{}", e);
             throw new SystemException("添加放音错误操作失败");
         }
-        if (result  > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"添加错误成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "添加错误成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"添加错误失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "添加错误失败");
     }
 
     @GetMapping("/getById")
     @ApiOperation(value = "根据主键查询放音错误操作", notes = "根据主键查询放音错误操作")
     @Log(value = "根据主键查询放音错误操作")
-    public BaseResponse<BroadcastMistakeVo> getBroadcastMistakeById(@Param("uuid") String uuid){
+    public BaseResponse<BroadcastMistakeVo> getBroadcastMistakeById(@Param("uuid") String uuid) {
         BroadcastMistakeVo broadcastMistakeVo = null;
-        try{
+        try {
             broadcastMistakeVo = broadcastMistakeService.getBroadcastMistakeById(uuid);
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),broadcastMistakeVo);
-        }catch (Exception e){
-            log.info("根据主键查询失败{}",e);
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), broadcastMistakeVo);
+        } catch (Exception e) {
+            log.info("根据主键查询失败{}", e);
             throw new SystemException("根据主键查询失败");
         }
     }
@@ -90,37 +89,38 @@ public class BroadcastMistakeController {
     @PostMapping("/edit")
     @ApiOperation(value = "修改放音错误操作", notes = "修改放音错误操作")
     @Log(value = "修改放音错误操作")
-    public BaseResponse<String> editBroadcastMistake(@RequestBody EditBroadcastMistakeForm editBroadcastMistakeForm){
-        log.info("修改放音错误操作人参为{}",editBroadcastMistakeForm.toString());
+    public BaseResponse<String> editBroadcastMistake(@RequestBody EditBroadcastMistakeForm editBroadcastMistakeForm) {
+        log.info("修改放音错误操作人参为{}", editBroadcastMistakeForm.toString());
         BroadcastMistakeDto broadcastMistakeDto = new BroadcastMistakeDto();
-        BeanUtils.copyProperties(editBroadcastMistakeForm,broadcastMistakeDto);
+        BeanUtils.copyProperties(editBroadcastMistakeForm, broadcastMistakeDto);
         int result = 0;
-        try{
+        try {
             result = broadcastMistakeService.editBroadcastMistake(broadcastMistakeDto);
-        }catch (Exception e){
-            log.info("修改放音错误操作失败{}",e);
+        } catch (Exception e) {
+            log.info("修改放音错误操作失败{}", e);
             throw new SystemException("修改放音错误操作失败");
         }
-        if (result  > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"修改错误成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "修改错误成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"修改错误失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "修改错误失败");
     }
 
-    /**根据条件查询操作**/
+    /** 根据条件查询操作 **/
     @PostMapping("/list")
     @ApiOperation(value = "根据条件查询操作放音错误操作", notes = "根据条件查询操作放音错误操作")
     @Log(value = "根据条件查询操作放音错误操作")
-    public BaseResponse<PageInfo<BroadcastMistakeVo>> getBroadcastMistakeByMess(@RequestBody BroadcastMistakeForm broadcastMistakeForm){
-        log.info("根据条件查询操作放音错误操作入参为{}",broadcastMistakeForm.toString());
+    public BaseResponse<PageInfo<BroadcastMistakeVo>>
+        getBroadcastMistakeByMess(@RequestBody BroadcastMistakeForm broadcastMistakeForm) {
+        log.info("根据条件查询操作放音错误操作入参为{}", broadcastMistakeForm.toString());
         BroadcastMistakeDto broadcastMistakeDto = new BroadcastMistakeDto();
-        BeanUtils.copyProperties(broadcastMistakeForm,broadcastMistakeDto);
+        BeanUtils.copyProperties(broadcastMistakeForm, broadcastMistakeDto);
         PageInfo<BroadcastMistakeVo> pageInfo = new PageInfo<>();
-        try{
+        try {
             pageInfo = broadcastMistakeService.getBroadcastMistakeByMess(broadcastMistakeDto);
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),pageInfo);
-        }catch (Exception e){
-            log.info("条件查询操作失败{}",e);
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), pageInfo);
+        } catch (Exception e) {
+            log.info("条件查询操作失败{}", e);
             throw new SystemException("条件查询操作失败");
         }
     }

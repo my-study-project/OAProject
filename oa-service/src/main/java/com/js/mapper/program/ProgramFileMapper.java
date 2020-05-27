@@ -12,16 +12,16 @@ import java.util.List;
  **/
 @Mapper
 public interface ProgramFileMapper {
-    /**删除操作**/
+    /** 删除操作 **/
     int deleteProgramFile(String uuid);
 
-    /**添加节目文件操作**/
+    /** 添加节目文件操作 **/
     int addProgramFile(ProgramFile programFile);
 
-    /**根据条件查询操作**/
+    /** 根据条件查询操作 **/
     List<ProgramFile> getProgramFileByMess(ProgramFile programFile);
 
-    /**删除操作**/
+    /** 删除操作 **/
     int editProgramFile(ProgramFile programFile);
 
 }

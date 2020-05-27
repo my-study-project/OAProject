@@ -34,20 +34,20 @@ public class PurviewController {
     @PostMapping("add")
     @ApiOperation(value = "添加用户权限", notes = "添加用户权限")
     @Log(value = "添加用户权限")
-    public BaseResponse<String>  addPurview(@RequestBody @Validated AddPurviewForm addPurviewForm){
-        log.info("添加用户权限入参{}",addPurviewForm.toString());
+    public BaseResponse<String> addPurview(@RequestBody @Validated AddPurviewForm addPurviewForm) {
+        log.info("添加用户权限入参{}", addPurviewForm.toString());
         PurviewDto purviewDto = new PurviewDto();
-        BeanUtils.copyProperties(addPurviewForm,purviewDto);
+        BeanUtils.copyProperties(addPurviewForm, purviewDto);
         int result = 0;
-        try{
+        try {
             result = purviewService.addPurview(purviewDto);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new SystemException("添加用户权限失败");
         }
-        if (result > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"添加用户权限成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "添加用户权限成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"添加用户权限失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "添加用户权限失败");
     }
 
     @GetMapping("getById")
@@ -55,33 +55,33 @@ public class PurviewController {
     @Log(value = "根据用户id查询操作")
     public BaseResponse<PurviewVo> selectPurviewByUserId(@RequestParam("userId") String userId) {
         PurviewVo purviewVo = new PurviewVo();
-        try{
+        try {
             purviewService.selectPurviewByUserId(userId);
-        }catch (Exception e){
-            log.info("查询出现的异常为{}",e);
+        } catch (Exception e) {
+            log.info("查询出现的异常为{}", e);
             throw new SystemException("查询失败");
         }
-        return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),purviewVo);
+        return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), purviewVo);
     }
 
-    /**修改权限操作**/
+    /** 修改权限操作 **/
     @PostMapping("edit")
     @ApiOperation(value = "修改权限操作", notes = "修改权限操作")
     @Log(value = "修改权限操作")
     public BaseResponse<String> editPurview(@RequestBody @Validated EditPurviewForm editPurviewForm) {
-        log.info("添加用户权限入参{}",editPurviewForm.toString());
+        log.info("添加用户权限入参{}", editPurviewForm.toString());
         PurviewDto purviewDto = new PurviewDto();
         int result = 0;
-        try{
+        try {
             result = purviewService.editPurview(purviewDto);
-        }catch (Exception e){
-            log.info("查询出现的异常为{}",e);
+        } catch (Exception e) {
+            log.info("查询出现的异常为{}", e);
             throw new SystemException("查询失败");
         }
-        if (result > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"修改用户权限成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "修改用户权限成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"修改用户权限失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "修改用户权限失败");
     }
 
 }

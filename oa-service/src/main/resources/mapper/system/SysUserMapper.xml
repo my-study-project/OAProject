@@ -1,150 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.js.mapper.system.SysUserMapper">
-  <resultMap id="BaseResultMap" type="com.js.pojo.system.SysUser">
-    <result column="student_number" property="studentNumber" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="college" property="college" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
-    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
-    <result column="is_alive" property="isAlive" jdbcType="CHAR" />
-    <result column="is_super" property="isSuper" jdbcType="CHAR" />
-    <result column="master" property="master" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="User_Base_Colmon">
+    <resultMap id="BaseResultMap" type="com.js.pojo.system.SysUser">
+        <result column="student_number" property="studentNumber" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="college" property="college" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR"/>
+        <result column="group_id" property="groupId" jdbcType="VARCHAR"/>
+        <result column="is_alive" property="isAlive" jdbcType="CHAR"/>
+        <result column="is_super" property="isSuper" jdbcType="CHAR"/>
+        <result column="master" property="master" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="User_Base_Colmon">
 	  student_number,name,college,email,phone_number,group_id,is_alive,is_super,master
   </sql>
-  <sql id="Login_User_Base_Colmon">
+    <sql id="Login_User_Base_Colmon">
 	  student_number,password,name,college,email,phone_number,group_id,is_alive,is_super,master
   </sql>
-  <update id="editSysUser" parameterType="com.js.pojo.system.SysUser">
-    update sys_user
-    <set>
-      <if test="name != null">
-        name = #{name},
-      </if>
-      <if test="college != null">
-        college = #{college},
-      </if>
-      <if test="email != null">
-        email = #{email},
-      </if>
-      <if test="phoneNumber != null">
-        phone_number = #{phoneNumber},
-      </if>
-      <if test="groupId != null">
-        group_id = #{groupId},
-      </if>
-      <if test="isAlive != null">
-        is_alive = #{isAlive},
-      </if>
-      <if test="master != null">
-        master = #{master},
-      </if>
-    </set>
-    where student_number = #{studentNumber,jdbcType=VARCHAR}
-  </update>
-  <select id="getUserById" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Login_User_Base_Colmon" />
-    from sys_user
-    where student_number = #{studentNumber}
-  </select>
-  <select id="getUserAllList" parameterType="com.js.pojo.system.SysUser" resultMap="BaseResultMap">
-    select
-    <include refid="User_Base_Colmon" />
-    from sys_user
-    <where>
-      <if test="name != null">
-        and name = #{name}
-      </if>
-      <if test="college != null">
-        and college = #{college}
-      </if>
-      <if test="email != null">
-        and email = #{email}
-      </if>
-      <if test="phoneNumber != null">
-        and phone_number = #{phoneNumber}
-      </if>
-      <if test="groupId != null">
-        and group_id = #{groupId}
-      </if>
-      <if test="isAlive != null">
-        and is_alive = #{isAlive}
-      </if>
-      <if test="master != null">
-        and master = #{master}
-      </if>
-    </where>
-  </select>
-  <insert id="addSysUser" parameterType="com.js.pojo.system.SysUser">
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="studentNumber != null">
-        student_number,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="college != null">
-        college,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="phoneNumber != null">
-        phone_number,
-      </if>
-      <if test="groupId != null">
-        group_id,
-      </if>
-      <if test="isAlive != null">
-        is_alive,
-      </if>
-      <if test="isSuper != null">
-        is_super,
-      </if>
-      <if test="master != null">
-        master,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="studentNumber != null">
-        #{studentNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="college != null">
-        #{college,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="groupId != null">
-        #{groupId,jdbcType=VARCHAR},
-      </if>
-      <if test="isAlive != null">
-        #{isAlive,jdbcType=CHAR},
-      </if>
-      <if test="isSuper != null">
-        #{isSuper,jdbcType=CHAR},
-      </if>
-      <if test="master != null">
-        #{master,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+    <update id="editSysUser" parameterType="com.js.pojo.system.SysUser">
+        update sys_user
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="college != null">
+                college = #{college},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="groupId != null">
+                group_id = #{groupId},
+            </if>
+            <if test="isAlive != null">
+                is_alive = #{isAlive},
+            </if>
+            <if test="master != null">
+                master = #{master},
+            </if>
+        </set>
+        where student_number = #{studentNumber,jdbcType=VARCHAR}
+    </update>
+    <select id="getUserById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Login_User_Base_Colmon"/>
+        from sys_user
+        where student_number = #{studentNumber}
+    </select>
+    <select id="getUserAllList" parameterType="com.js.pojo.system.SysUser" resultMap="BaseResultMap">
+        select
+        <include refid="User_Base_Colmon"/>
+        from sys_user
+        <where>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="college != null">
+                and college = #{college}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
+            <if test="phoneNumber != null">
+                and phone_number = #{phoneNumber}
+            </if>
+            <if test="groupId != null">
+                and group_id = #{groupId}
+            </if>
+            <if test="isAlive != null">
+                and is_alive = #{isAlive}
+            </if>
+            <if test="master != null">
+                and master = #{master}
+            </if>
+        </where>
+    </select>
+    <insert id="addSysUser" parameterType="com.js.pojo.system.SysUser">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentNumber != null">
+                student_number,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="college != null">
+                college,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="isAlive != null">
+                is_alive,
+            </if>
+            <if test="isSuper != null">
+                is_super,
+            </if>
+            <if test="master != null">
+                master,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentNumber != null">
+                #{studentNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="college != null">
+                #{college,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="isAlive != null">
+                #{isAlive,jdbcType=CHAR},
+            </if>
+            <if test="isSuper != null">
+                #{isSuper,jdbcType=CHAR},
+            </if>
+            <if test="master != null">
+                #{master,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

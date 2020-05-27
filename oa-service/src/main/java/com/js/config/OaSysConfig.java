@@ -14,15 +14,15 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "oa.config")
 public class OaSysConfig {
 
-    /**邮件发送者**/
+    /** 邮件发送者 **/
     private String username;
 
-    /**编码格式**/
+    /** 编码格式 **/
     private String defaultEncoding;
 
-    /**节目文件上传路径**/
+    /** 节目文件上传路径 **/
     private String upfilePath;
 
-    /**配置开发环境拦截器开关**/
+    /** 配置开发环境拦截器开关 **/
     private Boolean interceptorSwitch = false;
 }

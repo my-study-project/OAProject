@@ -17,7 +17,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-#    这里采用的QQ邮箱测试
+  #    这里采用的QQ邮箱测试
   mail:
     host: smtp.qq.com
     username: 2545251075@qq.com

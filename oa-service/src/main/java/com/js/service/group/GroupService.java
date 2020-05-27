@@ -25,24 +25,24 @@ public class GroupService {
     @Autowired
     private GroupMapper groupMapper;
 
-    /**添加组别**/
-    public int addGroup(GroupDto groupDto){
+    /** 添加组别 **/
+    public int addGroup(GroupDto groupDto) {
         Group group = new Group();
-        BeanUtils.copyProperties(groupDto,group);
+        BeanUtils.copyProperties(groupDto, group);
         group.setUuid(IdUtils.get32Uuid());
         return groupMapper.addGroup(group);
     }
 
-    /**根据条件查询组别**/
+    /** 根据条件查询组别 **/
     public List<GroupVo> getGroupByMess(GroupDto groupDto) {
-        log.info("根据条件查询入参{}",groupDto);
+        log.info("根据条件查询入参{}", groupDto);
         Group group = new Group();
-        BeanUtils.copyProperties(groupDto,group);
+        BeanUtils.copyProperties(groupDto, group);
         List<GroupVo> groupVos = new ArrayList<>();
         List<Group> groups = groupMapper.getGroupByMess(group);
         groups.forEach(groupTemp -> {
             GroupVo groupVo = new GroupVo();
-            BeanUtils.copyProperties(groupTemp,groupVo);
+            BeanUtils.copyProperties(groupTemp, groupVo);
             if (GroupEnum.HAVING_PROGRAM.getCode().equals(groupVo.getHasProgram())) {
                 groupVo.setHasProgram(GroupEnum.HAVING_PROGRAM.getMsg());
             } else {
@@ -58,19 +58,18 @@ public class GroupService {
         return groupVos;
     }
 
-
-    /**根据主键查询操作**/
+    /** 根据主键查询操作 **/
     public GroupVo getGroupByUuid(String uuid) {
         GroupVo groupVo = new GroupVo();
         Group group = groupMapper.getGroupByUuid(uuid);
-        BeanUtils.copyProperties(group,groupVo);
+        BeanUtils.copyProperties(group, groupVo);
         return groupVo;
     }
 
-    /**修改操作**/
+    /** 修改操作 **/
     public int editGroup(GroupDto groupDto) {
         Group group = new Group();
-        BeanUtils.copyProperties(groupDto,group);
+        BeanUtils.copyProperties(groupDto, group);
         return groupMapper.editGroup(group);
     }
 }

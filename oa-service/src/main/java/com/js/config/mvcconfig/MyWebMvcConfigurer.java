@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
     @Override
-    public void addViewControllers (ViewControllerRegistry registry) {
+    public void addViewControllers(ViewControllerRegistry registry) {
         log.info("添加视图解析器");
     }
 
@@ -26,7 +26,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     /**
      * 不拦截路径
      **/
-    private String[] excludePathPatterns ={"/static/**","/public","/userLogin/**"};
+    private String[] excludePathPatterns = {"/static/**", "/public", "/userLogin/**"};
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

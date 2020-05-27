@@ -28,13 +28,13 @@ import java.util.List;
 @Slf4j
 public class BroadcastSignInService {
 
-    /**当前年度**/
+    /** 当前年度 **/
     private static final String ACADEMIC_YEAR = "ACADEMIC_YEAR";
 
-    /**当前学期**/
+    /** 当前学期 **/
     private static final String ACADEMIC_TERM = "ACADEMIC_TERM";
 
-    /**当前周**/
+    /** 当前周 **/
     private static final String ACADEMIC_WEEK = "ACADEMIC_WEEK";
 
     @Autowired
@@ -43,52 +43,52 @@ public class BroadcastSignInService {
     @Autowired
     private BroadcastSignInMapper broadcastSignInMapper;
 
-    /**添加签到操作**/
+    /** 添加签到操作 **/
     public int addBroadcastSignIn(BroadcastSignInDto broadcastSignInDto) {
         SysConfigDto sysConfigDto = new SysConfigDto();
-        //获取当前学期开始时间
+        // 获取当前学期开始时间
         List<SysConfigVo> sysConfigVoList = sysConfigService.getSysConfigByMess(sysConfigDto);
         BroadcastSignIn broadcastSignIn = new BroadcastSignIn();
-        BeanUtils.copyProperties(broadcastSignInDto,broadcastSignIn);
+        BeanUtils.copyProperties(broadcastSignInDto, broadcastSignIn);
         broadcastSignIn.setUuid(IdUtils.get32Uuid());
-        sysConfigVoList.forEach(sysConfigVo ->{
-            if (ACADEMIC_YEAR.equals(sysConfigVo.getName())){
+        sysConfigVoList.forEach(sysConfigVo -> {
+            if (ACADEMIC_YEAR.equals(sysConfigVo.getName())) {
                 broadcastSignIn.setAcademicYear(sysConfigVo.getValue());
-            }else if(ACADEMIC_TERM.equals(sysConfigVo.getName())){
+            } else if (ACADEMIC_TERM.equals(sysConfigVo.getName())) {
                 broadcastSignIn.setAcademicTerm(sysConfigVo.getValue());
-            }else if(ACADEMIC_WEEK.equals(sysConfigVo.getName())){
+            } else if (ACADEMIC_WEEK.equals(sysConfigVo.getName())) {
                 broadcastSignIn.setTeachingWeek(Integer.valueOf(sysConfigVo.getValue()));
             }
         });
         List<BroadcastSignIn> broadcastSignInList = broadcastSignInMapper.getBroadcastSignInByMess(broadcastSignIn);
-        if (broadcastSignInList.isEmpty()){
+        if (broadcastSignInList.isEmpty()) {
             broadcastSignInMapper.addBroadcastSignIn(broadcastSignIn);
             return 1;
-        }else{
+        } else {
             throw new SystemException("当前节目已完成签到，无需二次签到");
         }
     }
 
-    /**根据条件查询查询签到操作**/
+    /** 根据条件查询查询签到操作 **/
     public PageInfo<BroadcastSignInVo> getBroadcastSignInByMess(BroadcastSignInDto broadcastSignInDto) {
-        log.info("条件查询节目入参={}",broadcastSignInDto.toString());
-        PageHelper.startPage(broadcastSignInDto.getOffset(),broadcastSignInDto.getLimit());
-        /**条件查询入参**/
+        log.info("条件查询节目入参={}", broadcastSignInDto.toString());
+        PageHelper.startPage(broadcastSignInDto.getOffset(), broadcastSignInDto.getLimit());
+        /** 条件查询入参 **/
         BroadcastSignIn broadcastSignIn = new BroadcastSignIn();
         List<BroadcastSignInVo> broadcastSignInVoList = new ArrayList<>();
-        try{
+        try {
             List<BroadcastSignIn> broadcastSignInList = broadcastSignInMapper.getBroadcastSignInByMess(broadcastSignIn);
             PageInfo<BroadcastSignIn> broadcastSignInPageInfo = new PageInfo<>(broadcastSignInList);
             PageInfo<BroadcastSignInVo> broadcastSignInVoPageInfo = new PageInfo<>();
-            BeanUtils.copyProperties(broadcastSignInPageInfo,broadcastSignInVoPageInfo);
+            BeanUtils.copyProperties(broadcastSignInPageInfo, broadcastSignInVoPageInfo);
             broadcastSignInList.forEach(broadcastSignInTemp -> {
                 BroadcastSignInVo broadcastSignInVo = new BroadcastSignInVo();
-                BeanUtils.copyProperties(broadcastSignInTemp,broadcastSignInVo);
+                BeanUtils.copyProperties(broadcastSignInTemp, broadcastSignInVo);
                 broadcastSignInVoList.add(broadcastSignInVo);
             });
             broadcastSignInVoPageInfo.setList(broadcastSignInVoList);
             return broadcastSignInVoPageInfo;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new SystemException("查询签到失败");
         }
     }

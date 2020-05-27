@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
-
 /**
  * @Author: jiangshuang
  * @Description: 条件查询Form

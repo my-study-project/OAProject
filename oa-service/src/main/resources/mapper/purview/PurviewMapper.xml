@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.js.mapper.purview.PurviewMapper">
-  <resultMap id="BaseResultMap" type="com.js.pojo.purview.Purview">
-    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="manage_sign" property="manageSign" jdbcType="CHAR" />
-    <result column="submit_broadcast_mistake" property="submitBroadcastMistake" jdbcType="CHAR" />
-    <result column="manage_broadcast_mistake" property="manageBroadcastMistake" jdbcType="CHAR" />
-    <result column="evaluate_program" property="evaluateProgram" jdbcType="CHAR" />
-    <result column="manage_program_evaluation" property="manageProgramEvaluation" jdbcType="CHAR" />
-    <result column="manage_system_config" property="manageSystemConfig" jdbcType="CHAR" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.js.pojo.purview.Purview">
+        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="manage_sign" property="manageSign" jdbcType="CHAR"/>
+        <result column="submit_broadcast_mistake" property="submitBroadcastMistake" jdbcType="CHAR"/>
+        <result column="manage_broadcast_mistake" property="manageBroadcastMistake" jdbcType="CHAR"/>
+        <result column="evaluate_program" property="evaluateProgram" jdbcType="CHAR"/>
+        <result column="manage_program_evaluation" property="manageProgramEvaluation" jdbcType="CHAR"/>
+        <result column="manage_system_config" property="manageSystemConfig" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
 		uuid, user_id, manage_sign, submit_broadcast_mistake, manage_broadcast_mistake, evaluate_program,
 		manage_program_evaluation, manage_system_config
 	</sql>
-  <select id="selectPurviewByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select
-    <include refid="Base_Column_List" />
-    from purview
-    where user_id = #{userId}
-  </select>
-  <delete id="deletePurview" parameterType="java.lang.String">
+    <select id="selectPurviewByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from purview
+        where user_id = #{userId}
+    </select>
+    <delete id="deletePurview" parameterType="java.lang.String">
 		delete from purview
 		where user_id = #{userId,jdbcType=VARCHAR}
 	</delete>
-  <insert id="addPurview" parameterType="com.js.pojo.purview.Purview">
-    insert into purview
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        uuid,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="manageSign != null">
-        manage_sign,
-      </if>
-      <if test="submitBroadcastMistake != null">
-        submit_broadcast_mistake,
-      </if>
-      <if test="manageBroadcastMistake != null">
-        manage_broadcast_mistake,
-      </if>
-      <if test="evaluateProgram != null">
-        evaluate_program,
-      </if>
-      <if test="manageProgramEvaluation != null">
-        manage_program_evaluation,
-      </if>
-      <if test="manageSystemConfig != null">
-        manage_system_config,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        #{uuid,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="manageSign != null">
-        #{manageSign,jdbcType=CHAR},
-      </if>
-      <if test="submitBroadcastMistake != null">
-        #{submitBroadcastMistake,jdbcType=CHAR},
-      </if>
-      <if test="manageBroadcastMistake != null">
-        #{manageBroadcastMistake,jdbcType=CHAR},
-      </if>
-      <if test="evaluateProgram != null">
-        #{evaluateProgram,jdbcType=CHAR},
-      </if>
-      <if test="manageProgramEvaluation != null">
-        #{manageProgramEvaluation,jdbcType=CHAR},
-      </if>
-      <if test="manageSystemConfig != null">
-        #{manageSystemConfig,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="editPurview" parameterType="com.js.pojo.purview.Purview">
-    update purview
-    <set>
-      <if test="manageSign != null">
-        manage_sign = #{manageSign,jdbcType=CHAR},
-      </if>
-      <if test="submitBroadcastMistake != null">
-        submit_broadcast_mistake = #{submitBroadcastMistake,jdbcType=CHAR},
-      </if>
-      <if test="manageBroadcastMistake != null">
-        manage_broadcast_mistake = #{manageBroadcastMistake,jdbcType=CHAR},
-      </if>
-      <if test="evaluateProgram != null">
-        evaluate_program = #{evaluateProgram,jdbcType=CHAR},
-      </if>
-      <if test="manageProgramEvaluation != null">
-        manage_program_evaluation = #{manageProgramEvaluation,jdbcType=CHAR},
-      </if>
-      <if test="manageSystemConfig != null">
-        manage_system_config = #{manageSystemConfig,jdbcType=CHAR},
-      </if>
-    </set>
-    where user_id = #{userId,jdbcType=VARCHAR}
-  </update>
+    <insert id="addPurview" parameterType="com.js.pojo.purview.Purview">
+        insert into purview
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="manageSign != null">
+                manage_sign,
+            </if>
+            <if test="submitBroadcastMistake != null">
+                submit_broadcast_mistake,
+            </if>
+            <if test="manageBroadcastMistake != null">
+                manage_broadcast_mistake,
+            </if>
+            <if test="evaluateProgram != null">
+                evaluate_program,
+            </if>
+            <if test="manageProgramEvaluation != null">
+                manage_program_evaluation,
+            </if>
+            <if test="manageSystemConfig != null">
+                manage_system_config,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="manageSign != null">
+                #{manageSign,jdbcType=CHAR},
+            </if>
+            <if test="submitBroadcastMistake != null">
+                #{submitBroadcastMistake,jdbcType=CHAR},
+            </if>
+            <if test="manageBroadcastMistake != null">
+                #{manageBroadcastMistake,jdbcType=CHAR},
+            </if>
+            <if test="evaluateProgram != null">
+                #{evaluateProgram,jdbcType=CHAR},
+            </if>
+            <if test="manageProgramEvaluation != null">
+                #{manageProgramEvaluation,jdbcType=CHAR},
+            </if>
+            <if test="manageSystemConfig != null">
+                #{manageSystemConfig,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="editPurview" parameterType="com.js.pojo.purview.Purview">
+        update purview
+        <set>
+            <if test="manageSign != null">
+                manage_sign = #{manageSign,jdbcType=CHAR},
+            </if>
+            <if test="submitBroadcastMistake != null">
+                submit_broadcast_mistake = #{submitBroadcastMistake,jdbcType=CHAR},
+            </if>
+            <if test="manageBroadcastMistake != null">
+                manage_broadcast_mistake = #{manageBroadcastMistake,jdbcType=CHAR},
+            </if>
+            <if test="evaluateProgram != null">
+                evaluate_program = #{evaluateProgram,jdbcType=CHAR},
+            </if>
+            <if test="manageProgramEvaluation != null">
+                manage_program_evaluation = #{manageProgramEvaluation,jdbcType=CHAR},
+            </if>
+            <if test="manageSystemConfig != null">
+                manage_system_config = #{manageSystemConfig,jdbcType=CHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </update>
 </mapper>

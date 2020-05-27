@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class SysLogService{
+public class SysLogService {
 
     @Autowired
     private SysLogMapper sysLogMapper;
@@ -32,37 +32,37 @@ public class SysLogService{
      **/
     public void addSysLog(SysLogDto sysLogDto) {
         SysLog sysLog = new SysLog();
-        BeanUtils.copyProperties(sysLogDto,sysLog);
+        BeanUtils.copyProperties(sysLogDto, sysLog);
         int result = sysLogMapper.addSysLog(sysLog);
-        log.info("系统执行日志添加功能结果{}",result);
+        log.info("系统执行日志添加功能结果{}", result);
     }
 
     /**
      * 查询系统日志
      **/
     public PageInfo<SysLogVo> showAllLog(Integer offset, Integer limit) {
-        log.info("查询入参为{},{}",offset,limit);
-        PageHelper.startPage(offset,limit);
+        log.info("查询入参为{},{}", offset, limit);
+        PageHelper.startPage(offset, limit);
         List<SysLog> sysLogs = sysLogMapper.showAllLog();
-        log.info("查询结果为{}",sysLogs);
-        //解决转换实体类分页丢失现象
+        log.info("查询结果为{}", sysLogs);
+        // 解决转换实体类分页丢失现象
         PageInfo<SysLog> sysLogPageInfo = new PageInfo<>(sysLogs);
-        if (sysLogs == null){
+        if (sysLogs == null) {
             return null;
         }
         List<SysLogVo> sysLogVoList = new ArrayList<>();
         sysLogs.forEach(sysLog -> {
             SysLogVo sysLogVo = new SysLogVo();
-            BeanUtils.copyProperties(sysLog,sysLogVo);
+            BeanUtils.copyProperties(sysLog, sysLogVo);
             sysLogVoList.add(sysLogVo);
         });
         PageInfo<SysLogVo> sysLogVoPageInfo = null;
-        try{
+        try {
             sysLogVoPageInfo = new PageInfo<>(sysLogVoList);
-            BeanUtils.copyProperties(sysLogPageInfo,sysLogVoPageInfo);
+            BeanUtils.copyProperties(sysLogPageInfo, sysLogVoPageInfo);
             sysLogVoPageInfo.setList(sysLogVoList);
-        }catch (Exception e){
-            log.info("分页出现异常{}",e);
+        } catch (Exception e) {
+            log.info("分页出现异常{}", e);
             throw new SystemException("分页查询出现异常");
         }
         return sysLogVoPageInfo;

@@ -1,111 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.js.mapper.group.GroupMapper">
-  <resultMap id="BaseResultMap" type="com.js.pojo.group.Group">
-    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
-    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
-    <result column="mistake_score" property="mistakeScore" jdbcType="INTEGER" />
-    <result column="program_score" property="programScore" jdbcType="INTEGER" />
-    <result column="leader_user_id" property="leaderUserId" jdbcType="VARCHAR" />
-    <result column="has_program" property="hasProgram" jdbcType="CHAR" />
-    <result column="is_alive" property="isAlive" jdbcType="CHAR" />
-  </resultMap>
-  <sql id="Group_Colmon">
+    <resultMap id="BaseResultMap" type="com.js.pojo.group.Group">
+        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+        <result column="mistake_score" property="mistakeScore" jdbcType="INTEGER"/>
+        <result column="program_score" property="programScore" jdbcType="INTEGER"/>
+        <result column="leader_user_id" property="leaderUserId" jdbcType="VARCHAR"/>
+        <result column="has_program" property="hasProgram" jdbcType="CHAR"/>
+        <result column="is_alive" property="isAlive" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="Group_Colmon">
 		uuid,dept_name,mistake_score,program_score,leader_user_id,has_program,is_alive
 	</sql>
-  <update id="editGroup" parameterType="com.js.pojo.group.Group">
-    update sys_group
-    <set>
-      <if test="deptName != null">
-        dept_name = #{deptName},
-      </if>
-      <if test="mistakeScore != null">
-        mistake_score = #{mistakeScore},
-      </if>
-      <if test="programScore != null">
-        program_score = #{programScore},
-      </if>
-      <if test="leaderUserId != null">
-        leader_user_id = #{leaderUserId},
-      </if>
-      <if test="hasProgram != null">
-        has_program = #{hasProgram},
-      </if>
-      <if test="isAlive != null">
-        is_alive = #{isAlive},
-      </if>
-    </set>
-    where uuid = #{uuid,jdbcType=VARCHAR}
-  </update>
-  <select id="getGroupByUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select
-    <include refid="Group_Colmon" />
-    from sys_group
-    where uuid = #{uuid}
-  </select>
-  <select id="getGroupByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.group.Group">
-    select
-    <include refid="Group_Colmon" />
-    from sys_group
-    <where>
-      <if test="deptName != null">
-        and dept_name = #{deptName}
-      </if>
-      <if test="hasProgram != null">
-        and has_program = #{hasProgram}
-      </if>
-      <if test="isAlive != null">
-        and is_alive = #{isAlive}
-      </if>
-    </where>
-  </select>
-  <insert id="addGroup" parameterType="com.js.pojo.group.Group">
-    insert into sys_group
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        uuid,
-      </if>
-      <if test="deptName != null">
-        dept_name,
-      </if>
-      <if test="mistakeScore != null">
-        mistake_score,
-      </if>
-      <if test="programScore != null">
-        program_score,
-      </if>
-      <if test="leaderUserId != null">
-        leader_user_id,
-      </if>
-      <if test="hasProgram != null">
-        has_program,
-      </if>
-      <if test="isAlive != null">
-        is_alive,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        #{uuid,jdbcType=VARCHAR},
-      </if>
-      <if test="deptName != null">
-        #{deptName,jdbcType=VARCHAR},
-      </if>
-      <if test="mistakeScore != null">
-        #{mistakeScore,jdbcType=INTEGER},
-      </if>
-      <if test="programScore != null">
-        #{programScore,jdbcType=INTEGER},
-      </if>
-      <if test="leaderUserId != null">
-        #{leaderUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="hasProgram != null">
-        #{hasProgram,jdbcType=CHAR},
-      </if>
-      <if test="isAlive != null">
-        #{isAlive,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
+    <update id="editGroup" parameterType="com.js.pojo.group.Group">
+        update sys_group
+        <set>
+            <if test="deptName != null">
+                dept_name = #{deptName},
+            </if>
+            <if test="mistakeScore != null">
+                mistake_score = #{mistakeScore},
+            </if>
+            <if test="programScore != null">
+                program_score = #{programScore},
+            </if>
+            <if test="leaderUserId != null">
+                leader_user_id = #{leaderUserId},
+            </if>
+            <if test="hasProgram != null">
+                has_program = #{hasProgram},
+            </if>
+            <if test="isAlive != null">
+                is_alive = #{isAlive},
+            </if>
+        </set>
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
+    <select id="getGroupByUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Group_Colmon"/>
+        from sys_group
+        where uuid = #{uuid}
+    </select>
+    <select id="getGroupByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.group.Group">
+        select
+        <include refid="Group_Colmon"/>
+        from sys_group
+        <where>
+            <if test="deptName != null">
+                and dept_name = #{deptName}
+            </if>
+            <if test="hasProgram != null">
+                and has_program = #{hasProgram}
+            </if>
+            <if test="isAlive != null">
+                and is_alive = #{isAlive}
+            </if>
+        </where>
+    </select>
+    <insert id="addGroup" parameterType="com.js.pojo.group.Group">
+        insert into sys_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="deptName != null">
+                dept_name,
+            </if>
+            <if test="mistakeScore != null">
+                mistake_score,
+            </if>
+            <if test="programScore != null">
+                program_score,
+            </if>
+            <if test="leaderUserId != null">
+                leader_user_id,
+            </if>
+            <if test="hasProgram != null">
+                has_program,
+            </if>
+            <if test="isAlive != null">
+                is_alive,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="deptName != null">
+                #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test="mistakeScore != null">
+                #{mistakeScore,jdbcType=INTEGER},
+            </if>
+            <if test="programScore != null">
+                #{programScore,jdbcType=INTEGER},
+            </if>
+            <if test="leaderUserId != null">
+                #{leaderUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="hasProgram != null">
+                #{hasProgram,jdbcType=CHAR},
+            </if>
+            <if test="isAlive != null">
+                #{isAlive,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

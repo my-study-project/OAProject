@@ -64,24 +64,33 @@ public class FtpUtil {
     /**
      * 构造函数
      *
-     * @param host     主机名或者ip地址
-     * @param username ftp 用户名
-     * @param password ftp 密码
-     * @param ftpBasePath 初始化时ftp服务器路径
+     * @param host
+     *            主机名或者ip地址
+     * @param username
+     *            ftp 用户名
+     * @param password
+     *            ftp 密码
+     * @param ftpBasePath
+     *            初始化时ftp服务器路径
      */
     private FtpUtil(String host, String username, String password, String ftpBasePath) {
-        this(host, 21, username, password, DEFAULT_CHARSET,ftpBasePath);
+        this(host, 21, username, password, DEFAULT_CHARSET, ftpBasePath);
         setTimeout(DEFAULT_TIMEOUT, DEFAULT_TIMEOUT, DEFAULT_TIMEOUT);
     }
 
     /**
      * 构造函数
      *
-     * @param host     主机名或者ip地址
-     * @param port     ftp 端口
-     * @param username 用户名
-     * @param password 密码
-     * @param ftpBasePath 初始化时ftp服务器路径
+     * @param host
+     *            主机名或者ip地址
+     * @param port
+     *            ftp 端口
+     * @param username
+     *            用户名
+     * @param password
+     *            密码
+     * @param ftpBasePath
+     *            初始化时ftp服务器路径
      */
     private FtpUtil(String host, int port, String username, String password, String charset, String ftpBasePath) {
         ftpClient = new FTPClient();
@@ -96,37 +105,51 @@ public class FtpUtil {
     /**
      * 创建默认的ftp客户端
      *
-     * @param host     主机名或者ip地址
-     * @param username ftp用户名
-     * @param password ftp密码
-     * @param ftpBasePath 初始化时ftp服务器路径
+     * @param host
+     *            主机名或者ip地址
+     * @param username
+     *            ftp用户名
+     * @param password
+     *            ftp密码
+     * @param ftpBasePath
+     *            初始化时ftp服务器路径
      * @return com.siniswift.efb.acars.utils.FTPUtil
      */
     public static FtpUtil createFtpCli(String host, String username, String password, String ftpBasePath) {
-        return new FtpUtil(host, username, password,ftpBasePath);
+        return new FtpUtil(host, username, password, ftpBasePath);
     }
 
     /**
      * 创建自定义属性的ftp客户端
      *
-     * @param host     主机名或者ip地址
-     * @param port     ftp端口
-     * @param username ftp用户名
-     * @param password ftp密码
-     * @param charset  字符集
-     * @param ftpBasePath 初始化时ftp服务器路径
+     * @param host
+     *            主机名或者ip地址
+     * @param port
+     *            ftp端口
+     * @param username
+     *            ftp用户名
+     * @param password
+     *            ftp密码
+     * @param charset
+     *            字符集
+     * @param ftpBasePath
+     *            初始化时ftp服务器路径
      * @return com.siniswift.efb.acars.utils.FTPUtil
      */
-    public static FtpUtil createFtpCli(String host, int port, String username, String password, String charset, String ftpBasePath) {
-        return new FtpUtil(host, port, username, password, charset,ftpBasePath);
+    public static FtpUtil createFtpCli(String host, int port, String username, String password, String charset,
+        String ftpBasePath) {
+        return new FtpUtil(host, port, username, password, charset, ftpBasePath);
     }
 
     /**
      * 设置超时时间
      *
-     * @param defaultTimeout 超时时间
-     * @param connectTimeout 超时时间
-     * @param dataTimeout    超时时间
+     * @param defaultTimeout
+     *            超时时间
+     * @param connectTimeout
+     *            超时时间
+     * @param dataTimeout
+     *            超时时间
      */
     private void setTimeout(int defaultTimeout, int connectTimeout, int dataTimeout) {
         ftpClient.setDefaultTimeout(defaultTimeout);
@@ -180,7 +203,7 @@ public class FtpUtil {
     /**
      * ftp是否处于连接状态，是连接状态返回<tt>true</tt>
      *
-     * @return boolean  是连接状态返回<tt>true</tt>
+     * @return boolean 是连接状态返回<tt>true</tt>
      */
     public boolean isConnected() {
         return ftpClient.isConnected();
@@ -189,9 +212,12 @@ public class FtpUtil {
     /**
      * 上传文件到对应目录下
      *
-     * @param fileName    文件名
-     * @param inputStream 文件输入流
-     * @param uploadDir   上传文件的父路径
+     * @param fileName
+     *            文件名
+     * @param inputStream
+     *            文件输入流
+     * @param uploadDir
+     *            上传文件的父路径
      * @return java.lang.String
      */
     public String uploadFile(String fileName, InputStream inputStream, String uploadDir) throws IOException {
@@ -205,8 +231,10 @@ public class FtpUtil {
     /**
      * 根据uploadFile返回的路径，从ftp下载文件到指定输出流中
      *
-     * @param ftpRealFilePath 方法uploadFile返回的路径
-     * @param outputStream    输出流
+     * @param ftpRealFilePath
+     *            方法uploadFile返回的路径
+     * @param outputStream
+     *            输出流
      */
     public void downloadFileFromDailyDir(String ftpRealFilePath, OutputStream outputStream) throws IOException {
         changeWorkingDirectory(ftpBasePath);
@@ -216,8 +244,10 @@ public class FtpUtil {
     /**
      * 获取ftp上指定文件名到输出流中
      *
-     * @param ftpFileName 文件在ftp上的路径  如绝对路径 /home/ftpuser/123.txt 或者相对路径 123.txt
-     * @param out         输出流
+     * @param ftpFileName
+     *            文件在ftp上的路径 如绝对路径 /home/ftpuser/123.txt 或者相对路径 123.txt
+     * @param out
+     *            输出流
      */
     public void retrieveFile(String ftpFileName, OutputStream out) throws IOException {
         try {
@@ -232,7 +262,8 @@ public class FtpUtil {
             }
 
             if (!ftpClient.retrieveFile(ftpFileName, out)) {
-                throw new IOException("Error loading file '" + ftpFileName + "' from FTP server. Check FTP permissions and path.");
+                throw new IOException(
+                    "Error loading file '" + ftpFileName + "' from FTP server. Check FTP permissions and path.");
             }
             out.flush();
         } finally {
@@ -240,17 +271,19 @@ public class FtpUtil {
         }
     }
 
-
     /**
      * 将输入流存储到指定的ftp路径下
      *
-     * @param ftpFileName 文件在ftp上的路径 如绝对路径 /home/ftpuser/123.txt 或者相对路径 123.txt
-     * @param in          输入流
+     * @param ftpFileName
+     *            文件在ftp上的路径 如绝对路径 /home/ftpuser/123.txt 或者相对路径 123.txt
+     * @param in
+     *            输入流
      */
     private void storeFile(String ftpFileName, InputStream in) throws IOException {
         try {
             if (!ftpClient.storeFile(ftpFileName, in)) {
-                throw new IOException("Can't upload file '" + ftpFileName + "' to FTP server. Check FTP permissions and path.");
+                throw new IOException(
+                    "Can't upload file '" + ftpFileName + "' to FTP server. Check FTP permissions and path.");
             }
         } finally {
             closeStream(in);
@@ -260,7 +293,8 @@ public class FtpUtil {
     /**
      * 根据文件ftp路径名称删除文件
      *
-     * @param ftpFileName 文件ftp路径名称
+     * @param ftpFileName
+     *            文件ftp路径名称
      */
     public void deleteFile(String ftpFileName) throws IOException {
         if (!ftpClient.deleteFile(ftpFileName)) {
@@ -271,8 +305,10 @@ public class FtpUtil {
     /**
      * 上传文件到ftp
      *
-     * @param ftpFileName 上传到ftp文件路径名称
-     * @param localFile   本地文件路径名称
+     * @param ftpFileName
+     *            上传到ftp文件路径名称
+     * @param localFile
+     *            本地文件路径名称
      */
     public void upload(String ftpFileName, File localFile) throws IOException {
         if (!localFile.exists()) {
@@ -283,11 +319,12 @@ public class FtpUtil {
         try {
             in = new BufferedInputStream(new FileInputStream(localFile));
             if (!ftpClient.storeFile(ftpFileName, in)) {
-                throw new IOException("Can't upload file '" + ftpFileName + "' to FTP server. Check FTP permissions and path.");
+                throw new IOException(
+                    "Can't upload file '" + ftpFileName + "' to FTP server. Check FTP permissions and path.");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new SystemException("文件上传失败");
-        } finally{
+        } finally {
             closeStream(in);
         }
     }
@@ -295,8 +332,10 @@ public class FtpUtil {
     /**
      * 上传文件夹到ftp上
      *
-     * @param remotePath ftp上文件夹路径名称
-     * @param localPath  本地上传的文件夹路径名称
+     * @param remotePath
+     *            ftp上文件夹路径名称
+     * @param localPath
+     *            本地上传的文件夹路径名称
      */
     public void uploadDir(String remotePath, String localPath) throws IOException {
         localPath = localPath.replace("\\\\", "/");
@@ -322,8 +361,10 @@ public class FtpUtil {
     /**
      * 下载ftp文件到本地上
      *
-     * @param ftpFileName ftp文件路径名称
-     * @param localFile   本地文件路径名称
+     * @param ftpFileName
+     *            ftp文件路径名称
+     * @param localFile
+     *            本地文件路径名称
      */
     public void download(String ftpFileName, File localFile) throws IOException {
         OutputStream out = null;
@@ -340,7 +381,8 @@ public class FtpUtil {
 
             out = new BufferedOutputStream(new FileOutputStream(localFile));
             if (!ftpClient.retrieveFile(ftpFileName, out)) {
-                throw new IOException("Error loading file " + ftpFileName + " from FTP server. Check FTP permissions and path.");
+                throw new IOException(
+                    "Error loading file " + ftpFileName + " from FTP server. Check FTP permissions and path.");
             }
             out.flush();
         } finally {
@@ -348,11 +390,11 @@ public class FtpUtil {
         }
     }
 
-
     /**
      * 改变工作目录
      *
-     * @param dir ftp服务器上目录
+     * @param dir
+     *            ftp服务器上目录
      * @return boolean 改变成功返回true
      */
     public boolean changeWorkingDirectory(String dir) {
@@ -362,7 +404,7 @@ public class FtpUtil {
         try {
             return ftpClient.changeWorkingDirectory(dir);
         } catch (IOException e) {
-            log.info("工具类出现异常{}",e);
+            log.info("工具类出现异常{}", e);
         }
         return false;
     }
@@ -370,8 +412,10 @@ public class FtpUtil {
     /**
      * 下载ftp服务器下文件夹到本地
      *
-     * @param remotePath ftp上文件夹路径名称
-     * @param localPath  本地上传的文件夹路径名称
+     * @param remotePath
+     *            ftp上文件夹路径名称
+     * @param localPath
+     *            本地上传的文件夹路径名称
      */
     public void downloadDir(String remotePath, String localPath) throws IOException {
         localPath = localPath.replace("\\\\", "/");
@@ -390,11 +434,11 @@ public class FtpUtil {
         }
     }
 
-
     /**
      * 列出ftp上文件目录下的文件
      *
-     * @param filePath ftp上文件目录
+     * @param filePath
+     *            ftp上文件目录
      * @return java.util.List<java.lang.String>
      */
     public List<String> listFileNames(String filePath) throws IOException {
@@ -415,7 +459,8 @@ public class FtpUtil {
     /**
      * 发送ftp命令到ftp服务器中
      *
-     * @param args ftp命令
+     * @param args
+     *            ftp命令
      */
     public void sendSiteCommand(String args) throws IOException {
         if (!ftpClient.isConnected()) {
@@ -482,7 +527,8 @@ public class FtpUtil {
     /**
      * 创建目录
      *
-     * @param pathname 路径名
+     * @param pathname
+     *            路径名
      * @return boolean 创建成功返回true
      */
     public boolean makeDirectory(String pathname) throws IOException {
@@ -492,7 +538,8 @@ public class FtpUtil {
     /**
      * 创建多个目录
      *
-     * @param pathname 路径名
+     * @param pathname
+     *            路径名
      */
     public void makeDirs(String pathname) throws IOException {
         pathname = pathname.replace("\\\\", "/");
@@ -508,7 +555,8 @@ public class FtpUtil {
     /**
      * 关闭流
      *
-     * @param stream 流
+     * @param stream
+     *            流
      */
     private static void closeStream(Closeable stream) {
         if (stream != null) {
@@ -534,4 +582,3 @@ public class FtpUtil {
         }
     }
 }
-

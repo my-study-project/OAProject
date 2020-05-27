@@ -28,54 +28,54 @@ public class ProgramService {
     @Autowired
     private ProgramMapper programMapper;
 
-    /**添加操作**/
+    /** 添加操作 **/
     public int addProgram(ProgramDto programDto) {
-        log.info("添加节目操作的入参为{}",programDto.toString());
+        log.info("添加节目操作的入参为{}", programDto.toString());
         Program program = new Program();
-        BeanUtils.copyProperties(programDto,program);
+        BeanUtils.copyProperties(programDto, program);
         program.setUuid(IdUtils.get32Uuid());
         return programMapper.addProgram(program);
     }
 
-    /**根据主键查询操作**/
+    /** 根据主键查询操作 **/
     public ProgramVo getProgramByUuid(String uuid) {
-        log.info("根据主键查询节目清单的uuid={}",uuid);
+        log.info("根据主键查询节目清单的uuid={}", uuid);
         ProgramVo programVo = new ProgramVo();
         Program program = programMapper.getProgramByUuid(uuid);
-        BeanUtils.copyProperties(program,programVo);
+        BeanUtils.copyProperties(program, programVo);
         return programVo;
     }
 
-    /**修改操作**/
+    /** 修改操作 **/
     public int editProgram(ProgramDto programDto) {
         Program program = new Program();
-        BeanUtils.copyProperties(programDto,program);
+        BeanUtils.copyProperties(programDto, program);
         return programMapper.editProgram(program);
     }
 
-    /**根据条件查询节目**/
+    /** 根据条件查询节目 **/
     public PageInfo<ProgramVo> getAllProgram(ProgramDto programDto) {
-        log.info("条件查询节目入参={}",programDto.toString());
-        PageHelper.startPage(programDto.getOffset(),programDto.getLimit());
-        //封装返回数据
+        log.info("条件查询节目入参={}", programDto.toString());
+        PageHelper.startPage(programDto.getOffset(), programDto.getLimit());
+        // 封装返回数据
         List<ProgramVo> programVoList = new ArrayList<>();
         Program program = new Program();
-        BeanUtils.copyProperties(programDto,program);
+        BeanUtils.copyProperties(programDto, program);
         List<Program> programList = programMapper.getAllProgram(program);
-        //中间量
+        // 中间量
         PageInfo<Program> programPageInfo = new PageInfo<>(programList);
-        //结果集
+        // 结果集
         PageInfo<ProgramVo> programVoPageInfo = new PageInfo<>();
-        BeanUtils.copyProperties(programPageInfo,programVoPageInfo);
+        BeanUtils.copyProperties(programPageInfo, programVoPageInfo);
         programList.forEach(programTemp -> {
             ProgramVo programVo = new ProgramVo();
-            BeanUtils.copyProperties(programTemp,programVo);
-            if (ProgramEnum.IS_ALIVE.getCode().equals(programVo.getIsAlive())){
+            BeanUtils.copyProperties(programTemp, programVo);
+            if (ProgramEnum.IS_ALIVE.getCode().equals(programVo.getIsAlive())) {
                 programVo.setIsAlive(ProgramEnum.IS_ALIVE.getMsg());
             } else {
                 programVo.setIsAlive(ProgramEnum.NOT_ALIVE.getMsg());
             }
-            if (ProgramEnum.IS_EVALUATE.getCode().equals(programVo.getNeedEvaluate())){
+            if (ProgramEnum.IS_EVALUATE.getCode().equals(programVo.getNeedEvaluate())) {
                 programVo.setNeedEvaluate(ProgramEnum.IS_EVALUATE.getMsg());
             } else {
                 programVo.setNeedEvaluate(ProgramEnum.NOT_EVALUATE.getMsg());

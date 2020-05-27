@@ -1,197 +1,197 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.js.mapper.program.ProgramFileMapper" >
-  <resultMap id="BaseResultMap" type="com.js.pojo.program.ProgramFile" >
-    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
-    <result column="upload_user_id" property="uploadUserId" jdbcType="VARCHAR" />
-    <result column="program_id" property="programId" jdbcType="VARCHAR" />
-    <result column="academic_year" property="academicYear" jdbcType="VARCHAR" />
-    <result column="academic_term" property="academicTerm" jdbcType="CHAR" />
-    <result column="teaching_week" property="teachingWeek" jdbcType="INTEGER" />
-    <result column="broadcast_date" property="broadcastDate" jdbcType="TIMESTAMP" />
-    <result column="can_broadcast" property="canBroadcast" jdbcType="CHAR" />
-    <result column="can_delete" property="canDelete" jdbcType="CHAR" />
-    <result column="evaluate_finish" property="evaluateFinish" jdbcType="CHAR" />
-    <result column="need_evaluate_times" property="needEvaluateTimes" jdbcType="INTEGER" />
-    <result column="average_score" property="averageScore" jdbcType="DECIMAL" />
-    <result column="file_position" property="filePosition" jdbcType="VARCHAR" />
-    <result column="upload_date" property="uploadDate" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.js.mapper.program.ProgramFileMapper">
+    <resultMap id="BaseResultMap" type="com.js.pojo.program.ProgramFile">
+        <id column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="upload_user_id" property="uploadUserId" jdbcType="VARCHAR"/>
+        <result column="program_id" property="programId" jdbcType="VARCHAR"/>
+        <result column="academic_year" property="academicYear" jdbcType="VARCHAR"/>
+        <result column="academic_term" property="academicTerm" jdbcType="CHAR"/>
+        <result column="teaching_week" property="teachingWeek" jdbcType="INTEGER"/>
+        <result column="broadcast_date" property="broadcastDate" jdbcType="TIMESTAMP"/>
+        <result column="can_broadcast" property="canBroadcast" jdbcType="CHAR"/>
+        <result column="can_delete" property="canDelete" jdbcType="CHAR"/>
+        <result column="evaluate_finish" property="evaluateFinish" jdbcType="CHAR"/>
+        <result column="need_evaluate_times" property="needEvaluateTimes" jdbcType="INTEGER"/>
+        <result column="average_score" property="averageScore" jdbcType="DECIMAL"/>
+        <result column="file_position" property="filePosition" jdbcType="VARCHAR"/>
+        <result column="upload_date" property="uploadDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     uuid, upload_user_id, program_id, academic_year, academic_term, teaching_week, broadcast_date, 
     can_broadcast, can_delete, evaluate_finish, need_evaluate_times, average_score, file_position,upload_date
   </sql>
-  <select id="getProgramFileByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.program.ProgramFile" >
-    select 
-    <include refid="Base_Column_List" />
-    from program_file
-    <where>
-      <if test="uuid != null" >
-        and uuid = #{uuid}
-      </if>
-      <if test="uploadUserId != null" >
-        and upload_user_id = #{uploadUserId}
-      </if>
-      <if test="programId != null" >
-        and program_id = #{programId}
-      </if>
-      <if test="academicYear != null" >
-        and academic_year = #{academicYear}
-      </if>
-      <if test="academicTerm != null" >
-        and academic_term = #{academicTerm}
-      </if>
-      <if test="teachingWeek != null" >
-        and teaching_week = #{teachingWeek}
-      </if>
-      <if test="broadcastDate != null" >
-        and broadcast_date = #{broadcastDate}
-      </if>
-      <if test="canBroadcast != null" >
-        and can_broadcast = #{canBroadcast}
-      </if>
-      <if test="canDelete != null" >
-        and need_evaluate_times = #{needEvaluateTimes}
-      </if>
-      <if test="averageScore != null" >
-        and average_score = #{averageScore}
-      </if>
-      <if test="filePosition != null" >
-        and file_position = #{filePosition}
-      </if>
-    </where>
-    order by upload_date desc
-  </select>
-  <delete id="deleteProgramFile" parameterType="java.lang.String" >
+    <select id="getProgramFileByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.program.ProgramFile">
+        select
+        <include refid="Base_Column_List"/>
+        from program_file
+        <where>
+            <if test="uuid != null">
+                and uuid = #{uuid}
+            </if>
+            <if test="uploadUserId != null">
+                and upload_user_id = #{uploadUserId}
+            </if>
+            <if test="programId != null">
+                and program_id = #{programId}
+            </if>
+            <if test="academicYear != null">
+                and academic_year = #{academicYear}
+            </if>
+            <if test="academicTerm != null">
+                and academic_term = #{academicTerm}
+            </if>
+            <if test="teachingWeek != null">
+                and teaching_week = #{teachingWeek}
+            </if>
+            <if test="broadcastDate != null">
+                and broadcast_date = #{broadcastDate}
+            </if>
+            <if test="canBroadcast != null">
+                and can_broadcast = #{canBroadcast}
+            </if>
+            <if test="canDelete != null">
+                and need_evaluate_times = #{needEvaluateTimes}
+            </if>
+            <if test="averageScore != null">
+                and average_score = #{averageScore}
+            </if>
+            <if test="filePosition != null">
+                and file_position = #{filePosition}
+            </if>
+        </where>
+        order by upload_date desc
+    </select>
+    <delete id="deleteProgramFile" parameterType="java.lang.String">
     delete from program_file
     where uuid = #{uuid,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="addProgramFile" parameterType="com.js.pojo.program.ProgramFile" >
-    insert into program_file
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="uuid != null" >
-        uuid,
-      </if>
-      <if test="uploadUserId != null" >
-        upload_user_id,
-      </if>
-      <if test="programId != null" >
-        program_id,
-      </if>
-      <if test="academicYear != null" >
-        academic_year,
-      </if>
-      <if test="academicTerm != null" >
-        academic_term,
-      </if>
-      <if test="teachingWeek != null" >
-        teaching_week,
-      </if>
-      <if test="broadcastDate != null" >
-        broadcast_date,
-      </if>
-      <if test="canBroadcast != null" >
-        can_broadcast,
-      </if>
-      <if test="canDelete != null" >
-        can_delete,
-      </if>
-      <if test="evaluateFinish != null" >
-        evaluate_finish,
-      </if>
-      <if test="needEvaluateTimes != null" >
-        need_evaluate_times,
-      </if>
-      <if test="averageScore != null" >
-        average_score,
-      </if>
-      <if test="filePosition != null" >
-        file_position,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="uuid != null" >
-        #{uuid,jdbcType=VARCHAR},
-      </if>
-      <if test="uploadUserId != null" >
-        #{uploadUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="programId != null" >
-        #{programId,jdbcType=VARCHAR},
-      </if>
-      <if test="academicYear != null" >
-        #{academicYear,jdbcType=VARCHAR},
-      </if>
-      <if test="academicTerm != null" >
-        #{academicTerm,jdbcType=CHAR},
-      </if>
-      <if test="teachingWeek != null" >
-        #{teachingWeek,jdbcType=INTEGER},
-      </if>
-      <if test="broadcastDate != null" >
-        #{broadcastDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="canBroadcast != null" >
-        #{canBroadcast,jdbcType=CHAR},
-      </if>
-      <if test="canDelete != null" >
-        #{canDelete,jdbcType=CHAR},
-      </if>
-      <if test="evaluateFinish != null" >
-        #{evaluateFinish,jdbcType=CHAR},
-      </if>
-      <if test="needEvaluateTimes != null" >
-        #{needEvaluateTimes,jdbcType=INTEGER},
-      </if>
-      <if test="averageScore != null" >
-        #{averageScore,jdbcType=DECIMAL},
-      </if>
-      <if test="filePosition != null" >
-        #{filePosition,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="editProgramFile" parameterType="com.js.pojo.program.ProgramFile" >
-    update program_file
-    <set >
-      <if test="uploadUserId != null" >
-        upload_user_id = #{uploadUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="programId != null" >
-        program_id = #{programId,jdbcType=VARCHAR},
-      </if>
-      <if test="academicYear != null" >
-        academic_year = #{academicYear,jdbcType=VARCHAR},
-      </if>
-      <if test="academicTerm != null" >
-        academic_term = #{academicTerm,jdbcType=CHAR},
-      </if>
-      <if test="teachingWeek != null" >
-        teaching_week = #{teachingWeek,jdbcType=INTEGER},
-      </if>
-      <if test="broadcastDate != null" >
-        broadcast_date = #{broadcastDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="canBroadcast != null" >
-        can_broadcast = #{canBroadcast,jdbcType=CHAR},
-      </if>
-      <if test="canDelete != null" >
-        can_delete = #{canDelete,jdbcType=CHAR},
-      </if>
-      <if test="evaluateFinish != null" >
-        evaluate_finish = #{evaluateFinish,jdbcType=CHAR},
-      </if>
-      <if test="needEvaluateTimes != null" >
-        need_evaluate_times = #{needEvaluateTimes,jdbcType=INTEGER},
-      </if>
-      <if test="averageScore != null" >
-        average_score = #{averageScore,jdbcType=DECIMAL},
-      </if>
-      <if test="filePosition != null" >
-        file_position = #{filePosition,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where uuid = #{uuid,jdbcType=VARCHAR}
-  </update>
+    <insert id="addProgramFile" parameterType="com.js.pojo.program.ProgramFile">
+        insert into program_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="uploadUserId != null">
+                upload_user_id,
+            </if>
+            <if test="programId != null">
+                program_id,
+            </if>
+            <if test="academicYear != null">
+                academic_year,
+            </if>
+            <if test="academicTerm != null">
+                academic_term,
+            </if>
+            <if test="teachingWeek != null">
+                teaching_week,
+            </if>
+            <if test="broadcastDate != null">
+                broadcast_date,
+            </if>
+            <if test="canBroadcast != null">
+                can_broadcast,
+            </if>
+            <if test="canDelete != null">
+                can_delete,
+            </if>
+            <if test="evaluateFinish != null">
+                evaluate_finish,
+            </if>
+            <if test="needEvaluateTimes != null">
+                need_evaluate_times,
+            </if>
+            <if test="averageScore != null">
+                average_score,
+            </if>
+            <if test="filePosition != null">
+                file_position,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadUserId != null">
+                #{uploadUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="programId != null">
+                #{programId,jdbcType=VARCHAR},
+            </if>
+            <if test="academicYear != null">
+                #{academicYear,jdbcType=VARCHAR},
+            </if>
+            <if test="academicTerm != null">
+                #{academicTerm,jdbcType=CHAR},
+            </if>
+            <if test="teachingWeek != null">
+                #{teachingWeek,jdbcType=INTEGER},
+            </if>
+            <if test="broadcastDate != null">
+                #{broadcastDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="canBroadcast != null">
+                #{canBroadcast,jdbcType=CHAR},
+            </if>
+            <if test="canDelete != null">
+                #{canDelete,jdbcType=CHAR},
+            </if>
+            <if test="evaluateFinish != null">
+                #{evaluateFinish,jdbcType=CHAR},
+            </if>
+            <if test="needEvaluateTimes != null">
+                #{needEvaluateTimes,jdbcType=INTEGER},
+            </if>
+            <if test="averageScore != null">
+                #{averageScore,jdbcType=DECIMAL},
+            </if>
+            <if test="filePosition != null">
+                #{filePosition,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="editProgramFile" parameterType="com.js.pojo.program.ProgramFile">
+        update program_file
+        <set>
+            <if test="uploadUserId != null">
+                upload_user_id = #{uploadUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="programId != null">
+                program_id = #{programId,jdbcType=VARCHAR},
+            </if>
+            <if test="academicYear != null">
+                academic_year = #{academicYear,jdbcType=VARCHAR},
+            </if>
+            <if test="academicTerm != null">
+                academic_term = #{academicTerm,jdbcType=CHAR},
+            </if>
+            <if test="teachingWeek != null">
+                teaching_week = #{teachingWeek,jdbcType=INTEGER},
+            </if>
+            <if test="broadcastDate != null">
+                broadcast_date = #{broadcastDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="canBroadcast != null">
+                can_broadcast = #{canBroadcast,jdbcType=CHAR},
+            </if>
+            <if test="canDelete != null">
+                can_delete = #{canDelete,jdbcType=CHAR},
+            </if>
+            <if test="evaluateFinish != null">
+                evaluate_finish = #{evaluateFinish,jdbcType=CHAR},
+            </if>
+            <if test="needEvaluateTimes != null">
+                need_evaluate_times = #{needEvaluateTimes,jdbcType=INTEGER},
+            </if>
+            <if test="averageScore != null">
+                average_score = #{averageScore,jdbcType=DECIMAL},
+            </if>
+            <if test="filePosition != null">
+                file_position = #{filePosition,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </update>
 </mapper>

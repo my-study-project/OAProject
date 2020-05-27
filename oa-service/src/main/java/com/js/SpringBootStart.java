@@ -14,19 +14,19 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @Slf4j
 @EnableCaching
-/**开启定时**/
 @EnableScheduling
 public class SpringBootStart {
     public static void main(String[] args) {
-        try{
-            SpringApplication.run(SpringBootStart.class,args);
+        try {
+            SpringApplication.run(SpringBootStart.class, args);
             log.info(print());
             log.info("项目启动成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info("项目启动失败");
         }
 
     }
+
     private static synchronized String print() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n");

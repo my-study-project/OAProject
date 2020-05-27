@@ -31,68 +31,68 @@ public class SysUserService {
     @Autowired
     private PurviewMapper purviewMapper;
 
-    /**添加用户操作**/
+    /** 添加用户操作 **/
     public int addSysUser(SysUserDto sysUserDto) {
         SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(sysUserDto,sysUser);
+        BeanUtils.copyProperties(sysUserDto, sysUser);
         return sysUserMapper.addSysUser(sysUser);
     }
 
-    /**根据学号查询**/
+    /** 根据学号查询 **/
     public SysUserVo getUserById(String studentNumber) {
         SysUser sysUser = sysUserMapper.getUserById(studentNumber);
         SysUserVo sysUserVo = new SysUserVo();
-        BeanUtils.copyProperties(sysUser,sysUserVo);
+        BeanUtils.copyProperties(sysUser, sysUserVo);
         return sysUserVo;
     }
 
-    /**条件查询用户**/
-    public PageInfo<SysUserVo> getUserAllList(SysUserDto sysUserDto){
+    /** 条件查询用户 **/
+    public PageInfo<SysUserVo> getUserAllList(SysUserDto sysUserDto) {
         SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(sysUserDto,sysUser);
-        PageHelper.startPage(sysUserDto.getOffset(),sysUserDto.getLimit());
+        BeanUtils.copyProperties(sysUserDto, sysUser);
+        PageHelper.startPage(sysUserDto.getOffset(), sysUserDto.getLimit());
 
-        //定义结果集
+        // 定义结果集
         PageInfo<SysUserVo> sysUserVoPageInfo = new PageInfo<>();
         List<SysUserVo> sysUserVoList = new ArrayList<>();
 
         List<SysUser> sysUserList = sysUserMapper.getUserAllList(sysUser);
         PageInfo<SysUser> sysUserPageInfo = new PageInfo<>(sysUserList);
 
-        BeanUtils.copyProperties(sysUserPageInfo,sysUserVoPageInfo);
+        BeanUtils.copyProperties(sysUserPageInfo, sysUserVoPageInfo);
         sysUserList.forEach(sysUserTemp -> {
             SysUserVo sysUserVo = new SysUserVo();
-            BeanUtils.copyProperties(sysUserTemp,sysUserVo);
-            if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserTemp.getIsAlive())){
+            BeanUtils.copyProperties(sysUserTemp, sysUserVo);
+            if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserTemp.getIsAlive())) {
                 sysUserVo.setIsAlive(SysUserEnum.IS_ALIVE.getMsg());
-            }else if(SysUserEnum.NOT_ALIVE.getCode().equals(sysUserTemp.getIsAlive())){
+            } else if (SysUserEnum.NOT_ALIVE.getCode().equals(sysUserTemp.getIsAlive())) {
                 sysUserVo.setIsAlive(SysUserEnum.NOT_ALIVE.getMsg());
-            }else{
+            } else {
                 sysUserVo.setIsAlive(SysUserEnum.UNKONW_TYPE.getMsg());
             }
 
-            if (SysUserEnum.IS_SUPER.getCode().equals(sysUserTemp.getIsSuper())){
+            if (SysUserEnum.IS_SUPER.getCode().equals(sysUserTemp.getIsSuper())) {
                 sysUserVo.setIsSuper(SysUserEnum.IS_SUPER.getMsg());
-            }else if(SysUserEnum.NOT_SUPER.getCode().equals(sysUserTemp.getIsSuper())){
+            } else if (SysUserEnum.NOT_SUPER.getCode().equals(sysUserTemp.getIsSuper())) {
                 sysUserVo.setIsSuper(SysUserEnum.NOT_SUPER.getMsg());
-            }else{
+            } else {
                 sysUserVo.setIsSuper(SysUserEnum.UNKONW_TYPE.getMsg());
             }
             sysUserVoList.add(sysUserVo);
         });
-       sysUserVoPageInfo.setList(sysUserVoList);
+        sysUserVoPageInfo.setList(sysUserVoList);
         return sysUserVoPageInfo;
     }
 
-    /**修改用户**/
-    public int editSysUser(SysUserDto sysUserDto){
+    /** 修改用户 **/
+    public int editSysUser(SysUserDto sysUserDto) {
         SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(sysUserDto,sysUser);
+        BeanUtils.copyProperties(sysUserDto, sysUser);
         return sysUserMapper.editSysUser(sysUser);
     }
 
-    /**删除用户**/
-    public int deleteSysUser(String studentNumber){
+    /** 删除用户 **/
+    public int deleteSysUser(String studentNumber) {
         SysUser sysUser = new SysUser();
         sysUser.setStudentNumber(studentNumber);
         sysUser.setIsAlive(SysUserEnum.NOT_ALIVE.getCode());

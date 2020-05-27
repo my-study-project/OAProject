@@ -11,16 +11,16 @@ import lombok.ToString;
 @Data
 @ToString
 public class ProgramEvaluationDto extends BasePageDto {
-    /** 主键uuid**/
+    /** 主键uuid **/
     private String uuid;
 
-    /**节目评估人**/
+    /** 节目评估人 **/
     private String assessor;
 
     /** 评估的节目id **/
     private String programFileId;
 
-    /**  评估分数**/
+    /** 评估分数 **/
     private Long score;
 
     /** 对应节目评论 **/

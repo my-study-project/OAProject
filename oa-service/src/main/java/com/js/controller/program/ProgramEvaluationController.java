@@ -35,72 +35,76 @@ public class ProgramEvaluationController {
     @PostMapping("getList")
     @ApiOperation(value = "分页查询节目表", notes = "分页查询节目表")
     @Log(value = "分页查询节目评估信息")
-    public BaseResponse<PageInfo<ProgramEvaluationVo>> getLogMess(@RequestBody @Validated ProgramEvaluationForm programEvaluationForm) {
-        log.info("分页查询节目评估Controller的入参为{}",programEvaluationForm.toString());
+    public BaseResponse<PageInfo<ProgramEvaluationVo>>
+        getLogMess(@RequestBody @Validated ProgramEvaluationForm programEvaluationForm) {
+        log.info("分页查询节目评估Controller的入参为{}", programEvaluationForm.toString());
         ProgramEvaluationDto programEvaluationDto = new ProgramEvaluationDto();
-        BeanUtils.copyProperties(programEvaluationForm,programEvaluationDto);
+        BeanUtils.copyProperties(programEvaluationForm, programEvaluationDto);
         PageInfo<ProgramEvaluationVo> programEvaluationVoPageInfo = new PageInfo<>();
-        try{
+        try {
             programEvaluationVoPageInfo = programEvaluationService.selectByMess(programEvaluationDto);
-        }catch (Exception e) {
-            log.info("查询出现的异常为{}",e);
+        } catch (Exception e) {
+            log.info("查询出现的异常为{}", e);
             throw new SystemException("查询失败");
         }
-        return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),programEvaluationVoPageInfo);
+        return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(),
+            programEvaluationVoPageInfo);
     }
 
     @PostMapping("/add")
     @ApiOperation(value = "添加节目评估", notes = "添加节目评估")
     @Log(value = "添加节目评估")
-    public BaseResponse<String> addProgramEval(@RequestBody @Validated AddProgramEvaluationForm addProgramEvaluationForm) {
-        log.info("添加节目评估Controller的入参为{}",addProgramEvaluationForm.toString());
+    public BaseResponse<String>
+        addProgramEval(@RequestBody @Validated AddProgramEvaluationForm addProgramEvaluationForm) {
+        log.info("添加节目评估Controller的入参为{}", addProgramEvaluationForm.toString());
         ProgramEvaluationDto programEvaluationDto = new ProgramEvaluationDto();
-        BeanUtils.copyProperties(addProgramEvaluationForm,programEvaluationDto);
+        BeanUtils.copyProperties(addProgramEvaluationForm, programEvaluationDto);
         int result = 0;
-        try{
+        try {
             result = programEvaluationService.addProgramEvaluation(programEvaluationDto);
-        }catch (Exception e) {
-            log.info("添加节目评估出现异常{}",e);
+        } catch (Exception e) {
+            log.info("添加节目评估出现异常{}", e);
             throw new SystemException("添加节目评估时出现异常");
         }
-        if (result > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"添加节目评估成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "添加节目评估成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"添加节目评估失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "添加节目评估失败");
     }
 
     @PostMapping("/edit")
     @ApiOperation(value = "修改节目评估", notes = "修改节目评估")
     @Log(value = "修改节目评估")
-    public BaseResponse<String> editProgramEval(@RequestBody @Validated EditProgramEvaluationForm editProgramEvaluationForm) {
-        log.info("修改节目评估Controller的入参为{}",editProgramEvaluationForm.toString());
+    public BaseResponse<String>
+        editProgramEval(@RequestBody @Validated EditProgramEvaluationForm editProgramEvaluationForm) {
+        log.info("修改节目评估Controller的入参为{}", editProgramEvaluationForm.toString());
         ProgramEvaluationDto programEvaluationDto = new ProgramEvaluationDto();
-        BeanUtils.copyProperties(editProgramEvaluationForm,programEvaluationDto);
+        BeanUtils.copyProperties(editProgramEvaluationForm, programEvaluationDto);
         int result = 0;
-        try{
+        try {
             result = programEvaluationService.editProgramEvaluation(programEvaluationDto);
-        }catch (Exception e) {
-            log.info("修改节目评估出现异常{}",e);
+        } catch (Exception e) {
+            log.info("修改节目评估出现异常{}", e);
             throw new SystemException("修改节目评估时出现异常");
         }
-        if (result > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"修改节目评估成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "修改节目评估成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"修改节目评估失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "修改节目评估失败");
     }
 
     @GetMapping("getById")
     @ApiOperation(value = "根据主键获取节目评估的详细信息", notes = "根据主键获取节目评估的详细信息")
     @Log(value = "根据主键查询节目评估的详细信息")
     public BaseResponse<ProgramEvaluationVo> getProgramEvalById(@RequestParam("uuid") String uuid) {
-        log.info("根据主键uuid={}获取节目评估的详细信息Controller",uuid);
+        log.info("根据主键uuid={}获取节目评估的详细信息Controller", uuid);
         ProgramEvaluationVo programEvaluationVo = new ProgramEvaluationVo();
-        try{
+        try {
             programEvaluationVo = programEvaluationService.selectById(uuid);
-        }catch (Exception e) {
-            log.info("查询评估出现的异常为{}",e);
+        } catch (Exception e) {
+            log.info("查询评估出现的异常为{}", e);
             throw new SystemException("查询评估信息失败");
         }
-        return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),programEvaluationVo);
+        return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), programEvaluationVo);
     }
 }

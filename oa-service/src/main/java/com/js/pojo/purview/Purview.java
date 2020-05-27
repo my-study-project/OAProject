@@ -10,16 +10,16 @@ import lombok.ToString;
 @Data
 @ToString
 public class Purview {
-    /** 主键uuid**/
+    /** 主键uuid **/
     private String uuid;
 
-    /** 用户名**/
+    /** 用户名 **/
     private String userId;
 
     /** 0：无权限1：有权限 **/
     private String manageSign;
 
-    /** 提交错误0：无权限1：有权限**/
+    /** 提交错误0：无权限1：有权限 **/
     private String submitBroadcastMistake;
 
     /** 错误管理0：无权限1：有权限 **/

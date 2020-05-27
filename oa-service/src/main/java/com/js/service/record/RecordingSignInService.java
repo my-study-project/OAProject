@@ -26,31 +26,32 @@ public class RecordingSignInService {
 
     @Autowired
     private RecordingSignInMapper recordingSignInMapper;
-    /**添加操作**/
-    public int addRecordingSignIn(RecordingSignInDto recordingSignInDto){
+
+    /** 添加操作 **/
+    public int addRecordingSignIn(RecordingSignInDto recordingSignInDto) {
         RecordingSignIn recordingSignIn = new RecordingSignIn();
-        BeanUtils.copyProperties(recordingSignInDto,recordingSignIn);
+        BeanUtils.copyProperties(recordingSignInDto, recordingSignIn);
         recordingSignIn.setUuid(IdUtils.get32Uuid());
         return recordingSignInMapper.addRecordingSignIn(recordingSignIn);
     }
 
-    /**操作条件查询**/
-    public PageInfo<RecordingSignInVo> getRecordingSignInByMess(RecordingSignInDto recordingSignInDto){
-        log.info("录音间签到查询入参为{}",recordingSignInDto.toString());
+    /** 操作条件查询 **/
+    public PageInfo<RecordingSignInVo> getRecordingSignInByMess(RecordingSignInDto recordingSignInDto) {
+        log.info("录音间签到查询入参为{}", recordingSignInDto.toString());
         RecordingSignIn recordingSignIn = new RecordingSignIn();
-        BeanUtils.copyProperties(recordingSignInDto,recordingSignIn);
-        PageHelper.startPage(recordingSignInDto.getOffset(),recordingSignInDto.getLimit());
+        BeanUtils.copyProperties(recordingSignInDto, recordingSignIn);
+        PageHelper.startPage(recordingSignInDto.getOffset(), recordingSignInDto.getLimit());
         List<RecordingSignIn> recordingSignInList = recordingSignInMapper.getRecordingSignInByMess(recordingSignIn);
-        //中间值
+        // 中间值
         PageInfo<RecordingSignIn> recordingSignInPageInfo = new PageInfo<>(recordingSignInList);
-        //结果集
+        // 结果集
         PageInfo<RecordingSignInVo> recordingSignInVoPageInfo = new PageInfo<>();
-        BeanUtils.copyProperties(recordingSignInPageInfo,recordingSignInVoPageInfo);
-        //        结果集转换
+        BeanUtils.copyProperties(recordingSignInPageInfo, recordingSignInVoPageInfo);
+        // 结果集转换
         List<RecordingSignInVo> recordingSignInVoList = new ArrayList<>();
         recordingSignInList.forEach(recordingSignInTemp -> {
             RecordingSignInVo recordingSignInVo = new RecordingSignInVo();
-            BeanUtils.copyProperties(recordingSignInTemp,recordingSignInVo);
+            BeanUtils.copyProperties(recordingSignInTemp, recordingSignInVo);
             recordingSignInVoList.add(recordingSignInVo);
         });
         recordingSignInVoPageInfo.setList(recordingSignInVoList);

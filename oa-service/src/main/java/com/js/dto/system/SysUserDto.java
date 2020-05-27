@@ -9,14 +9,14 @@ import lombok.ToString;
  **/
 @Data
 @ToString
-public class SysUserDto extends BasePageDto{
-    /** 学号**/
+public class SysUserDto extends BasePageDto {
+    /** 学号 **/
     private String studentNumber;
 
-    /** 姓名**/
+    /** 姓名 **/
     private String name;
 
-    /** 学院**/
+    /** 学院 **/
     private String college;
 
     /** 邮箱 **/
@@ -25,16 +25,16 @@ public class SysUserDto extends BasePageDto{
     /** 密码 **/
     private String password;
 
-    /**联系方式 **/
+    /** 联系方式 **/
     private String phoneNumber;
 
-    /** 所属组别**/
+    /** 所属组别 **/
     private String groupId;
 
-    /** 0：正常1：停用**/
+    /** 0：正常1：停用 **/
     private String isAlive;
 
-    /** 0：不是小组组长 1：是小组组长**/
+    /** 0：不是小组组长 1：是小组组长 **/
     private String isSuper;
 
     /** 对应师傅id **/

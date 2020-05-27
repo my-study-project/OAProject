@@ -6,11 +6,11 @@ package com.js.enums.purview;
  * @Date: 2020/5/10 12:05
  */
 public enum PurviewEnum {
-    //无权限
-    NO_PERMISSION ("0","无权限"),
-    //有权限
-    HAVING_PERMISSION("1","有权限"),
-    ;
+    // 无权限
+    NO_PERMISSION("0", "无权限"),
+    // 有权限
+    HAVING_PERMISSION("1", "有权限"),;
+
     /**
      * code编码
      **/
@@ -25,12 +25,14 @@ public enum PurviewEnum {
         this.code = code;
         this.msg = msg;
     }
+
     /**
      * 获取标记码
      **/
     public String getCode() {
         return code;
     }
+
     /**
      * 对应信息
      **/

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+
 /**
  * @Author: jiangshuang
  * @Description: 系统日志切面
@@ -48,7 +49,7 @@ public class LogsAspect {
     }
 
     private void saveLog(ProceedingJoinPoint joinPoint, long time) {
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        MethodSignature signature = (MethodSignature)joinPoint.getSignature();
         Method method = signature.getMethod();
         SysLogDto sysLog = new SysLogDto();
         sysLog.setUuid(IdUtils.get32Uuid());
@@ -72,13 +73,12 @@ public class LogsAspect {
         sysLog.setOperUser(user);
         // 请求的参数
         Object[] args = joinPoint.getArgs();
-        try{
+        try {
             sysLog.setRequestParams(Arrays.toString(args));
-        }catch (Exception e) {
+        } catch (Exception e) {
             sysLog.setRequestParams(null);
         }
         sysLogService.addSysLog(sysLog);
     }
 
 }
-

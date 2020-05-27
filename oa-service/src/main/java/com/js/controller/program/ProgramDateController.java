@@ -36,30 +36,30 @@ public class ProgramDateController {
     @Log(value = "查询播放节目的时间范围")
     public BaseResponse<List<DefaultProgramDateVo>> getDateList() {
         List<DefaultProgramDateVo> defaultProgramDateVos = new ArrayList<>();
-        try{
+        try {
             defaultProgramDateVos = programDateService.getDefaultProgramDate();
-        }catch (Exception e) {
-            log.info("查询出现的异常为{}",e);
+        } catch (Exception e) {
+            log.info("查询出现的异常为{}", e);
             throw new SystemException("查询失败");
         }
-        return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),defaultProgramDateVos);
+        return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), defaultProgramDateVos);
     }
 
     @GetMapping("getData")
     @ApiOperation(value = "根据编码查询详细时间", notes = "根据编码查询详细时间")
     @Log(value = "根据编码查询详细时间")
-    public BaseResponse<DefaultProgramDateVo> getDateByCode(@RequestParam("code") String code){
+    public BaseResponse<DefaultProgramDateVo> getDateByCode(@RequestParam("code") String code) {
         DefaultProgramDateVo defaultProgramDateVo = null;
-        try{
+        try {
             defaultProgramDateVo = programDateService.getDefaultProgramDateByCode(code);
-        }catch (Exception e) {
-            log.info("查询出现的异常为{}",e);
+        } catch (Exception e) {
+            log.info("查询出现的异常为{}", e);
             throw new SystemException("查询失败");
         }
         if (defaultProgramDateVo != null) {
             return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), defaultProgramDateVo);
-        }else{
-            return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg());
+        } else {
+            return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg());
         }
     }
 

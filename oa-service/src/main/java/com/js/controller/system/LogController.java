@@ -31,14 +31,15 @@ public class LogController {
     @PostMapping("getLog")
     @ApiOperation(value = "分页获取系统日志", notes = "分页获取系统日志")
     @Log(value = "分页获取系统日志")
-    public BaseResponse<PageInfo<SysLogVo>> getLogMess(@RequestBody BasePageForm basePageForm/*,@RequestHeader("studentNumber") String studentNumber*/) {
+    public BaseResponse<PageInfo<SysLogVo>>
+        getLogMess(@RequestBody BasePageForm basePageForm/*,@RequestHeader("studentNumber") String studentNumber*/) {
         PageInfo<SysLogVo> sysLogDtoPageInfo = new PageInfo<>();
-        try{
-            sysLogDtoPageInfo = sysLogService.showAllLog(basePageForm.getOffset(),basePageForm.getLimit());
-        }catch (Exception e) {
-            log.info("查询出现的异常为{}",e);
+        try {
+            sysLogDtoPageInfo = sysLogService.showAllLog(basePageForm.getOffset(), basePageForm.getLimit());
+        } catch (Exception e) {
+            log.info("查询出现的异常为{}", e);
             throw new SystemException("日志查询失败");
         }
-        return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),sysLogDtoPageInfo);
+        return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), sysLogDtoPageInfo);
     }
 }

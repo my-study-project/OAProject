@@ -1,6 +1,5 @@
 package com.js.service.system;
 
-
 import com.js.dto.system.SysConfigDto;
 import com.js.mapper.system.SysConfigMapper;
 import com.js.pojo.system.SysConfig;
@@ -24,48 +23,49 @@ public class SysConfigService {
 
     @Autowired
     private SysConfigMapper sysConfigMapper;
-    /**删除操作**/
+
+    /** 删除操作 **/
     public int deleteSysConfig(String uuid) {
-        log.info("查询主键uuid={}入参={}",uuid);
+        log.info("查询主键uuid={}入参={}", uuid);
         return sysConfigMapper.deleteSysConfig(uuid);
     }
 
-    /**添加系统配置操作**/
+    /** 添加系统配置操作 **/
     public int addSysConfig(SysConfigDto sysConfigDto) {
         SysConfig sysConfig = new SysConfig();
-        BeanUtils.copyProperties(sysConfigDto,sysConfig);
+        BeanUtils.copyProperties(sysConfigDto, sysConfig);
         return sysConfigMapper.addSysConfig(sysConfig);
     }
 
-    /**根据主键查询操作**/
+    /** 根据主键查询操作 **/
     public SysConfigVo getSysConfigById(String uuid) {
-        log.info("查询主键uuid={}入参={}",uuid);
+        log.info("查询主键uuid={}入参={}", uuid);
         SysConfig sysConfig = sysConfigMapper.getSysConfigById(uuid);
         SysConfigVo sysConfigVo = new SysConfigVo();
-        BeanUtils.copyProperties(sysConfig,sysConfigVo);
+        BeanUtils.copyProperties(sysConfig, sysConfigVo);
         return sysConfigVo;
     }
 
-    /**根据条件查询操作**/
+    /** 根据条件查询操作 **/
     public List<SysConfigVo> getSysConfigByMess(SysConfigDto sysConfigDto) {
-        log.info("条件查询系统配置入参={}",sysConfigDto.toString());
+        log.info("条件查询系统配置入参={}", sysConfigDto.toString());
         SysConfig sysConfig = new SysConfig();
-        BeanUtils.copyProperties(sysConfigDto,sysConfig);
+        BeanUtils.copyProperties(sysConfigDto, sysConfig);
         List<SysConfigVo> sysConfigVoList = new ArrayList<>();
         List<SysConfig> sysConfigList = sysConfigMapper.getSysConfigByMess(sysConfig);
         sysConfigList.forEach(sysConfigTemp -> {
             SysConfigVo sysConfigVo = new SysConfigVo();
-            BeanUtils.copyProperties(sysConfigTemp,sysConfigVo);
+            BeanUtils.copyProperties(sysConfigTemp, sysConfigVo);
             sysConfigVoList.add(sysConfigVo);
         });
         return sysConfigVoList;
     }
 
-    /**修改操作**/
-    public int editSysConfig(SysConfigDto sysConfigDto){
-        log.info("条件查询系统配置入参={}",sysConfigDto.toString());
+    /** 修改操作 **/
+    public int editSysConfig(SysConfigDto sysConfigDto) {
+        log.info("条件查询系统配置入参={}", sysConfigDto.toString());
         SysConfig sysConfig = new SysConfig();
-        BeanUtils.copyProperties(sysConfigDto,sysConfig);
+        BeanUtils.copyProperties(sysConfigDto, sysConfig);
         return sysConfigMapper.editSysConfig(sysConfig);
     }
 

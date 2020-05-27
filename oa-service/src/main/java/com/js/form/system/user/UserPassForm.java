@@ -12,13 +12,13 @@ import javax.validation.constraints.NotNull;
  **/
 @Data
 @ToString
-public class UserPassForm{
+public class UserPassForm {
     @ApiModelProperty("学号")
     @NotNull(message = "学号不可以为空")
     private String studentNumber;
 
     @ApiModelProperty("密码")
-    /**@NotBlank(message = "密码不可以为空")**/
+    /** @NotBlank(message = "密码不可以为空") **/
     private String password;
 
     @ApiModelProperty("验证密码")

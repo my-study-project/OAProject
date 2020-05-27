@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
-
 /**
  * @Author: jiangshuang
  * @Description: 节目评估实体类

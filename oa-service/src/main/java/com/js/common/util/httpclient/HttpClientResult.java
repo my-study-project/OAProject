@@ -7,10 +7,10 @@ import lombok.Data;
 /**
  * @version:V1.0
  * @Description:封装httpClient响应结果
- * @author:姜爽 
- * @date  :2020年2月15日 下午9:26:19
+ * @author:姜爽
+ * @date :2020年2月15日 下午9:26:19
  */
-public class HttpClientResult implements Serializable{
+public class HttpClientResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,12 +28,10 @@ public class HttpClientResult implements Serializable{
         this.code = code;
         this.content = content;
     }
-    
 
     public HttpClientResult(int code) {
         this.code = code;
     }
-
 
     public int getCode() {
         return code;
@@ -50,6 +48,5 @@ public class HttpClientResult implements Serializable{
     public void setContent(String content) {
         this.content = content;
     }
-    
-    
+
 }

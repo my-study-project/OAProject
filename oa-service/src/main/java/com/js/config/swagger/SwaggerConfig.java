@@ -21,29 +21,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.js.controller"))
-                .paths(PathSelectors.any())
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
-                //错误路径不监控
-                .paths(PathSelectors.regex("/.*"))
-                // 对根下所有路径进行监控
-                .build();
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+            .apis(RequestHandlerSelectors.basePackage("com.js.controller")).paths(PathSelectors.any())
+            .paths(Predicates.not(PathSelectors.regex("/error.*")))
+            // 错误路径不监控
+            .paths(PathSelectors.regex("/.*"))
+            // 对根下所有路径进行监控
+            .build();
     }
 
     /**
-     * 创建该API的基本信息（这些基本信息会展现在文档页面中）
-     * 访问地址：http://项目实际地址/swagger-ui.html
+     * 创建该API的基本信息（这些基本信息会展现在文档页面中） 访问地址：http://项目实际地址/swagger-ui.html
+     * 
      * @return
      */
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("黑大OA签到管理平台")
-                .description("黑大OA")
-                .contact(new Contact("技术部","http://oa.hdgbt.com","2545251075@qq.com"))
-                .version("1.0")
-                .build();
+        return new ApiInfoBuilder().title("黑大OA签到管理平台").description("黑大OA")
+            .contact(new Contact("技术部", "http://oa.hdgbt.com", "2545251075@qq.com")).version("1.0").build();
     }
 }

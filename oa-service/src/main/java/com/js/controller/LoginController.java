@@ -46,37 +46,38 @@ public class LoginController {
     @ApiOperation(value = "用户登陆", notes = "用户登陆")
     @Log(value = "用户登陆")
     public BaseResponse<SysUserVo> userLogin(@RequestBody UserPassForm userPassForm, HttpServletResponse response) {
-        log.info("用户登录的入参为{}",userPassForm.toString());
-        if (userPassForm.getPassword() == null){
+        log.info("用户登录的入参为{}", userPassForm.toString());
+        if (userPassForm.getPassword() == null) {
             throw new SystemException("密码不可为空");
         }
         SysUserDto sysUserDto = new SysUserDto();
-        BeanUtils.copyProperties(userPassForm,sysUserDto);
-        //根据用户名查询用户信息
-        SysUserVo sysUserVo= null;
-        try{
+        BeanUtils.copyProperties(userPassForm, sysUserDto);
+        // 根据用户名查询用户信息
+        SysUserVo sysUserVo = null;
+        try {
             sysUserVo = sysUserService.getUserById(userPassForm.getStudentNumber());
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info("查询用户时出现异常");
         }
-        if(sysUserVo == null) {
+        if (sysUserVo == null) {
             throw new SystemException("用户不存在,请联系管理人员");
         }
-        if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive()) || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
+        if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive())
+            || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
             String password = EncryptUtil.shaAndMd5(userPassForm.getPassword());
-            if (password.equals(sysUserVo.getPassword())){
-                //  首先生成token
-                String token = TokenUtil.sign(sysUserVo.getStudentNumber(),sysUserVo.getName());
-                redisService.login(sysUserVo.getStudentNumber(),token);
-                response.setHeader("Token",token);
-                return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),sysUserVo);
-            }else {
+            if (password.equals(sysUserVo.getPassword())) {
+                // 首先生成token
+                String token = TokenUtil.sign(sysUserVo.getStudentNumber(), sysUserVo.getName());
+                redisService.login(sysUserVo.getStudentNumber(), token);
+                response.setHeader("token", token);
+                return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), sysUserVo);
+            } else {
                 throw new SystemException("用户名或者密码不正确");
             }
 
-        }else if (SysUserEnum.NOT_ALIVE.getCode().equals(sysUserVo.getIsAlive())){
+        } else if (SysUserEnum.NOT_ALIVE.getCode().equals(sysUserVo.getIsAlive())) {
             throw new SystemException("该账号已被停用，请联系管理人员");
-        } else{
+        } else {
             throw new SystemException("账号异常，请联系管理人员");
         }
     }
@@ -85,18 +86,18 @@ public class LoginController {
     @ApiOperation(value = "用户注销", notes = "用户注销")
     @Log(value = "用户注销")
     public BaseResponse<String> userLogOut(@RequestHeader("studentNumber") String studentNumber) {
-        log.info("用户注销的入参为{}",studentNumber);
+        log.info("用户注销的入参为{}", studentNumber);
         Boolean flag = false;
-        try{
+        try {
             flag = redisService.logOut(studentNumber);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info("查询用户时出现异常");
         }
         if (Boolean.TRUE.toString().equals(flag.toString())) {
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"用户已退出登录");
-        }else if(Boolean.FALSE.toString().equals(flag.toString())){
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "用户已退出登录");
+        } else if (Boolean.FALSE.toString().equals(flag.toString())) {
             throw new SystemException("用户注销失败，请重试");
-        }else{
+        } else {
             throw new SystemException("系统异常");
         }
     }
@@ -105,69 +106,70 @@ public class LoginController {
     @ApiOperation(value = "获取邮箱验证码", notes = "获取邮箱验证码")
     @Log(value = "获取邮箱验证码")
     public BaseResponse<String> forgetPass(@RequestParam("studentNumber") String studentNumber) {
-        log.info("获取邮箱验证吗入参为{}",studentNumber);
-        if (studentNumber == null || "".equals(studentNumber)){
+        log.info("获取邮箱验证吗入参为{}", studentNumber);
+        if (studentNumber == null || "".equals(studentNumber)) {
             throw new SystemException("未知学号");
         }
-        //根据用户学号获取邮箱或者手机号
+        // 根据用户学号获取邮箱或者手机号
         SysUserVo sysUserVo = sysUserService.getUserById(studentNumber);
-        //默认采用邮箱认证，暂不提供手机号认证未提供手机号验证的接口参数
+        // 默认采用邮箱认证，暂不提供手机号认证未提供手机号验证的接口参数
         String result = "";
-        try{
-            result = mailService.sendCodeMail(sysUserVo,"1");
-        }catch (Exception e){
+        try {
+            result = mailService.sendCodeMail(sysUserVo, "1");
+        } catch (Exception e) {
             throw new SystemException("获取验证码异常");
         }
-        return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),result);
+        return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), result);
     }
 
     @GetMapping("/checkCode")
     @ApiOperation(value = "验证码验证修改密码", notes = "验证码验证修改密码")
     @Log(value = "验证码验证修改密码")
     public BaseResponse<String> rePassCode(@RequestBody UserPassForm userPassForm) {
-        log.info("验证入参为忘记密码{}",userPassForm.toString());
-        //校验密码
-        if (userPassForm.getMethodCode() == null || "".equals(userPassForm.getMethodCode())){
+        log.info("验证入参为忘记密码{}", userPassForm.toString());
+        // 校验密码
+        if (userPassForm.getMethodCode() == null || "".equals(userPassForm.getMethodCode())) {
             throw new SystemException("请输入验证码");
         }
-        if(!userPassForm.getPassword().equals(userPassForm.getRepassword())){
+        if (!userPassForm.getPassword().equals(userPassForm.getRepassword())) {
             throw new SystemException("两次密码不一致，操作失败");
         }
         String code = redisService.getPassCode(userPassForm.getStudentNumber());
-        if (code == null || "".equals(code)){
+        if (code == null || "".equals(code)) {
             throw new SystemException("验证码已失效请重新获取");
         }
-        if (!userPassForm.getMethodCode().equals(code)){
+        if (!userPassForm.getMethodCode().equals(code)) {
             throw new SystemException("验证码输入错误，请刷新页面重试");
         }
-        //封装查询方法
+        // 封装查询方法
         SysUserDto sysUserDto = new SysUserDto();
         sysUserDto.setPassword(EncryptUtil.shaAndMd5(sysUserDto.getPassword()));
         sysUserDto.setStudentNumber(userPassForm.getStudentNumber());
         int result = 0;
 
-        //验证学号对应的用户信息
-        SysUserVo sysUserVo= null;
-        try{
+        // 验证学号对应的用户信息
+        SysUserVo sysUserVo = null;
+        try {
             sysUserVo = sysUserService.getUserById(userPassForm.getStudentNumber());
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info("查询用户异常");
         }
-        if(sysUserVo == null) {
+        if (sysUserVo == null) {
             throw new SystemException("用户不存在,请联系管理员");
         }
 
-        if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive()) || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
+        if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserVo.getIsAlive())
+            || SysUserEnum.INACTIVATED.getCode().equals(sysUserVo.getIsAlive())) {
             result = sysUserService.editSysUser(sysUserDto);
-        }else if (SysUserEnum.NOT_ALIVE.getCode().equals(sysUserVo.getIsAlive())){
+        } else if (SysUserEnum.NOT_ALIVE.getCode().equals(sysUserVo.getIsAlive())) {
             throw new SystemException("该账号已被停用，请联系管理人员");
         } else {
             throw new SystemException("账号异常，请联系管理人员");
         }
-        if (result > 0){
-            return new BaseResponse<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMsg(),"密码重置成功");
+        if (result > 0) {
+            return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), "密码重置成功");
         }
-        return new BaseResponse<>(StatusCode.FAIL.getCode(),StatusCode.FAIL.getMsg(),"密码重置失败");
+        return new BaseResponse<>(StatusCode.FAIL.getCode(), StatusCode.FAIL.getMsg(), "密码重置失败");
     }
 
 }

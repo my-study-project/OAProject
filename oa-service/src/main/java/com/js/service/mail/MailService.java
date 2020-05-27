@@ -34,7 +34,7 @@ public class MailService {
     private OaSysConfig oaSysConfig;
 
     public String sendCodeMail(SysUserVo sysUserVo, String methodCode) {
-        //生成短信验证码
+        // 生成短信验证码
         String verifyCode = String.valueOf(new Random().nextInt(899999) + 100000);
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -46,28 +46,28 @@ public class MailService {
         stringBuilder.append("如果您没有进行上述操作，请忽略此邮件。");
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
-        //发送验证码到手机或者是邮箱
-        if (EMAIL.equals(methodCode)){
-            //邮箱
-            try{
-                //将验证码和过期时间更新到数redis据库
-                redisService.rePassCode(sysUserVo.getStudentNumber(),verifyCode);
-                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
-                //这里只是设置username 并没有设置host和password，因为host和password在springboot启动创建JavaMailSender实例的时候已经读取了
+        // 发送验证码到手机或者是邮箱
+        if (EMAIL.equals(methodCode)) {
+            // 邮箱
+            try {
+                // 将验证码和过期时间更新到数redis据库
+                redisService.rePassCode(sysUserVo.getStudentNumber(), verifyCode);
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+                // 这里只是设置username 并没有设置host和password，因为host和password在springboot启动创建JavaMailSender实例的时候已经读取了
                 mimeMessageHelper.setFrom(oaSysConfig.getUsername());
                 mimeMessageHelper.setTo(sysUserVo.getEmail());
                 mimeMessage.setSubject("黑大OA密码重置");
-                mimeMessageHelper.setText(stringBuilder.toString(),true);
+                mimeMessageHelper.setText(stringBuilder.toString(), true);
                 javaMailSender.send(mimeMessage);
-            }catch (Exception e){
-                log.info("验证码发送失败{}",e);
+            } catch (Exception e) {
+                log.info("验证码发送失败{}", e);
                 throw new SystemException("验证码发送失败，请重试");
             }
 
-        }else if (PHONE.equals(methodCode)){
-            //手机验证，需要注册短信通等暂时未开发
+        } else if (PHONE.equals(methodCode)) {
+            // 手机验证，需要注册短信通等暂时未开发
         }
-        if (verifyCode == null ||"".equals(verifyCode)){
+        if (verifyCode == null || "".equals(verifyCode)) {
             return "验证码发送成功";
         }
         return "验证码发送失败";

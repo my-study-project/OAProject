@@ -37,7 +37,7 @@ subprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
     // 指定编码格式
-    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
     version = "1.0.0-SNAPSHOT"  // 开发版本： -SNAPSHOT 正式版本：.RELEASE
 //    group = "com.js"
     description = "spring boot in action"

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 /**
  * @Author: jiangshuang
  * @Description: 节目评估相关操作Mapper
@@ -13,19 +14,19 @@ import java.util.List;
 @Mapper
 public interface ProgramEvaluationMapper {
 
-    /**删除操作**/
+    /** 删除操作 **/
     int deleteProgramEvaluation(@Param("uuid") String uuid);
 
-    /**添加节目评估**/
+    /** 添加节目评估 **/
     int addProgramEvaluation(ProgramEvaluation programEvaluation);
 
-    /**根据主键查询操作**/
+    /** 根据主键查询操作 **/
     ProgramEvaluation selectById(@Param("uuid") String uuid);
 
-    /**修改评估操作**/
+    /** 修改评估操作 **/
     int editProgramEvaluation(ProgramEvaluation programEvaluation);
 
-    /**根据条件查询评估**/
+    /** 根据条件查询评估 **/
     List<ProgramEvaluation> selectByMess(ProgramEvaluation programEvaluation);
 
 }
