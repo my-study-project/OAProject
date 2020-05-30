@@ -1,6 +1,7 @@
 package com.js.dto.system;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -9,6 +10,7 @@ import lombok.ToString;
  **/
 @Data
 @ToString
+@EqualsAndHashCode(callSuper=true)
 public class SysUserDto extends BasePageDto {
     /** 学号 **/
     private String studentNumber;

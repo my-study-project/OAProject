@@ -3,6 +3,7 @@ package com.js.dto.broadcast;
 import com.js.dto.system.BasePageDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -11,6 +12,7 @@ import lombok.ToString;
  **/
 @Data
 @ToString
+@EqualsAndHashCode(callSuper=true)
 public class BroadcastTimeDto extends BasePageDto {
     /** 主键 **/
     private String uuid;

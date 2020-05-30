@@ -3,6 +3,7 @@ package com.js.form.program.evaluation;
 import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -11,6 +12,7 @@ import lombok.ToString;
  **/
 @Data
 @ToString
+@EqualsAndHashCode(callSuper=true)
 public class ProgramEvaluationForm extends BasePageForm {
     @ApiModelProperty("主键")
     private String uuid;

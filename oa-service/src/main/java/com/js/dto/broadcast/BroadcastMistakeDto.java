@@ -2,6 +2,7 @@ package com.js.dto.broadcast;
 
 import com.js.dto.system.BasePageDto;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  **/
 @Data
 @ToString
+@EqualsAndHashCode(callSuper=true)
 public class BroadcastMistakeDto extends BasePageDto {
     /** 主键 **/
     private String uuid;

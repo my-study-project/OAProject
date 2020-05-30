@@ -3,6 +3,7 @@ package com.js.form.system.user;
 import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
  **/
 @Data
 @ToString
+@EqualsAndHashCode(callSuper=true)
 public class AddSysUserForm extends BasePageForm {
     @ApiModelProperty("学号")
     @NotNull(message = "学号不可以为空")

@@ -2,6 +2,7 @@ package com.js.dto.purview;
 
 import com.js.dto.system.BasePageDto;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -10,6 +11,7 @@ import lombok.ToString;
  **/
 @Data
 @ToString
+@EqualsAndHashCode(callSuper=true)
 public class PurviewDto extends BasePageDto {
     /** 主键uuid **/
     private String uuid;

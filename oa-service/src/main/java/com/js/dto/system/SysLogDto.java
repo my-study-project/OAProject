@@ -2,6 +2,7 @@ package com.js.dto.system;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  **/
 @ToString
 @Data
+@EqualsAndHashCode(callSuper=true)
 public class SysLogDto extends BasePageDto {
 
     @ApiModelProperty("日志主键")

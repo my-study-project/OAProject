@@ -3,6 +3,7 @@ package com.js.form.broadcast.sign;
 import com.js.form.system.BasePageForm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
  **/
 @Data
 @ToString
+@EqualsAndHashCode(callSuper=true)
 public class BroadcastSignInForm extends BasePageForm {
     @ApiModelProperty("主键")
     private String uuid;
