@@ -68,8 +68,8 @@ public class MailService {
             // 手机验证，需要注册短信通等暂时未开发
         }
         if (verifyCode == null || "".equals(verifyCode)) {
-            return "验证码发送成功";
+            return "验证码发送失败";
         }
-        return "验证码发送失败";
+        return "验证码发送成功";
     }
 }
