@@ -27,6 +27,12 @@ public class TokenUtil {
     /** 公共密钥 **/
     private static final String TOKEN_SECRET = "wddcdfdfhjtjthjdffsdfsd33hcskdncksndcnsnsvsdcsdc";
 
+    /** 获取用户名名称**/
+    private static final String STUDENT_NUMBER = "studentNumber";
+
+    /** 获取用户名名称**/
+    private static final String NAME_TRUE = "name";
+
     /** 生成token **/
     public static String sign(String studentNumber, String name) {
         String token = null;
@@ -40,7 +46,7 @@ public class TokenUtil {
             header.put("typ", "JWT");
             header.put("alg", "HS256");
             // 附带String studentNumber等信息
-            token = JWT.create().withHeader(header).withClaim("studentNumber", studentNumber).withClaim("name", name)
+            token = JWT.create().withHeader(header).withClaim(STUDENT_NUMBER, studentNumber).withClaim(NAME_TRUE, name)
                 .withExpiresAt(date).sign(algorithm);
             log.info("生成的token值为{}", token);
         } catch (Exception ex) {
@@ -62,7 +68,7 @@ public class TokenUtil {
             DecodedJWT jwt = verifier.verify(token);
             log.info("结果为{}", jwt.toString());
             HashMap<String, String> hashMap = new HashMap<>(8);
-            hashMap.put("studentNumber", jwt.getClaim("studentNumber").asString());
+            hashMap.put(STUDENT_NUMBER, jwt.getClaim(NAME_TRUE).asString());
             hashMap.put("name", jwt.getClaim("name").asString());
             log.info("hashMap的结果为{}", hashMap.toString());
             return hashMap;
