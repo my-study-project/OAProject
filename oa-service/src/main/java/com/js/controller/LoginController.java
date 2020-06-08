@@ -70,6 +70,7 @@ public class LoginController {
                 String token = TokenUtil.sign(sysUserVo.getStudentNumber(), sysUserVo.getName());
                 redisService.login(sysUserVo.getStudentNumber(), token);
                 response.setHeader("token", token);
+                sysUserVo.setPassword(null);
                 return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), sysUserVo);
             } else {
                 throw new SystemException("用户名或者密码不正确");
