@@ -71,10 +71,27 @@ public class BroadcastSignInService {
 
     /** 根据条件查询查询签到操作 **/
     public PageInfo<BroadcastSignInVo> getBroadcastSignInByMess(BroadcastSignInDto broadcastSignInDto) {
-        log.info("条件查询节目入参={}", broadcastSignInDto.toString());
+        log.info("条件查询节目默认查询当前学期入参={}", broadcastSignInDto.toString());
         PageHelper.startPage(broadcastSignInDto.getOffset(), broadcastSignInDto.getLimit());
         /** 条件查询入参 **/
         BroadcastSignIn broadcastSignIn = new BroadcastSignIn();
+        BeanUtils.copyProperties(broadcastSignInDto,broadcastSignIn);
+
+        if ("".equals(broadcastSignIn.getAcademicYear()) || "".equals(broadcastSignIn.getAcademicTerm())){
+            SysConfigDto sysConfigDto = new SysConfigDto();
+            // 获取当前学期开始时间
+            List<SysConfigVo> sysConfigVoList = sysConfigService.getSysConfigByMess(sysConfigDto);
+            sysConfigVoList.forEach(sysConfigVo -> {
+                if (ACADEMIC_YEAR.equals(sysConfigVo.getName())) {
+                    broadcastSignIn.setAcademicYear(sysConfigVo.getValue());
+                } else if (ACADEMIC_TERM.equals(sysConfigVo.getName())) {
+                    broadcastSignIn.setAcademicTerm(sysConfigVo.getValue());
+                }
+                if (ACADEMIC_WEEK.equals(sysConfigVo.getName()) && null == broadcastSignInDto.getTeachingWeek()) {
+                    broadcastSignIn.setTeachingWeek(Integer.valueOf(sysConfigVo.getValue()));
+                }
+            });
+        }
         List<BroadcastSignInVo> broadcastSignInVoList = new ArrayList<>();
         try {
             List<BroadcastSignIn> broadcastSignInList = broadcastSignInMapper.getBroadcastSignInByMess(broadcastSignIn);

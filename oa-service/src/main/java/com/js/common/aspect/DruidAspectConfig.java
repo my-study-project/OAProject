@@ -18,8 +18,7 @@ import org.springframework.context.annotation.Scope;
 public class DruidAspectConfig {
     @Bean
     public DruidStatInterceptor druidStatInterceptor() {
-        DruidStatInterceptor dsInterceptor = new DruidStatInterceptor();
-        return dsInterceptor;
+        return new DruidStatInterceptor();
     }
     @Bean
     @Scope("prototype")
