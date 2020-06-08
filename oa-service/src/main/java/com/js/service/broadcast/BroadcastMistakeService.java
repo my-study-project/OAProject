@@ -5,12 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.js.common.exception.SystemException;
 import com.js.common.util.IdUtils;
 import com.js.dto.broadcast.BroadcastMistakeDto;
-import com.js.dto.system.SysConfigDto;
 import com.js.mapper.broadcast.BroadcastMistakeMapper;
 import com.js.pojo.broadcast.BroadcastMistake;
+import com.js.service.system.CommonSysConfigService;
 import com.js.service.system.SysConfigService;
 import com.js.vo.broadcast.BroadcastMistakeVo;
-import com.js.vo.system.SysConfigVo;
+import com.js.vo.system.SysConfigCommon;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +27,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class BroadcastMistakeService {
-
-    /** 当前年度 **/
-    private static final String ACADEMIC_YEAR = "ACADEMIC_YEAR";
-
-    /** 当前学期 **/
-    private static final String ACADEMIC_TERM = "ACADEMIC_TERM";
-
-    /** 当前周 **/
-    private static final String ACADEMIC_WEEK = "ACADEMIC_WEEK";
+    @Autowired
+    private CommonSysConfigService commonSysConfigService;
 
     @Autowired
     private BroadcastMistakeMapper broadcastMistakeMapper;
@@ -52,19 +45,10 @@ public class BroadcastMistakeService {
     public int addBroadcastMistake(BroadcastMistakeDto broadcastMistakeDto) {
         BroadcastMistake broadcastMistake = new BroadcastMistake();
         BeanUtils.copyProperties(broadcastMistakeDto, broadcastMistake);
-
-        // 获取当前学期详细信息
-        SysConfigDto sysConfigDto = new SysConfigDto();
-        List<SysConfigVo> sysConfigVoList = sysConfigService.getSysConfigByMess(sysConfigDto);
-        sysConfigVoList.forEach(sysConfigVo -> {
-            if (ACADEMIC_YEAR.equals(sysConfigVo.getName())) {
-                broadcastMistake.setAcademicYear(sysConfigVo.getValue());
-            } else if (ACADEMIC_TERM.equals(sysConfigVo.getName())) {
-                broadcastMistake.setAcademicTerm(sysConfigVo.getValue());
-            } else if (ACADEMIC_WEEK.equals(sysConfigVo.getName())) {
-                broadcastMistake.setTeachingWeek(Integer.valueOf(sysConfigVo.getValue()));
-            }
-        });
+        SysConfigCommon sysConfigCommon = commonSysConfigService.getSysConfig();
+        broadcastMistake.setAcademicYear(sysConfigCommon.getAcademicYear());
+        broadcastMistake.setAcademicTerm(sysConfigCommon.getAcademicTerm());
+        broadcastMistake.setTeachingWeek(sysConfigCommon.getTeachingWeek());
         broadcastMistake.setUuid(IdUtils.get32Uuid());
         return broadcastMistakeMapper.addBroadcastMistake(broadcastMistake);
     }

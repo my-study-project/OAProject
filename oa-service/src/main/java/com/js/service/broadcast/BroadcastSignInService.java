@@ -5,12 +5,11 @@ import com.github.pagehelper.PageInfo;
 import com.js.common.exception.SystemException;
 import com.js.common.util.IdUtils;
 import com.js.dto.broadcast.BroadcastSignInDto;
-import com.js.dto.system.SysConfigDto;
 import com.js.mapper.broadcast.BroadcastSignInMapper;
 import com.js.pojo.broadcast.BroadcastSignIn;
-import com.js.service.system.SysConfigService;
+import com.js.service.system.CommonSysConfigService;
 import com.js.vo.broadcast.BroadcastSignInVo;
-import com.js.vo.system.SysConfigVo;
+import com.js.vo.system.SysConfigCommon;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,38 +27,23 @@ import java.util.List;
 @Slf4j
 public class BroadcastSignInService {
 
-    /** 当前年度 **/
-    private static final String ACADEMIC_YEAR = "ACADEMIC_YEAR";
-
-    /** 当前学期 **/
-    private static final String ACADEMIC_TERM = "ACADEMIC_TERM";
-
-    /** 当前周 **/
-    private static final String ACADEMIC_WEEK = "ACADEMIC_WEEK";
-
     @Autowired
-    private SysConfigService sysConfigService;
+    private CommonSysConfigService commonSysConfigService;
 
     @Autowired
     private BroadcastSignInMapper broadcastSignInMapper;
 
     /** 添加签到操作 **/
     public int addBroadcastSignIn(BroadcastSignInDto broadcastSignInDto) {
-        SysConfigDto sysConfigDto = new SysConfigDto();
-        // 获取当前学期开始时间
-        List<SysConfigVo> sysConfigVoList = sysConfigService.getSysConfigByMess(sysConfigDto);
         BroadcastSignIn broadcastSignIn = new BroadcastSignIn();
         BeanUtils.copyProperties(broadcastSignInDto, broadcastSignIn);
         broadcastSignIn.setUuid(IdUtils.get32Uuid());
-        sysConfigVoList.forEach(sysConfigVo -> {
-            if (ACADEMIC_YEAR.equals(sysConfigVo.getName())) {
-                broadcastSignIn.setAcademicYear(sysConfigVo.getValue());
-            } else if (ACADEMIC_TERM.equals(sysConfigVo.getName())) {
-                broadcastSignIn.setAcademicTerm(sysConfigVo.getValue());
-            } else if (ACADEMIC_WEEK.equals(sysConfigVo.getName())) {
-                broadcastSignIn.setTeachingWeek(Integer.valueOf(sysConfigVo.getValue()));
-            }
-        });
+
+        SysConfigCommon sysConfigCommon = commonSysConfigService.getSysConfig();
+        broadcastSignIn.setAcademicYear(sysConfigCommon.getAcademicYear());
+        broadcastSignIn.setAcademicTerm(sysConfigCommon.getAcademicTerm());
+        broadcastSignIn.setTeachingWeek(sysConfigCommon.getTeachingWeek());
+
         List<BroadcastSignIn> broadcastSignInList = broadcastSignInMapper.getBroadcastSignInByMess(broadcastSignIn);
         if (broadcastSignInList.isEmpty()) {
             broadcastSignInMapper.addBroadcastSignIn(broadcastSignIn);
@@ -78,19 +62,13 @@ public class BroadcastSignInService {
         BeanUtils.copyProperties(broadcastSignInDto,broadcastSignIn);
 
         if ("".equals(broadcastSignIn.getAcademicYear()) || "".equals(broadcastSignIn.getAcademicTerm())){
-            SysConfigDto sysConfigDto = new SysConfigDto();
-            // 获取当前学期开始时间
-            List<SysConfigVo> sysConfigVoList = sysConfigService.getSysConfigByMess(sysConfigDto);
-            sysConfigVoList.forEach(sysConfigVo -> {
-                if (ACADEMIC_YEAR.equals(sysConfigVo.getName())) {
-                    broadcastSignIn.setAcademicYear(sysConfigVo.getValue());
-                } else if (ACADEMIC_TERM.equals(sysConfigVo.getName())) {
-                    broadcastSignIn.setAcademicTerm(sysConfigVo.getValue());
-                }
-                if (ACADEMIC_WEEK.equals(sysConfigVo.getName()) && null == broadcastSignInDto.getTeachingWeek()) {
-                    broadcastSignIn.setTeachingWeek(Integer.valueOf(sysConfigVo.getValue()));
-                }
-            });
+            SysConfigCommon sysConfigCommon = commonSysConfigService.getSysConfig();
+            broadcastSignIn.setAcademicYear(sysConfigCommon.getAcademicYear());
+            broadcastSignIn.setAcademicTerm(sysConfigCommon.getAcademicTerm());
+            broadcastSignIn.setTeachingWeek(sysConfigCommon.getTeachingWeek());
+            if (null == broadcastSignInDto.getTeachingWeek()) {
+                broadcastSignIn.setTeachingWeek(sysConfigCommon.getTeachingWeek());
+            }
         }
         List<BroadcastSignInVo> broadcastSignInVoList = new ArrayList<>();
         try {

@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @Author: jiangshuang
- * @Description: 系统配置文件Mapper
+ * @Description: 系统配置文件Service
  * @Date: 2020/5/9 19:47
  **/
 @Service
