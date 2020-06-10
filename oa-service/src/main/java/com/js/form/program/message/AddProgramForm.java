@@ -16,7 +16,7 @@ public class AddProgramForm {
 
     @ApiModelProperty("节目名称")
     @NotNull(message = "节目名称不可以为空")
-    private String name;
+    private String programName;
 
     @ApiModelProperty("所属组别id")
     @NotNull(message = "所属组别不可以为空")

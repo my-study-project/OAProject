@@ -9,6 +9,7 @@ import com.js.mapper.broadcast.BroadcastMistakeMapper;
 import com.js.pojo.broadcast.BroadcastMistake;
 import com.js.service.system.CommonSysConfigService;
 import com.js.service.system.SysConfigService;
+import com.js.vo.broadcast.BroadcastMistakeExport;
 import com.js.vo.broadcast.BroadcastMistakeVo;
 import com.js.vo.system.SysConfigCommon;
 import lombok.extern.slf4j.Slf4j;
@@ -79,9 +80,9 @@ public class BroadcastMistakeService {
         /** 结果变量 **/
         PageInfo<BroadcastMistakeVo> broadcastMistakeVoPageInfo = new PageInfo<>();
         try {
-            List<BroadcastMistake> broadcastMistakeList =
+            List<BroadcastMistakeExport> broadcastMistakeList =
                 broadcastMistakeMapper.getBroadcastMistakeByMess(broadcastMistake);
-            PageInfo<BroadcastMistake> broadcastMistakePageInfo = new PageInfo<>(broadcastMistakeList);
+            PageInfo<BroadcastMistakeExport> broadcastMistakePageInfo = new PageInfo<>(broadcastMistakeList);
             BeanUtils.copyProperties(broadcastMistakePageInfo, broadcastMistakeVoPageInfo);
 
             /** 结果集转换 **/
@@ -93,6 +94,22 @@ public class BroadcastMistakeService {
             });
             broadcastMistakeVoPageInfo.setList(broadcastMistakeVoList);
             return broadcastMistakeVoPageInfo;
+        } catch (Exception e) {
+            throw new SystemException("查询签到失败");
+        }
+    }
+
+    /** 根据条件导出错误 **/
+    public List<BroadcastMistakeExport> exportMistake(BroadcastMistakeDto broadcastMistakeDto) {
+        log.info("根据条件导出错误入参={}", broadcastMistakeDto.toString());
+        /** 封装入参 **/
+        BroadcastMistake broadcastMistake = new BroadcastMistake();
+        BeanUtils.copyProperties(broadcastMistakeDto, broadcastMistake);
+        /** 结果变量 **/
+        try {
+            List<BroadcastMistakeExport> broadcastMistakeExportList =
+                    broadcastMistakeMapper.getBroadcastMistakeByMess(broadcastMistake);
+            return broadcastMistakeExportList;
         } catch (Exception e) {
             throw new SystemException("查询签到失败");
         }

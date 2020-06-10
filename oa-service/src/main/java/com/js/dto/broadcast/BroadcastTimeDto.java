@@ -30,5 +30,5 @@ public class BroadcastTimeDto extends BasePageDto {
     private String stopSignTime;
 
     @ApiModelProperty("对应时间范围编码")
-    private String code;
+    private String period;
 }

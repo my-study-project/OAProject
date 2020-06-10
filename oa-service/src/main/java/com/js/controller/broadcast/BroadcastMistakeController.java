@@ -6,18 +6,30 @@ import com.js.common.enums.StatusCode;
 import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
 import com.js.dto.broadcast.BroadcastMistakeDto;
+import com.js.enums.program.ProgramDateEnum;
 import com.js.form.broadcast.mistake.AddBroadcastMistakeForm;
 import com.js.form.broadcast.mistake.BroadcastMistakeForm;
 import com.js.form.broadcast.mistake.EditBroadcastMistakeForm;
 import com.js.service.broadcast.BroadcastMistakeService;
+import com.js.service.system.CommonSysConfigService;
+import com.js.vo.broadcast.BroadcastMistakeExport;
 import com.js.vo.broadcast.BroadcastMistakeVo;
+import com.js.vo.system.SysConfigCommon;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.List;
 
 /**
  * @Author: jiangshuang
@@ -33,6 +45,8 @@ public class BroadcastMistakeController {
     @Autowired
     private BroadcastMistakeService broadcastMistakeService;
 
+    @Autowired
+    private CommonSysConfigService commonSysConfigService;
     @GetMapping("/delete")
     @ApiOperation(value = "删除放音错误操作", notes = "删除放音错误操作")
     @Log(value = "删除放音错误操作")
@@ -122,6 +136,56 @@ public class BroadcastMistakeController {
         } catch (Exception e) {
             log.info("条件查询操作失败{}", e);
             throw new SystemException("条件查询操作失败");
+        }
+    }
+
+    /** 根据条件导出错误操作 **/
+    @PostMapping("/exportMistake")
+    @ApiOperation(value = "根据条件导出错误操作", notes = "根据条件导出错误操作")
+    @Log(value = "根据条件导出错误操作")
+    public void importMistake(@RequestBody BroadcastMistakeForm broadcastMistakeForm, HttpServletResponse response) {
+        log.info("根据条件查询操作放音错误操作入参为{}", broadcastMistakeForm.toString());
+        BroadcastMistakeDto broadcastMistakeDto = new BroadcastMistakeDto();
+        if (null == broadcastMistakeForm.getTeachingWeek()) {
+            throw new SystemException("为避免数据过大，请选择教学周");
+        }
+        //导出年份由后台限制
+        SysConfigCommon sysConfigCommon = commonSysConfigService.getSysConfig();
+        BeanUtils.copyProperties(broadcastMistakeForm, broadcastMistakeDto);
+        broadcastMistakeDto.setAcademicYear(sysConfigCommon.getAcademicYear());
+        broadcastMistakeDto.setAcademicTerm(sysConfigCommon.getAcademicTerm());
+        try {
+            //查询获取数据集
+            List<BroadcastMistakeExport> broadcastMistakeExportList= broadcastMistakeService.exportMistake(broadcastMistakeDto);
+            String templatePath=this.getClass().getClassLoader().getResource("templates/mistake.xlsx").getPath();
+            InputStream is = new FileInputStream(new File(templatePath));
+            Workbook workbook = new XSSFWorkbook(is);
+            //获取到第一个工作表
+            Sheet sheet =workbook.getSheetAt(0);
+            Row timeArang = sheet.createRow(1);
+            timeArang.createCell(1).setCellValue(sysConfigCommon.getAcademicYear() + "年度第" + sysConfigCommon.getAcademicTerm() + "学期第" + broadcastMistakeForm.getTeachingWeek() + "教学周放音错误报告");
+            for (int rowNum = 2;rowNum < broadcastMistakeExportList.size() + 2; rowNum ++){
+                Row mainRow=sheet.createRow(rowNum);
+                BroadcastMistakeExport broadcastMistakeExport = broadcastMistakeExportList.get(rowNum-2);
+                mainRow.createCell(1).setCellValue(rowNum - 2);
+                mainRow.createCell(2).setCellValue(ProgramDateEnum.valueOf(broadcastMistakeExport.getDetail()).getMsg());
+                mainRow.createCell(3).setCellValue(broadcastMistakeExport.getProgramName());
+                mainRow.createCell(4).setCellValue(broadcastMistakeExport.getDetail());
+            }
+            //清空response
+            response.reset();
+
+            response.addHeader("Content-Disposition", "attachment;filename=example.xlsx");
+            OutputStream os = new BufferedOutputStream(response.getOutputStream());
+            response.setContentType("application/vnd.ms-excel;charset=gb2312");
+            //将excel写入到输出流中
+            workbook.write(os);
+            os.flush();
+            os.close();
+
+        } catch (Exception e) {
+            log.info("错误查询操作失败{}", e);
+            throw new SystemException("错误查询操作失败");
         }
     }
 

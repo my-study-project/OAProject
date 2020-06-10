@@ -7,9 +7,10 @@
         <result column="day_of_week" property="dayOfWeek" jdbcType="INTEGER"/>
         <result column="start_sign_time" property="startSignTime" jdbcType="VARCHAR"/>
         <result column="stop_sign_time" property="stopSignTime" jdbcType="VARCHAR"/>
+        <result column="period" property="period" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-		uuid, program_id, day_of_week, start_sign_time, stop_sign_time
+		uuid, program_id, day_of_week, start_sign_time, stop_sign_time,period
   </sql>
     <select id="getBroadcastIimeById" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
@@ -39,6 +40,9 @@
             <if test="stopSignTime != null">
                 stop_sign_time,
             </if>
+            <if test="period != null">
+                period,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="uuid != null">
@@ -56,6 +60,9 @@
             <if test="stopSignTime != null">
                 #{stopSignTime,jdbcType=VARCHAR},
             </if>
+            <if test="period != null">
+                #{period,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="editBroadcastIime" parameterType="com.js.pojo.broadcast.BroadcastTime">
@@ -72,6 +79,9 @@
             </if>
             <if test="stopSignTime != null">
                 stop_sign_time = #{stopSignTime,jdbcType=VARCHAR},
+            </if>
+            <if test="period != null">
+                #{period,jdbcType=VARCHAR},
             </if>
         </set>
         where uuid = #{uuid,jdbcType=VARCHAR}
@@ -92,6 +102,9 @@
             </if>
             <if test="stopSignTime != null">
                 and stop_sign_time &gt;= #{stopSignTime,jdbcType=VARCHAR}
+            </if>
+            <if test="period != null">
+                and #{period,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

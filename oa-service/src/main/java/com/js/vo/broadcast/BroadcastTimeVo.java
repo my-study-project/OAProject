@@ -28,4 +28,7 @@ public class BroadcastTimeVo {
 
     @ApiModelProperty("对应的节目签到状态")
     private String status;
+
+    @ApiModelProperty("签到所处时间段编码")
+    private String period;
 }

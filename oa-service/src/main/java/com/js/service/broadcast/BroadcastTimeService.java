@@ -52,7 +52,7 @@ public class BroadcastTimeService {
         log.info("添加节目播出时间入参{}", broadcastTimeDto.toString());
         BroadcastTime broadcastTime = new BroadcastTime();
         BeanUtils.copyProperties(broadcastTimeDto, broadcastTime);
-        DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getCode());
+        DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getPeriod());
         broadcastTimeDto.setDayOfWeek(defaultProgramDateVo.getDayOfWeek());
         broadcastTimeDto.setStartSignTime(broadcastTimeDto.getStartSignTime().replace(":", ""));
         broadcastTimeDto.setStopSignTime(broadcastTimeDto.getStopSignTime().replace(":", ""));
@@ -74,7 +74,7 @@ public class BroadcastTimeService {
         log.info("修改节目播出时间入参{}", broadcastTimeDto.toString());
         BroadcastTime broadcastTime = new BroadcastTime();
         BeanUtils.copyProperties(broadcastTimeDto, broadcastTime);
-        DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getCode());
+        DefaultProgramDateVo defaultProgramDateVo = ProgramDateEnum.getEnumValues(broadcastTimeDto.getPeriod());
         broadcastTimeDto.setStartSignTime(broadcastTimeDto.getStartSignTime().replace(",", ""));
         broadcastTimeDto.setStopSignTime(broadcastTimeDto.getStopSignTime().replace(",", ""));
         broadcastTimeDto.setDayOfWeek(defaultProgramDateVo.getDayOfWeek());

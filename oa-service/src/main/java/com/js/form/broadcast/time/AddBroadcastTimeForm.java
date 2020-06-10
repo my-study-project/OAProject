@@ -29,5 +29,5 @@ public class AddBroadcastTimeForm {
 
     @ApiModelProperty("对应时间范围编码")
     @NotNull(message = "对应时间范围编码不可以为空")
-    private String code;
+    private String period;
 }

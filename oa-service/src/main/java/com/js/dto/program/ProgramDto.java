@@ -17,7 +17,7 @@ public class ProgramDto extends BasePageDto {
     private String uuid;
 
     /** 节目名称 **/
-    private String name;
+    private String programName;
 
     /** 所属组别id **/
     private String groupId;

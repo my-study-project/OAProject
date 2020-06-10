@@ -42,8 +42,8 @@ public class BroadcastTimeController {
         log.info("添加节目时间范围入参为{}", addBroadcastTimeForm.toString());
         BroadcastTimeDto broadcastTimeDto = new BroadcastTimeDto();
         BeanUtils.copyProperties(addBroadcastTimeForm, broadcastTimeDto);
-        if (null == broadcastTimeDto.getCode()) {
-            broadcastTimeDto.setCode("00");
+        if (null == broadcastTimeDto.getPeriod()) {
+            broadcastTimeDto.setPeriod("00");
         }
         int result = 0;
         try {
@@ -101,8 +101,8 @@ public class BroadcastTimeController {
         BroadcastTimeDto broadcastTimeDto = new BroadcastTimeDto();
         BeanUtils.copyProperties(editBroadcastTimeForm, broadcastTimeDto);
         // 判空赋值
-        if (null == broadcastTimeDto.getCode()) {
-            broadcastTimeDto.setCode("00");
+        if (null == broadcastTimeDto.getPeriod()) {
+            broadcastTimeDto.setPeriod("00");
         }
         int result = 0;
         try {

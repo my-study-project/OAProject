@@ -1,6 +1,7 @@
 package com.js.mapper.broadcast;
 
 import com.js.pojo.broadcast.BroadcastMistake;
+import com.js.vo.broadcast.BroadcastMistakeExport;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,6 +37,6 @@ public interface BroadcastMistakeMapper {
     /**
      * 根据条件查询操作
      **/
-    List<BroadcastMistake> getBroadcastMistakeByMess(BroadcastMistake broadcastMistake);
+    List<BroadcastMistakeExport> getBroadcastMistakeByMess(BroadcastMistake broadcastMistake);
 
 }

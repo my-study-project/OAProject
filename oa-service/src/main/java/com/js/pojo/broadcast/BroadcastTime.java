@@ -24,4 +24,7 @@ public class BroadcastTime {
 
     /** 签到时间截至(时分秒) **/
     private String stopSignTime;
+
+    /** 签到所处时间段编码 **/
+    private String period;
 }

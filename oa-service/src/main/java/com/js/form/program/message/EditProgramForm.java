@@ -19,7 +19,7 @@ public class EditProgramForm {
     private String uuid;
 
     @ApiModelProperty("节目名称")
-    private String name;
+    private String programName;
 
     @ApiModelProperty("所属组别id")
     private String groupId;
