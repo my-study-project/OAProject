@@ -67,4 +67,19 @@ public class SysLogService {
         }
         return sysLogVoPageInfo;
     }
+
+    /**
+     * 查询系统日志
+     **/
+    public List<SysLogVo> exportSysLog() {
+        List<SysLog> sysLogs = sysLogMapper.showAllLog();
+        log.info("查询结果为{}", sysLogs);
+        List<SysLogVo> sysLogVoList = new ArrayList<>();
+        sysLogs.forEach(sysLog -> {
+            SysLogVo sysLogVo = new SysLogVo();
+            BeanUtils.copyProperties(sysLog, sysLogVo);
+            sysLogVoList.add(sysLogVo);
+        });
+        return sysLogVoList;
+    }
 }

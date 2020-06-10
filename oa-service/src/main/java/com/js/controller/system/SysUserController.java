@@ -174,7 +174,7 @@ public class SysUserController {
                 sysUserForm.setGroupId(groupVo.getDeptName());
             }
             String[] header = {"学号","姓名","学院","邮箱","密码","联系方式","所属组别","账号状态","组内身份","对应师傅id"};
-            String fileName = sysUserForm.getGroupId()  + "用户数据表.xls";
+            String fileName = sysUserForm.getGroupId()  + "SysUser.xls";
             ExcelUtil.export(response,sysUserVoList,header,fileName);
         } catch (Exception e) {
             log.info("查询用户出现的异常为{}", e);
