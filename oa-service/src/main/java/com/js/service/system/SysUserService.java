@@ -54,32 +54,12 @@ public class SysUserService {
 
         // 定义结果集
         PageInfo<SysUserVo> sysUserVoPageInfo = new PageInfo<>();
-        List<SysUserVo> sysUserVoList = new ArrayList<>();
 
         List<SysUser> sysUserList = sysUserMapper.getUserAllList(sysUser);
         PageInfo<SysUser> sysUserPageInfo = new PageInfo<>(sysUserList);
 
         BeanUtils.copyProperties(sysUserPageInfo, sysUserVoPageInfo);
-        sysUserList.forEach(sysUserTemp -> {
-            SysUserVo sysUserVo = new SysUserVo();
-            BeanUtils.copyProperties(sysUserTemp, sysUserVo);
-            if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserTemp.getIsAlive())) {
-                sysUserVo.setIsAlive(SysUserEnum.IS_ALIVE.getMsg());
-            } else if (SysUserEnum.NOT_ALIVE.getCode().equals(sysUserTemp.getIsAlive())) {
-                sysUserVo.setIsAlive(SysUserEnum.NOT_ALIVE.getMsg());
-            } else {
-                sysUserVo.setIsAlive(SysUserEnum.UNKONW_TYPE.getMsg());
-            }
-
-            if (SysUserEnum.IS_SUPER.getCode().equals(sysUserTemp.getIsSuper())) {
-                sysUserVo.setIsSuper(SysUserEnum.IS_SUPER.getMsg());
-            } else if (SysUserEnum.NOT_SUPER.getCode().equals(sysUserTemp.getIsSuper())) {
-                sysUserVo.setIsSuper(SysUserEnum.NOT_SUPER.getMsg());
-            } else {
-                sysUserVo.setIsSuper(SysUserEnum.UNKONW_TYPE.getMsg());
-            }
-            sysUserVoList.add(sysUserVo);
-        });
+        List<SysUserVo> sysUserVoList = changeVo(sysUserList);
         sysUserVoPageInfo.setList(sysUserVoList);
         return sysUserVoPageInfo;
     }
@@ -103,4 +83,40 @@ public class SysUserService {
         return result;
     }
 
+
+    /** 条件查询用户 **/
+    public List<SysUserVo> exportUser(SysUserDto sysUserDto) {
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(sysUserDto, sysUser);
+        List<SysUser> sysUserList = sysUserMapper.getUserAllList(sysUser);
+        List<SysUserVo> sysUserVoList = changeVo(sysUserList);
+        return sysUserVoList;
+    }
+
+    /** ============================私有方法区============================== **/
+    private List<SysUserVo> changeVo(List<SysUser> sysUserList){
+        List<SysUserVo> sysUserVoList = new ArrayList<>();
+        sysUserList.forEach(sysUserTemp -> {
+            SysUserVo sysUserVo = new SysUserVo();
+            BeanUtils.copyProperties(sysUserTemp, sysUserVo);
+            if (SysUserEnum.IS_ALIVE.getCode().equals(sysUserTemp.getIsAlive())) {
+                sysUserVo.setIsAlive(SysUserEnum.IS_ALIVE.getMsg());
+            } else if (SysUserEnum.NOT_ALIVE.getCode().equals(sysUserTemp.getIsAlive())) {
+                sysUserVo.setIsAlive(SysUserEnum.NOT_ALIVE.getMsg());
+            } else {
+                sysUserVo.setIsAlive(SysUserEnum.UNKONW_TYPE.getMsg());
+            }
+
+            if (SysUserEnum.IS_SUPER.getCode().equals(sysUserTemp.getIsSuper())) {
+                sysUserVo.setIsSuper(SysUserEnum.IS_SUPER.getMsg());
+            } else if (SysUserEnum.NOT_SUPER.getCode().equals(sysUserTemp.getIsSuper())) {
+                sysUserVo.setIsSuper(SysUserEnum.NOT_SUPER.getMsg());
+            } else {
+                sysUserVo.setIsSuper(SysUserEnum.UNKONW_TYPE.getMsg());
+            }
+            sysUserVoList.add(sysUserVo);
+        });
+        return sysUserVoList;
+
+    }
 }

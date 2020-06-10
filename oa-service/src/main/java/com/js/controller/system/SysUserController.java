@@ -6,13 +6,16 @@ import com.js.common.enums.StatusCode;
 import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
 import com.js.common.util.EncryptUtil;
+import com.js.common.util.excel.ExcelUtil;
 import com.js.dto.system.SysUserDto;
 import com.js.enums.system.SysUserEnum;
 import com.js.form.system.user.AddSysUserForm;
 import com.js.form.system.user.EditSysUserForm;
 import com.js.form.system.user.SysUserForm;
 import com.js.form.system.user.UserPassForm;
+import com.js.service.group.GroupService;
 import com.js.service.system.SysUserService;
+import com.js.vo.group.GroupVo;
 import com.js.vo.system.SysUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +24,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: 姜爽
@@ -34,6 +41,9 @@ import org.springframework.web.bind.annotation.*;
 public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private GroupService groupService;
 
     @PostMapping("getList")
     @ApiOperation(value = "分页查询所有用户", notes = "分页查询所有用户")
@@ -144,5 +154,32 @@ public class SysUserController {
             throw new SystemException("查询用户信息失败");
         }
         return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), programVo);
+    }
+
+    @PostMapping("downloadUser")
+    @ApiOperation(value = "根据条件导出用户", notes = "根据条件导出用户")
+    @Log(value = "根据条件导出用户")
+    public void importUserMess(@RequestBody @Validated SysUserForm sysUserForm,HttpServletResponse response) {
+        log.info("根据条件导出用户Controller的入参为{}", sysUserForm.toString());
+        SysUserDto sysUserDto = new SysUserDto();
+        BeanUtils.copyProperties(sysUserForm, sysUserDto);
+        List<SysUserVo> sysUserVoList = new ArrayList<>();
+        try {
+            sysUserVoList = sysUserService.exportUser(sysUserDto);
+            //设置要导出的文件的名字
+            if(null == sysUserForm.getGroupId() || "".equals(sysUserForm.getGroupId())){
+                sysUserForm.setGroupId("");
+            }else {
+                GroupVo groupVo = groupService.getGroupByUuid(sysUserForm.getGroupId());
+                sysUserForm.setGroupId(groupVo.getDeptName());
+            }
+            String[] header = {"学号","姓名","学院","邮箱","密码","联系方式","所属组别","账号状态","组内身份","对应师傅id"};
+            String fileName = sysUserForm.getGroupId()  + "用户数据表.xls";
+            ExcelUtil.export(response,sysUserVoList,header,fileName);
+        } catch (Exception e) {
+            log.info("查询用户出现的异常为{}", e);
+            throw new SystemException("查询失败");
+        }
+
     }
 }
