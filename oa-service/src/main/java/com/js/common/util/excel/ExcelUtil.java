@@ -94,7 +94,7 @@ public final class ExcelUtil {
     private static String transCellType(Object value){
         String str = null;
         if (value instanceof Date){
-            str = DateUtil.dateToStringByPattern(DateUtil.getDate(null),"yyyy-MM-dd HH:mm:ss");
+            str = String.valueOf(value);
         }else{
             str = String.valueOf(value);
             if (str == NULL){
