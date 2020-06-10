@@ -164,13 +164,14 @@ public class BroadcastMistakeController {
             Sheet sheet =workbook.getSheetAt(0);
             Row timeArang = sheet.createRow(1);
             timeArang.createCell(1).setCellValue(sysConfigCommon.getAcademicYear() + "年度第" + sysConfigCommon.getAcademicTerm() + "学期第" + broadcastMistakeForm.getTeachingWeek() + "教学周放音错误报告");
-            for (int rowNum = 2;rowNum < broadcastMistakeExportList.size() + 2; rowNum ++){
+            for (int rowNum = 3;rowNum < broadcastMistakeExportList.size() + 3; rowNum ++){
                 Row mainRow=sheet.createRow(rowNum);
-                BroadcastMistakeExport broadcastMistakeExport = broadcastMistakeExportList.get(rowNum-2);
-                mainRow.createCell(1).setCellValue(rowNum - 2);
-                mainRow.createCell(2).setCellValue(ProgramDateEnum.valueOf(broadcastMistakeExport.getDetail()).getMsg());
-                mainRow.createCell(3).setCellValue(broadcastMistakeExport.getProgramName());
-                mainRow.createCell(4).setCellValue(broadcastMistakeExport.getDetail());
+                mainRow.setHeight(new Short("35"));
+                BroadcastMistakeExport broadcastMistakeExport = broadcastMistakeExportList.get(rowNum-3);
+                mainRow.createCell(0).setCellValue(rowNum - 2);
+                mainRow.createCell(1).setCellValue(ProgramDateEnum.valueOf(broadcastMistakeExport.getPeriod()).getMsg());
+                mainRow.createCell(2).setCellValue(broadcastMistakeExport.getProgramName());
+                mainRow.createCell(3).setCellValue(broadcastMistakeExport.getDetail());
             }
             //清空response
             response.reset();
