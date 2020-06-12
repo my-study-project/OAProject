@@ -5,6 +5,7 @@ import com.js.common.annotation.Log;
 import com.js.common.enums.StatusCode;
 import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
+import com.js.common.util.excel.MistakeExcelUtil;
 import com.js.dto.broadcast.BroadcastMistakeDto;
 import com.js.enums.program.ProgramDateEnum;
 import com.js.form.broadcast.mistake.AddBroadcastMistakeForm;
@@ -19,9 +20,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,33 +161,9 @@ public class BroadcastMistakeController {
         try {
             //查询获取数据集
             List<BroadcastMistakeExport> broadcastMistakeExportList= broadcastMistakeService.exportMistake(broadcastMistakeDto);
-            String templatePath=this.getClass().getClassLoader().getResource("templates/mistake.xlsx").getPath();
-            InputStream is = new FileInputStream(new File(templatePath));
-            Workbook workbook = new XSSFWorkbook(is);
-            //获取到第一个工作表
-            Sheet sheet =workbook.getSheetAt(0);
-            Row timeArang = sheet.createRow(1);
-            timeArang.createCell(1).setCellValue(sysConfigCommon.getAcademicYear() + "年度第" + sysConfigCommon.getAcademicTerm() + "学期第" + broadcastMistakeForm.getTeachingWeek() + "教学周放音错误报告");
-            for (int rowNum = 3;rowNum < broadcastMistakeExportList.size() + 3; rowNum ++){
-                Row mainRow=sheet.createRow(rowNum);
-                mainRow.setHeight(new Short("35"));
-                BroadcastMistakeExport broadcastMistakeExport = broadcastMistakeExportList.get(rowNum-3);
-                mainRow.createCell(0).setCellValue(rowNum - 2);
-                mainRow.createCell(1).setCellValue(ProgramDateEnum.valueOf(broadcastMistakeExport.getPeriod()).getMsg());
-                mainRow.createCell(2).setCellValue(broadcastMistakeExport.getProgramName());
-                mainRow.createCell(3).setCellValue(broadcastMistakeExport.getDetail());
-            }
-            //清空response
-            response.reset();
 
-            response.addHeader("Content-Disposition", "attachment;filename=example.xlsx");
-            OutputStream os = new BufferedOutputStream(response.getOutputStream());
-            response.setContentType("application/vnd.ms-excel;charset=gb2312");
-            //将excel写入到输出流中
-            workbook.write(os);
-            os.flush();
-            os.close();
-
+            //结果集的excel封装
+            MistakeExcelUtil.export(response,broadcastMistakeExportList,sysConfigCommon,broadcastMistakeForm);
         } catch (Exception e) {
             log.info("错误查询操作失败{}", e);
             throw new SystemException("错误查询操作失败");
