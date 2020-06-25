@@ -22,6 +22,10 @@
         ORDER BY create_time DESC
     </select>
 
+    <update id="truncateLog">
+        truncate table sys_log
+    </update>
+
     <insert id="addSysLog" parameterType="com.js.pojo.system.SysLog">
         insert into sys_log
         <trim prefix="(" suffix=")" suffixOverrides=",">

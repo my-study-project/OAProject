@@ -3,6 +3,7 @@ package com.js.task;
 import com.js.common.util.DateUtil;
 import com.js.dto.system.SysConfigDto;
 import com.js.service.system.SysConfigService;
+import com.js.service.system.SysLogService;
 import com.js.vo.system.SysConfigVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +30,9 @@ public class SchedulerTask {
 
     @Autowired
     private SysConfigService sysConfigService;
+
+    @Autowired
+    private SysLogService sysLogService;
 
     /**
      * 表示每隔一个小时执行一次定时任务
@@ -61,5 +65,11 @@ public class SchedulerTask {
             log.info("获取系统配置异常{}", e);
         }
 
+    }
+
+    @Scheduled(cron = "0 0 0/1 * * ? ")
+    private void cleanLog() {
+        log.info("定期执行日志清理");
+        sysLogService.truncateLog();
     }
 }

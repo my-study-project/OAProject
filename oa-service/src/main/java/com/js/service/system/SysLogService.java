@@ -82,4 +82,11 @@ public class SysLogService {
         });
         return sysLogVoList;
     }
+
+    /**
+     * 清理所有日志
+     */
+    public void truncateLog() {
+        sysLogMapper.truncateLog();
+    }
 }

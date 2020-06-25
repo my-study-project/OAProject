@@ -21,4 +21,9 @@ public interface SysLogMapper {
      * 查看所有的系统日志
      **/
     List<SysLog> showAllLog();
+
+    /**
+     * 清理所有日志
+     */
+    void truncateLog();
 }
