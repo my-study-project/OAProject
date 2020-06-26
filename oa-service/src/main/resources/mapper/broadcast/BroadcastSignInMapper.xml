@@ -13,6 +13,10 @@
     <sql id="Base_Column_List">
 		uuid, program_id, user_id, create_data, teaching_week, academic_year, academic_term
 	</sql>
+
+    <update id="truncateBroadcastSignIn">
+        truncate table broadcast_sign_in
+    </update>
     <select id="getBroadcastSignInByMess" resultMap="BaseResultMap"
             parameterType="com.js.pojo.broadcast.BroadcastSignIn">
         select

@@ -10,6 +10,10 @@
     <sql id="Base_Column_List">
 		uuid, user_id, recording_room, create_time
 	</sql>
+    <update id="truncateRecordingSignIn">
+        truncate table recording_sign_in
+    </update>
+
     <select id="getRecordingSignInByMess" resultMap="BaseResultMap" parameterType="com.js.pojo.record.RecordingSignIn">
         select
         <include refid="Base_Column_List"/>

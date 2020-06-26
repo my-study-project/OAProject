@@ -91,4 +91,11 @@ public class BroadcastSignInService {
         }
     }
 
+    /**
+     * 清理所有日志
+     */
+    public void truncateBroadcastSignIn() {
+        broadcastSignInMapper.truncateBroadcastSignIn();
+    }
+
 }

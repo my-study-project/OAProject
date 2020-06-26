@@ -57,4 +57,11 @@ public class RecordingSignInService {
         recordingSignInVoPageInfo.setList(recordingSignInVoList);
         return recordingSignInVoPageInfo;
     }
+
+    /**
+     * 清理所有日志
+     */
+    public void truncateRecordingSignIn(){
+        recordingSignInMapper.truncateRecordingSignIn();
+    }
 }

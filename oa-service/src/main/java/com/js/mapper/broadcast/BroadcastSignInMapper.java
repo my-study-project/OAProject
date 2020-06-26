@@ -19,4 +19,9 @@ public interface BroadcastSignInMapper {
     /** 根据条件查询查询操作 **/
     List<BroadcastSignIn> getBroadcastSignInByMess(BroadcastSignIn broadcastSignIn);
 
+    /**
+     * 清理所有日志
+     */
+    void truncateBroadcastSignIn();
+
 }

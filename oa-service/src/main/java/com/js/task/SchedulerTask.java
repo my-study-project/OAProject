@@ -2,6 +2,8 @@ package com.js.task;
 
 import com.js.common.util.DateUtil;
 import com.js.dto.system.SysConfigDto;
+import com.js.service.broadcast.BroadcastSignInService;
+import com.js.service.record.RecordingSignInService;
 import com.js.service.system.SysConfigService;
 import com.js.service.system.SysLogService;
 import com.js.vo.system.SysConfigVo;
@@ -30,6 +32,12 @@ public class SchedulerTask {
 
     @Autowired
     private SysConfigService sysConfigService;
+
+    @Autowired
+    private BroadcastSignInService broadcastSignInService;
+
+    @Autowired
+    private RecordingSignInService recordingSignInService;
 
     @Autowired
     private SysLogService sysLogService;
@@ -71,5 +79,7 @@ public class SchedulerTask {
     private void cleanLog() {
         log.info("定期执行日志清理");
         sysLogService.truncateLog();
+        broadcastSignInService.truncateBroadcastSignIn();
+        recordingSignInService.truncateRecordingSignIn();
     }
 }

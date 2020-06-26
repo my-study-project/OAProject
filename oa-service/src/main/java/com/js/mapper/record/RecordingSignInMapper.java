@@ -18,4 +18,9 @@ public interface RecordingSignInMapper {
 
     /** 操作条件查询 **/
     List<RecordingSignIn> getRecordingSignInByMess(RecordingSignIn recordingSignIn);
+
+    /**
+     * 清理所有日志
+     */
+    void truncateRecordingSignIn();
 }
