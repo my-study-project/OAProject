@@ -67,7 +67,7 @@ public class SchedulerTask {
 
     }
 
-    @Scheduled(cron = "0 0 0/1 * * ? ")
+    @Scheduled(cron = "0 0 0 15 2,7 ?")
     private void cleanLog() {
         log.info("定期执行日志清理");
         sysLogService.truncateLog();
