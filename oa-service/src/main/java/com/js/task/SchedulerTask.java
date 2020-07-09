@@ -1,5 +1,6 @@
 package com.js.task;
 
+import com.js.common.enums.SysEnum;
 import com.js.common.util.DateUtil;
 import com.js.dto.system.SysConfigDto;
 import com.js.service.broadcast.BroadcastSignInService;
@@ -23,12 +24,6 @@ import org.springframework.stereotype.Component;
 public class SchedulerTask {
 
     private static final String PATTERNDATETOSTRING = "yyyy/MM/dd";
-
-    /** 当前学期开始时间 **/
-    private static final String ACADEMIC_BEGIN = "ACADEMIC_BEGIN";
-
-    /** 当前周 **/
-    private static final String ACADEMIC_WEEK = "ACADEMIC_WEEK";
 
     @Autowired
     private SysConfigService sysConfigService;
@@ -54,10 +49,10 @@ public class SchedulerTask {
         SysConfigDto sysConfigDto = new SysConfigDto();
         try {
             // 获取当前学期开始时间
-            sysConfigDto.setName(ACADEMIC_BEGIN);
+            sysConfigDto.setName(SysEnum.ACADEMIC_BEGIN.getCode());
             String academicBegin = sysConfigService.getSysConfigByMess(sysConfigDto).get(0).getValue();
             // 获取当前周数
-            sysConfigDto.setName(ACADEMIC_WEEK);
+            sysConfigDto.setName(SysEnum.ACADEMIC_WEEK.getCode());
             SysConfigVo sysConfigVo = sysConfigService.getSysConfigByMess(sysConfigDto).get(0);
             int academicWeek = Integer.parseInt(sysConfigVo.getValue());
             int tempWeek =

@@ -55,7 +55,7 @@ public class MistakeExcelUtil {
         topic.createCell(3).setCellValue("事故内容");
         topic.createCell(4).setCellValue("应扣分数");
         topic.createCell(5).setCellValue("备注");
-        for (int rowNum = 2;rowNum < broadcastMistakeExportList.size() + 2; rowNum ++){
+        for (int rowNum = 2;rowNum < (broadcastMistakeExportList.size() + 2); rowNum ++){
             Row mainRow=sheet.createRow(rowNum);
             mainRow.setHeight(new Short("35"));
             BroadcastMistakeExport broadcastMistakeExport = broadcastMistakeExportList.get(rowNum-2);
