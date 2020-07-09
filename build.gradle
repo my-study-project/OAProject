@@ -59,7 +59,7 @@ subprojects {
         compile 'org.springframework.boot:spring-boot-starter-data-redis:2.2.2.RELEASE'
         //mybatis需要的
         compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.2'
-
+        
 
         //lombok的jar包
         compileOnly 'org.projectlombok:lombok:1.18.10'
