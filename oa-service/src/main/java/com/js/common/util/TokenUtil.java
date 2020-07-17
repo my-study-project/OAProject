@@ -68,8 +68,8 @@ public class TokenUtil {
             DecodedJWT jwt = verifier.verify(token);
             log.info("结果为{}", jwt.toString());
             HashMap<String, String> hashMap = new HashMap<>(8);
-            hashMap.put(STUDENT_NUMBER, jwt.getClaim(NAME_TRUE).asString());
-            hashMap.put("name", jwt.getClaim("name").asString());
+            hashMap.put(STUDENT_NUMBER, jwt.getClaim(STUDENT_NUMBER).asString());
+            hashMap.put(NAME_TRUE, jwt.getClaim(NAME_TRUE).asString());
             log.info("hashMap的结果为{}", hashMap.toString());
             return hashMap;
         } catch (Exception ex) {
