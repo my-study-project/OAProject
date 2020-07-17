@@ -22,8 +22,8 @@ public class TokenUtil {
         throw new IllegalStateException("Utility class");
     }
 
-    /** token过期时间目前暂时是15分钟 **/
-    private static final int EXPIRE_TIME = 15 * 60 * 1000;
+    /** token过期时间目前暂时是1个小时 **/
+    private static final int EXPIRE_TIME = 60 * 60 * 1000;
     /** 公共密钥 **/
     private static final String TOKEN_SECRET = "wddcdfdfhjtjthjdffsdfsd33hcskdncksndcnsnsvsdcsdc";
 
@@ -73,6 +73,7 @@ public class TokenUtil {
             log.info("hashMap的结果为{}", hashMap.toString());
             return hashMap;
         } catch (Exception ex) {
+            log.error("Token解析出现异常{}",ex);
             throw new SystemException("Token无效");
         }
     }
