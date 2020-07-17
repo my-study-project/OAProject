@@ -64,6 +64,9 @@ public class BroadcastTimeService {
     public BroadcastTimeVo getBroadcastIimeById(String uuid) {
         log.info("根据主键查询播出时间的uuid={}", uuid);
         BroadcastTime broadcastTime = broadcastTimeMapper.getBroadcastIimeById(uuid);
+        if (broadcastTime == null){
+            return null;
+        }
         BroadcastTimeVo broadcastTimeVo = new BroadcastTimeVo();
         BeanUtils.copyProperties(broadcastTime, broadcastTimeVo);
         return broadcastTimeVo;

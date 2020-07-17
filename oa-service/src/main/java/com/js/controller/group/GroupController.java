@@ -62,7 +62,7 @@ public class GroupController {
         log.info("查询小组信息的入参为{}", groupForm.toString());
         GroupDto groupDto = new GroupDto();
         BeanUtils.copyProperties(groupForm, groupDto);
-        List<GroupVo> groupVoList = new ArrayList<>();
+        List<GroupVo> groupVoList = null;
         try {
             groupVoList = groupService.getGroupByMess(groupDto);
         } catch (Exception e) {
@@ -76,15 +76,12 @@ public class GroupController {
     @ApiOperation(value = "根据主键查询操作", notes = "根据主键查询操作")
     @Log(value = "根据主键查询小组信息操作")
     public BaseResponse<GroupVo> getGroupByUuid(@RequestParam("uuid") String uuid) {
-        GroupVo groupVo = new GroupVo();
+        GroupVo groupVo = null;
         try {
             groupVo = groupService.getGroupByUuid(uuid);
         } catch (Exception e) {
             log.info("id为{}查询小组出现异常{}", uuid, e);
             throw new SystemException("获取小组数据出现异常");
-        }
-        if (groupVo == null) {
-            throw new SystemException("查询此条信息失败，请刷新页面后重试");
         }
         return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), groupVo);
     }

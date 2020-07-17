@@ -38,8 +38,11 @@ public class GroupService {
         log.info("根据条件查询入参{}", groupDto);
         Group group = new Group();
         BeanUtils.copyProperties(groupDto, group);
-        List<GroupVo> groupVos = new ArrayList<>();
         List<Group> groups = groupMapper.getGroupByMess(group);
+        if (groups.isEmpty()){
+            return null;
+        }
+        List<GroupVo> groupVos = new ArrayList<>();
         groups.forEach(groupTemp -> {
             GroupVo groupVo = new GroupVo();
             BeanUtils.copyProperties(groupTemp, groupVo);
@@ -60,8 +63,11 @@ public class GroupService {
 
     /** 根据主键查询操作 **/
     public GroupVo getGroupByUuid(String uuid) {
-        GroupVo groupVo = new GroupVo();
         Group group = groupMapper.getGroupByUuid(uuid);
+        if (group == null){
+            return null;
+        }
+        GroupVo groupVo = new GroupVo();
         BeanUtils.copyProperties(group, groupVo);
         return groupVo;
     }

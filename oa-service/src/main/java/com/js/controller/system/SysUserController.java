@@ -146,7 +146,7 @@ public class SysUserController {
     @Log(value = "根据用户的详细信息")
     public BaseResponse<SysUserVo> getUserMessById(@RequestParam("studentNumber") String studentNumber) {
         log.info("获取学号为{}的详细信息Controller", studentNumber);
-        SysUserVo programVo = new SysUserVo();
+        SysUserVo programVo = null;
         try {
             programVo = sysUserService.getUserById(studentNumber);
         } catch (Exception e) {

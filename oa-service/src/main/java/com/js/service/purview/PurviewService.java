@@ -44,6 +44,9 @@ public class PurviewService {
     /** 根据用户id查询操作 **/
     public PurviewVo selectPurviewByUserId(String userId) {
         Purview purview = purviewMapper.selectPurviewByUserId(userId);
+        if (purview == null){
+            return null;
+        }
         PurviewVo purviewVo = new PurviewVo();
         BeanUtils.copyProperties(purview, purviewVo);
         return purviewVo;

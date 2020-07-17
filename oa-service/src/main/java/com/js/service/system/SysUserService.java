@@ -41,6 +41,9 @@ public class SysUserService {
     /** 根据学号查询 **/
     public SysUserVo getUserById(String studentNumber) {
         SysUser sysUser = sysUserMapper.getUserById(studentNumber);
+        if (sysUser == null){
+            return null;
+        }
         SysUserVo sysUserVo = new SysUserVo();
         BeanUtils.copyProperties(sysUser, sysUserVo);
         return sysUserVo;

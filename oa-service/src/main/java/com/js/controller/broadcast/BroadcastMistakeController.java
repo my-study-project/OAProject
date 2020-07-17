@@ -7,7 +7,6 @@ import com.js.common.exception.SystemException;
 import com.js.common.response.BaseResponse;
 import com.js.common.util.excel.MistakeExcelUtil;
 import com.js.dto.broadcast.BroadcastMistakeDto;
-import com.js.enums.program.ProgramDateEnum;
 import com.js.form.broadcast.mistake.AddBroadcastMistakeForm;
 import com.js.form.broadcast.mistake.BroadcastMistakeForm;
 import com.js.form.broadcast.mistake.EditBroadcastMistakeForm;
@@ -19,20 +18,11 @@ import com.js.vo.system.SysConfigCommon;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.List;
 
 /**
@@ -93,7 +83,7 @@ public class BroadcastMistakeController {
     @GetMapping("/getById")
     @ApiOperation(value = "根据主键查询放音错误操作", notes = "根据主键查询放音错误操作")
     @Log(value = "根据主键查询放音错误操作")
-    public BaseResponse<BroadcastMistakeVo> getBroadcastMistakeById(@Param("uuid") String uuid) {
+    public BaseResponse<BroadcastMistakeVo> getBroadcastMistakeById(@RequestParam("uuid") String uuid) {
         BroadcastMistakeVo broadcastMistakeVo = null;
         try {
             broadcastMistakeVo = broadcastMistakeService.getBroadcastMistakeById(uuid);

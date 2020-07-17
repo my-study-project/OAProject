@@ -51,8 +51,12 @@ public class SysConfigService {
         log.info("条件查询系统配置入参={}", sysConfigDto.toString());
         SysConfig sysConfig = new SysConfig();
         BeanUtils.copyProperties(sysConfigDto, sysConfig);
-        List<SysConfigVo> sysConfigVoList = new ArrayList<>();
+
         List<SysConfig> sysConfigList = sysConfigMapper.getSysConfigByMess(sysConfig);
+        if (sysConfigList.isEmpty()){
+            return null;
+        }
+        List<SysConfigVo> sysConfigVoList = new ArrayList<>();
         sysConfigList.forEach(sysConfigTemp -> {
             SysConfigVo sysConfigVo = new SysConfigVo();
             BeanUtils.copyProperties(sysConfigTemp, sysConfigVo);
@@ -63,7 +67,7 @@ public class SysConfigService {
 
     /** 修改操作 **/
     public int editSysConfig(SysConfigDto sysConfigDto) {
-        log.info("条件查询系统配置入参={}", sysConfigDto.toString());
+        log.info("修改系统配置入参={}", sysConfigDto.toString());
         SysConfig sysConfig = new SysConfig();
         BeanUtils.copyProperties(sysConfigDto, sysConfig);
         return sysConfigMapper.editSysConfig(sysConfig);

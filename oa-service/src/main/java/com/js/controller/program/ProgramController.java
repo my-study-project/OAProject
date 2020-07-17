@@ -94,7 +94,7 @@ public class ProgramController {
     @Log(value = "根据主键获取节目的详细信息")
     public BaseResponse<ProgramVo> getLogMess(@RequestParam("uuid") String uuid) {
         log.info("根据主键uuid={}获取节目的详细信息Controller", uuid);
-        ProgramVo programVo = new ProgramVo();
+        ProgramVo programVo = null;
         try {
             programVo = programService.getProgramByUuid(uuid);
         } catch (Exception e) {

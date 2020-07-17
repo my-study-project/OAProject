@@ -87,9 +87,6 @@ public class BroadcastTimeController {
             log.info("id为{}查询小组出现异常{}", uuid, e);
             throw new SystemException("获取小组数据出现异常");
         }
-        if (broadcastTimeVo == null) {
-            throw new SystemException("查询此条信息失败，请刷新页面后重试");
-        }
         return new BaseResponse<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMsg(), broadcastTimeVo);
     }
 

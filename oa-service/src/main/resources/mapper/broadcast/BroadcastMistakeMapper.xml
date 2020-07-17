@@ -30,7 +30,7 @@
         select
         <include refid="Base_Column_List"/>
         <include refid="Base_Form"/>
-        where uuid = #{uuid,jdbcType=VARCHAR}
+        where broadcast_mistake.uuid = #{uuid,jdbcType=VARCHAR}
     </select>
 
     <delete id="deleteBroadcastMistake" parameterType="java.lang.String">

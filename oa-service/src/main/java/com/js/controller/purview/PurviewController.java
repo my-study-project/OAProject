@@ -54,7 +54,7 @@ public class PurviewController {
     @ApiOperation(value = "根据用户id查询操作", notes = "根据用户id查询操作")
     @Log(value = "根据用户id查询操作")
     public BaseResponse<PurviewVo> selectPurviewByUserId(@RequestParam("userId") String userId) {
-        PurviewVo purviewVo = new PurviewVo();
+        PurviewVo purviewVo = null;
         try {
             purviewService.selectPurviewByUserId(userId);
         } catch (Exception e) {

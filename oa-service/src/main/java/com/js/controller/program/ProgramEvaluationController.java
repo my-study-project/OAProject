@@ -98,7 +98,7 @@ public class ProgramEvaluationController {
     @Log(value = "根据主键查询节目评估的详细信息")
     public BaseResponse<ProgramEvaluationVo> getProgramEvalById(@RequestParam("uuid") String uuid) {
         log.info("根据主键uuid={}获取节目评估的详细信息Controller", uuid);
-        ProgramEvaluationVo programEvaluationVo = new ProgramEvaluationVo();
+        ProgramEvaluationVo programEvaluationVo = null;
         try {
             programEvaluationVo = programEvaluationService.selectById(uuid);
         } catch (Exception e) {

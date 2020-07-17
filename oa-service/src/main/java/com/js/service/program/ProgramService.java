@@ -40,8 +40,11 @@ public class ProgramService {
     /** 根据主键查询操作 **/
     public ProgramVo getProgramByUuid(String uuid) {
         log.info("根据主键查询节目清单的uuid={}", uuid);
-        ProgramVo programVo = new ProgramVo();
         Program program = programMapper.getProgramByUuid(uuid);
+        if (program == null){
+            return null;
+        }
+        ProgramVo programVo = new ProgramVo();
         BeanUtils.copyProperties(program, programVo);
         return programVo;
     }
@@ -62,6 +65,9 @@ public class ProgramService {
         Program program = new Program();
         BeanUtils.copyProperties(programDto, program);
         List<Program> programList = programMapper.getAllProgram(program);
+        if (programList.isEmpty()){
+            return null;
+        }
         // 中间量
         PageInfo<Program> programPageInfo = new PageInfo<>(programList);
         // 结果集

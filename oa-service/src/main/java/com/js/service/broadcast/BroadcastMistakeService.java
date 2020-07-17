@@ -57,6 +57,9 @@ public class BroadcastMistakeService {
     /** 根据主键查询 **/
     public BroadcastMistakeVo getBroadcastMistakeById(String uuid) {
         BroadcastMistake broadcastMistake = broadcastMistakeMapper.getBroadcastMistakeById(uuid);
+        if (broadcastMistake == null){
+            return null;
+        }
         BroadcastMistakeVo broadcastMistakeVo = new BroadcastMistakeVo();
         BeanUtils.copyProperties(broadcastMistake, broadcastMistakeVo);
         return broadcastMistakeVo;
@@ -82,9 +85,11 @@ public class BroadcastMistakeService {
         try {
             List<BroadcastMistakeExport> broadcastMistakeList =
                 broadcastMistakeMapper.getBroadcastMistakeByMess(broadcastMistake);
+            if (broadcastMistakeList.isEmpty()){
+                return null;
+            }
             PageInfo<BroadcastMistakeExport> broadcastMistakePageInfo = new PageInfo<>(broadcastMistakeList);
             BeanUtils.copyProperties(broadcastMistakePageInfo, broadcastMistakeVoPageInfo);
-
             /** 结果集转换 **/
             List<BroadcastMistakeVo> broadcastMistakeVoList = new ArrayList<>();
             broadcastMistakeList.forEach(broadcastMistakeTemp -> {

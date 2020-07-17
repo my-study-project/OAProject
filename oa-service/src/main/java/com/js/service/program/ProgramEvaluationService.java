@@ -44,6 +44,9 @@ public class ProgramEvaluationService {
     /** 根据主键查询操作 **/
     public ProgramEvaluationVo selectById(String uuid) {
         ProgramEvaluation programEvaluation = programEvaluationMapper.selectById(uuid);
+        if (programEvaluation == null){
+            return null;
+        }
         ProgramEvaluationVo programEvaluationVo = new ProgramEvaluationVo();
         BeanUtils.copyProperties(programEvaluation, programEvaluationVo);
         return programEvaluationVo;
@@ -63,6 +66,9 @@ public class ProgramEvaluationService {
         BeanUtils.copyProperties(programEvaluationDto, programEvaluation);
         PageHelper.startPage(programEvaluationDto.getOffset(), programEvaluationDto.getLimit());
         List<ProgramEvaluation> programEvaluationList = programEvaluationMapper.selectByMess(programEvaluation);
+        if (programEvaluationList.isEmpty()){
+            return null;
+        }
         // 中间值
         PageInfo<ProgramEvaluation> programEvaluationPageInfo = new PageInfo<>(programEvaluationList);
         // 结果集

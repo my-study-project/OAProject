@@ -1,9 +1,15 @@
 package com.js.mistake;
 
 import com.js.BaseTest;
+import com.js.common.util.RabbitUtil;
+import com.js.common.util.httpclient.HttpClientResult;
+import com.js.common.util.httpclient.HttpClientUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.servlet.http.HttpServlet;
+import java.util.HashMap;
 
 /**
  * @program: OAProject
@@ -21,5 +27,16 @@ public class MistakeTest extends BaseTest {
     @Test
     public void test1() {
         log.info("这是一个测试类");
+        try {
+            HttpClientResult httpClientResult =HttpClientUtils.doGet("http://mark-coupon-test.suixingpay.com/admin/couponSell/1");
+            log.info(httpClientResult.getContent());
+        }catch (Exception e) {
+            log.info("test1");
+        }
+    }
+    @Test
+    public void test2(){
+//        RabbitUtil.Publisher();
+//        RabbitUtil.Consumer();
     }
 }
