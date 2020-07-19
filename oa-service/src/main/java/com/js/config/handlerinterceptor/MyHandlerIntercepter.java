@@ -35,7 +35,7 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws Exception {
-        log.info("执行preHandle方法-->01");
+//        log.info("执行preHandle方法-->01");
         Boolean flag = oaSysConfig.getInterceptorSwitch();
         if (Boolean.TRUE.equals(flag)) {
             boolean status = false;
@@ -67,13 +67,13 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
         ModelAndView modelAndView) throws Exception {
-        log.info("执行postHandle方法-->02");
+//        log.info("执行postHandle方法-->02");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
         throws Exception {
-        log.info("执行afterCompletion方法-->03");
+//        log.info("执行afterCompletion方法-->03");
     }
 
     /**

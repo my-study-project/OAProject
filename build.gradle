@@ -45,8 +45,7 @@ subprojects {
         //mysql驱动
         compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
         //阿里数据库连接池
-        compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.10'
-
+        compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.23'
         //SpringBootWeb模块
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.2.RELEASE'
         //springboot的aop切面驱动
