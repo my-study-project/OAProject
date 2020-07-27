@@ -37,6 +37,7 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
         throws Exception {
 //        log.info("执行preHandle方法-->01");
         Boolean flag = oaSysConfig.getInterceptorSwitch();
+//        log.info("flag的值为{}",flag);
         if (Boolean.TRUE.equals(flag)) {
             boolean status = false;
             response.setCharacterEncoding(oaSysConfig.getDefaultEncoding());
@@ -57,7 +58,7 @@ public class MyHandlerIntercepter implements HandlerInterceptor {
                     return false;
                 }
             }
-            log.info("status的值为{}", status);
+//            log.info("status的值为{}", status);
             return status;
         } else {
             return true;
