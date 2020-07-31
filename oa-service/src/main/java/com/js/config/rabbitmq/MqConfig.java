@@ -5,10 +5,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * 消息队列配置
- * @title MqConfig
- * @since v1.0.0
- */
+ * @Author jiangshuang
+ * @Description 消息队列配置
+ * @Date 21:29 2020-07-31
+ **/
 @Component
 @Data
 @ConfigurationProperties(prefix = "spring.rabbitmq")
