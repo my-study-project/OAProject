@@ -1,15 +1,11 @@
 package com.js.mistake;
 
 import com.js.BaseTest;
-import com.js.common.util.RabbitUtil;
 import com.js.common.util.httpclient.HttpClientResult;
 import com.js.common.util.httpclient.HttpClientUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.servlet.http.HttpServlet;
-import java.util.HashMap;
 
 /**
  * @program: OAProject
