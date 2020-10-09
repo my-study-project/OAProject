@@ -43,6 +43,9 @@ subprojects {
     description = "spring boot in action"
     dependencies {
 
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+
         // https://mvnrepository.com/artifact/com.alibaba/fastjson
         compile group: 'com.alibaba', name: 'fastjson', version: '1.2.74'
 
