@@ -37,6 +37,7 @@ public class SwaggerConfig {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("黑大OA签到管理平台").description("黑大OA")
-            .contact(new Contact("技术部", "http://oa.hdgbt.com", "2545251075@qq.com")).version("1.0").build();
+            .contact(new Contact("技术部", "http://oa.hdgbt.com", "2545251075@qq.com"))
+                .version("1.0").build();
     }
 }
