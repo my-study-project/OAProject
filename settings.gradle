@@ -1,3 +1,4 @@
 rootProject.name = 'OAProject'
 include 'oa-service'
+include 'student-regist-service'
 

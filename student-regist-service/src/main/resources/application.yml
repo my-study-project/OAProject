@@ -11,33 +11,16 @@ server:
     uri-encoding: UTF-8
 
 spring:
-  listener:
-    simple:
-      acknowledge-mode: manual
-      concurrency: 5
-      max-concurrency: 15
-      prefetch: 1
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  #    这里采用的QQ邮箱测试
-  mail:
-    host: smtp.qq.com
-    username: 2545251075@qq.com
-    password: grqpjixakusedicc
-    default-encoding: utf-8
   application:
     name: oa-service
-application:
-  base-package: com.js
-
-
-#    系统自定义配置相关信息我的系统文件读取默认实在oa.config下，为了便于维护一些属性直接引用
-oa:
-  config:
-    username: ${spring.mail.username}
-    default-encoding: ${spring.mail.default-encoding}
-
+  datasource:
+    url: jdbc:mysql://60.205.230.70:3306/hd_oa_register?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    password: root
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
 mybatis:
   typeAliasesPackage: ${application.base-package}.pojo, ${application.base-package}.vo, ${application.base-package}.dto
   mapper-locations: classpath:mapper/*/*.xml,classpath:mapper/*.xml
