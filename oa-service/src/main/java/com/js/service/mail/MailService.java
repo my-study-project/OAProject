@@ -1,7 +1,7 @@
 package com.js.service.mail;
 
 import com.js.common.exception.SystemException;
-import com.js.config.OaSysConfig;
+import com.js.config.properties.OaSysConfig;
 import com.js.service.RedisService;
 import com.js.vo.system.SysUserVo;
 import lombok.extern.slf4j.Slf4j;

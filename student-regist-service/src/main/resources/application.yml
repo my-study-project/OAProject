@@ -43,8 +43,10 @@ pagehelper:
 logging:
   config: classpath:logback-spring.xml
 
-#基本信息
-info:
-  description: 黑大OA签到平台
-  version: v1.0
-  author: 技术部
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: 黑大技术部新生报到平台
+  try-host: http://localhost:${server.port}

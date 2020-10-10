@@ -1,7 +1,7 @@
 package com.js.config.handlerinterceptor;
 
 import com.js.common.util.TokenUtil;
-import com.js.config.OaSysConfig;
+import com.js.config.properties.OaSysConfig;
 import com.js.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.MimeHeaders;
