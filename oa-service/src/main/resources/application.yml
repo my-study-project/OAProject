@@ -31,6 +31,13 @@ spring:
 application:
   base-package: com.js
 
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: ${info.description}
+  try-host: http://localhost:${server.port}
 
 #    系统自定义配置相关信息我的系统文件读取默认实在oa.config下，为了便于维护一些属性直接引用
 oa:
