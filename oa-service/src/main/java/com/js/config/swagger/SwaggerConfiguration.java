@@ -37,7 +37,6 @@ import java.util.Set;
  * @author: MoXingwang 2018-07-16 16:53
  **/
 @Configuration
-//@EnableSwagger2
 @EnableOpenApi
 public class SwaggerConfiguration {
 
