@@ -2,8 +2,6 @@ package com.js.common.util.httpclient;
 
 import java.io.Serializable;
 
-import lombok.Data;
-
 /**
  * @version:V1.0
  * @Description:封装httpClient响应结果
